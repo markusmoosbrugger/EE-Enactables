@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
@@ -18,11 +18,11 @@ import at.uibk.dps.ee.core.enactable.EnactableStateListener;
  */
 public abstract class EnactableAtomic extends Enactable {
 
-	protected final Map<String, String> inputMap;
+	protected final Map<String, JsonElement> inputMap;
 	protected JsonObject jsonInput;
-	protected String jsonResult;
+	protected JsonObject jsonResult;
 
-	protected EnactableAtomic(Set<EnactableStateListener> stateListeners, Map<String, String> inputMap) {
+	protected EnactableAtomic(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap) {
 		super(stateListeners);
 		this.inputMap = inputMap;
 	}
@@ -31,10 +31,10 @@ public abstract class EnactableAtomic extends Enactable {
 	protected void myInit() {
 		// create the json object
 		jsonInput = new JsonObject();
-		for (Entry<String, String> entry : inputMap.entrySet()) {
+		for (Entry<String, JsonElement> entry : inputMap.entrySet()) {
 			String key = entry.getKey();
-			String value = entry.getValue();
-			jsonInput.add(key, JsonParser.parseString(value));
+			JsonElement value = entry.getValue();
+			jsonInput.add(key, value);
 		}
 	}
 
@@ -45,7 +45,7 @@ public abstract class EnactableAtomic extends Enactable {
 	 * @param key   the input key
 	 * @param value the input value
 	 */
-	public void setInput(String key, String value) {
+	public void setInput(String key, JsonElement value) {
 		if (!inputMap.containsKey(key)) {
 			throw new IllegalArgumentException("The provided input key is not in the input map.");
 		}
@@ -69,7 +69,7 @@ public abstract class EnactableAtomic extends Enactable {
 		return true;
 	}
 
-	public String getJsonResult() {
+	public JsonObject getJsonResult() {
 		return jsonResult;
 	}
 

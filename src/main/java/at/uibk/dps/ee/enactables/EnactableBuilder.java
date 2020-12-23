@@ -3,6 +3,8 @@ package at.uibk.dps.ee.enactables;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.JsonElement;
+
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import net.sf.opendse.model.Task;
 
@@ -45,6 +47,6 @@ public interface EnactableBuilder {
 	 * @param listeners the set of enactable listeners
 	 * @return an enactable for the provided function node
 	 */
-	public EnactableAtomic buildEnactable(Task functionNode, Map<String, String> inputMap,
+	public EnactableAtomic buildEnactable(Task functionNode, Map<String, JsonElement> inputMap,
 			Set<EnactableStateListener> listeners);
 }

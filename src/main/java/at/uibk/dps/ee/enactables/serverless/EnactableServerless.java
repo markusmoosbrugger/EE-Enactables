@@ -3,6 +3,8 @@ package at.uibk.dps.ee.enactables.serverless;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.JsonElement;
+
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
@@ -17,7 +19,7 @@ public class EnactableServerless extends EnactableAtomic {
 
 	protected final String resourceLink;
 
-	protected EnactableServerless(Set<EnactableStateListener> stateListeners, Map<String, String> inputMap,
+	protected EnactableServerless(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
 			String resourceLink) {
 		super(stateListeners, inputMap);
 		this.resourceLink = resourceLink;
@@ -25,8 +27,7 @@ public class EnactableServerless extends EnactableAtomic {
 
 	@Override
 	protected void myPlay() throws StopException {
-		// TODO Auto-generated method stub
-		
+		throw new IllegalStateException("Not yet implemented.");
 	}
 
 	@Override
