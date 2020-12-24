@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import net.sf.opendse.model.Task;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 
 /**
  * Interface for the classes used for the construction of enactables.
@@ -17,27 +18,11 @@ import net.sf.opendse.model.Task;
 public interface EnactableBuilder {
 
 	/**
-	 * Different types of enactables.
-	 * 
-	 * @author Fedor Smirnov
-	 */
-	public enum EnactableType {
-		/**
-		 * Serverless functions, e.g., AWS Lambda
-		 */
-		Serverless,
-		/**
-		 * Functions executed on the same machine where the EE is running.
-		 */
-		Local
-	}
-
-	/**
 	 * Returns the type of the enactable built by the given builder.
 	 * 
 	 * @return the type of the enactable built by the given builder
 	 */
-	public EnactableType getType();
+	public FunctionType getType();
 
 	/**
 	 * Builds an enactable for the provided function node.
