@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
+import net.sf.opendse.model.Task;
 
 /**
  * The {@link EnactableServerless} models the enactment of an atomic serverless
@@ -17,12 +18,10 @@ import at.uibk.dps.ee.enactables.EnactableAtomic;
  */
 public class EnactableServerless extends EnactableAtomic {
 
-	protected final String resourceLink;
 
 	protected EnactableServerless(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			String resourceLink) {
-		super(stateListeners, inputMap);
-		this.resourceLink = resourceLink;
+			String resourceLink, Task functionNode) {
+		super(stateListeners, inputMap, functionNode);
 	}
 
 	@Override

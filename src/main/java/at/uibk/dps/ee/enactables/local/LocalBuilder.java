@@ -29,7 +29,7 @@ public class LocalBuilder implements EnactableBuilder{
 			Set<EnactableStateListener> listeners) {
 		String name = functionNode.getId();
 		if (name.startsWith(ConstantsLocalEnactables.prefixAddition)) {
-			return new LocalAddition(listeners, inputMap);
+			return new LocalAddition(listeners, inputMap, functionNode);
 		}else {
 			throw new IllegalArgumentException("No local enactables known for task " + name);
 		}

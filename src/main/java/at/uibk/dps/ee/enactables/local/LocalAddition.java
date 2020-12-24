@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
+import net.sf.opendse.model.Task;
 
 /**
  * Simple Addition of 2 inputs plus waiting for a given number of second.
@@ -19,8 +20,8 @@ import at.uibk.dps.ee.enactables.EnactableAtomic;
  */
 public class LocalAddition extends EnactableAtomic{
 
-	protected LocalAddition(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap) {
-		super(stateListeners, inputMap);
+	protected LocalAddition(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap, Task functionNode) {
+		super(stateListeners, inputMap, functionNode);
 	}
 
 	@Override

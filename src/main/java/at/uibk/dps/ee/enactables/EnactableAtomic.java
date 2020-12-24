@@ -9,6 +9,8 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
+import net.sf.opendse.model.Task;
 
 /**
  * The {@link EnactableAtomic}
@@ -21,10 +23,14 @@ public abstract class EnactableAtomic extends Enactable {
 	protected final Map<String, JsonElement> inputMap;
 	protected JsonObject jsonInput;
 	protected JsonObject jsonResult;
+	protected final Task functionNode;
 
-	protected EnactableAtomic(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap) {
+	protected EnactableAtomic(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
+			Task functionNode) {
 		super(stateListeners);
 		this.inputMap = inputMap;
+		this.functionNode = functionNode;
+		PropertyServiceFunction.setEnactableState(functionNode, state);
 	}
 
 	@Override
@@ -36,6 +42,10 @@ public abstract class EnactableAtomic extends Enactable {
 			JsonElement value = entry.getValue();
 			jsonInput.add(key, value);
 		}
+	}
+
+	public Task getFunctionNode() {
+		return functionNode;
 	}
 
 	/**
@@ -80,5 +90,11 @@ public abstract class EnactableAtomic extends Enactable {
 			inputMap.put(key, null);
 		}
 		jsonInput = null;
+	}
+	
+	@Override
+	public void setState(State state) {
+		PropertyServiceFunction.setEnactableState(functionNode, state);
+		super.setState(state);
 	}
 }
