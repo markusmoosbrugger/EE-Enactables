@@ -26,7 +26,8 @@ public class EnactableFactory {
 	protected final Set<EnactableBuilder> enactableBuilders;
 
 	public EnactableFactory(Set<EnactableStateListener> stateListeners) {
-		this.stateListeners = stateListeners;
+		this.stateListeners = new HashSet<>();
+		this.stateListeners.addAll(stateListeners);
 		this.enactableBuilders = generateBuilders();
 	}
 
@@ -39,6 +40,16 @@ public class EnactableFactory {
 		Set<EnactableBuilder> result = new HashSet<>();
 		result.add(new LocalBuilder());
 		return result;
+	}
+
+	/**
+	 * Adds the given listener to the list of listeners provided to every
+	 * constructed {@link Enactable}.
+	 * 
+	 * @param listener the listener to add
+	 */
+	public void addEnactableStateListener(EnactableStateListener listener) {
+		this.stateListeners.add(listener);
 	}
 
 	/**
