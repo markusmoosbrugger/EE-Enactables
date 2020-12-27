@@ -39,6 +39,9 @@ public abstract class EnactableAtomic extends Enactable {
 		jsonInput = new JsonObject();
 		for (Entry<String, JsonElement> entry : inputMap.entrySet()) {
 			String key = entry.getKey();
+			if (entry.getValue() == null) {
+				throw new IllegalStateException("Init called while the input " + key + " is still not set.");
+			}
 			JsonElement value = entry.getValue();
 			jsonInput.add(key, value);
 		}
@@ -91,7 +94,7 @@ public abstract class EnactableAtomic extends Enactable {
 		}
 		jsonInput = null;
 	}
-	
+
 	@Override
 	public void setState(State state) {
 		PropertyServiceFunction.setEnactableState(functionNode, state);
