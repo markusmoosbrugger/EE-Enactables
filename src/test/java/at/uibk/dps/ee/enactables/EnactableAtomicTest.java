@@ -20,6 +20,8 @@ import net.sf.opendse.model.Task;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
 
 public class EnactableAtomicTest {
 
@@ -49,6 +51,27 @@ public class EnactableAtomicTest {
 		return new EnactableMock(new HashSet<>(), inputMap, function);
 	}
 
+	@Test
+	public void testSetInputCorrect() {
+		EnactableAtomic tested = getTested();
+		EnactableAtomic testedSpy = spy(tested);
+		JsonElement value1 = mock(JsonElement.class);
+		JsonElement value2 = mock(JsonElement.class);
+		testedSpy.setInput(key1, value1);
+		assertEquals(value1, testedSpy.inputMap.get(key1));
+		verify(testedSpy, never()).init();
+		testedSpy.setInput(key2, value2);
+		assertEquals(value2, testedSpy.inputMap.get(key2));
+		verify(testedSpy).init();
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testSetInputIncorrect() {
+		EnactableAtomic tested = getTested();
+		JsonElement value1 = mock(JsonElement.class);
+		tested.setInput("bla", value1);
+	}
+
 	@Test(expected = IllegalStateException.class)
 	public void testMyInitIncorrect() {
 		EnactableAtomic tested = getTested();
@@ -56,7 +79,7 @@ public class EnactableAtomicTest {
 		tested.inputMap.put(key1, value1);
 		tested.myInit();
 	}
-	
+
 	@Test
 	public void testMyInitCorrect() {
 		EnactableAtomic tested = getTested();

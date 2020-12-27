@@ -22,7 +22,7 @@ public interface EnactableBuilder {
 	 * 
 	 * @return the type of the enactable built by the given builder
 	 */
-	public FunctionType getType();
+	FunctionType getType();
 
 	/**
 	 * Builds an enactable for the provided function node.
@@ -32,6 +32,6 @@ public interface EnactableBuilder {
 	 * @param listeners the set of enactable listeners
 	 * @return an enactable for the provided function node
 	 */
-	public EnactableAtomic buildEnactable(Task functionNode, Map<String, JsonElement> inputMap,
+	EnactableAtomic buildEnactable(Task functionNode, Map<String, JsonElement> inputMap,
 			Set<EnactableStateListener> listeners);
 }

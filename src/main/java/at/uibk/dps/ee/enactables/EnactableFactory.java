@@ -25,7 +25,14 @@ public class EnactableFactory {
 	protected final Set<EnactableStateListener> stateListeners;
 	protected final Set<EnactableBuilder> enactableBuilders;
 
-	public EnactableFactory(Set<EnactableStateListener> stateListeners) {
+	/**
+	 * The factory is provided with a list of listeners which are to be added to
+	 * every created enactable.
+	 * 
+	 * @param stateListeners a list of listeners which are to be added to every
+	 *                       created enactable
+	 */
+	public EnactableFactory(final Set<EnactableStateListener> stateListeners) {
 		this.stateListeners = new HashSet<>();
 		this.stateListeners.addAll(stateListeners);
 		this.enactableBuilders = generateBuilders();
@@ -37,7 +44,7 @@ public class EnactableFactory {
 	 * @return the set of the {@link EnactableBuilder}s
 	 */
 	protected final Set<EnactableBuilder> generateBuilders() {
-		Set<EnactableBuilder> result = new HashSet<>();
+		final Set<EnactableBuilder> result = new HashSet<>();
 		result.add(new LocalBuilder());
 		return result;
 	}
@@ -48,7 +55,7 @@ public class EnactableFactory {
 	 * 
 	 * @param listener the listener to add
 	 */
-	public void addEnactableStateListener(EnactableStateListener listener) {
+	public void addEnactableStateListener(final EnactableStateListener listener) {
 		this.stateListeners.add(listener);
 	}
 
@@ -62,10 +69,10 @@ public class EnactableFactory {
 	 * @return an enactable which can be used to perform the enactment modeled by
 	 *         the provided function node
 	 */
-	public EnactableAtomic createEnactable(Task functionNode, Map<String, JsonElement> inputMap) {
+	public EnactableAtomic createEnactable(final Task functionNode, final Map<String, JsonElement> inputMap) {
 		// look for the right builder
-		FunctionType funcType = PropertyServiceFunction.getType(functionNode);
-		for (EnactableBuilder builder : enactableBuilders) {
+		final FunctionType funcType = PropertyServiceFunction.getType(functionNode);
+		for (final EnactableBuilder builder : enactableBuilders) {
 			if (builder.getType().equals(funcType)) {
 				return builder.buildEnactable(functionNode, inputMap, stateListeners);
 			}

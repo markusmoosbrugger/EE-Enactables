@@ -25,8 +25,17 @@ public abstract class EnactableAtomic extends Enactable {
 	protected JsonObject jsonResult;
 	protected final Task functionNode;
 
-	protected EnactableAtomic(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			Task functionNode) {
+	/**
+	 * Protected constructor, used the factory to create enactables.
+	 * 
+	 * @param stateListeners the state listeners
+	 * @param inputMap       map containing the expected input names as keys with
+	 *                       null values
+	 * @param functionNode   the node from the enactment graph associated with this
+	 *                       enactable
+	 */
+	protected EnactableAtomic(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+			final Task functionNode) {
 		super(stateListeners);
 		this.inputMap = inputMap;
 		this.functionNode = functionNode;
@@ -37,12 +46,12 @@ public abstract class EnactableAtomic extends Enactable {
 	protected void myInit() {
 		// create the json object
 		jsonInput = new JsonObject();
-		for (Entry<String, JsonElement> entry : inputMap.entrySet()) {
-			String key = entry.getKey();
+		for (final Entry<String, JsonElement> entry : inputMap.entrySet()) {
+			final String key = entry.getKey();
 			if (entry.getValue() == null) {
 				throw new IllegalStateException("Init called while the input " + key + " is still not set.");
 			}
-			JsonElement value = entry.getValue();
+			final JsonElement value = entry.getValue();
 			jsonInput.add(key, value);
 		}
 	}
@@ -58,7 +67,7 @@ public abstract class EnactableAtomic extends Enactable {
 	 * @param key   the input key
 	 * @param value the input value
 	 */
-	public void setInput(String key, JsonElement value) {
+	public void setInput(final String key, final JsonElement value) {
 		if (!inputMap.containsKey(key)) {
 			throw new IllegalArgumentException("The provided input key is not in the input map.");
 		}
@@ -74,7 +83,7 @@ public abstract class EnactableAtomic extends Enactable {
 	 * @return true iff all inputs are set.
 	 */
 	protected boolean areAllInputsSet() {
-		for (String key : inputMap.keySet()) {
+		for (final String key : inputMap.keySet()) {
 			if (inputMap.get(key) == null) {
 				return false;
 			}
@@ -89,7 +98,7 @@ public abstract class EnactableAtomic extends Enactable {
 	@Override
 	protected void myReset() {
 		// sets the values of all entries to null
-		for (String key : inputMap.keySet()) {
+		for (final String key : inputMap.keySet()) {
 			inputMap.put(key, null);
 		}
 		jsonInput = null;
