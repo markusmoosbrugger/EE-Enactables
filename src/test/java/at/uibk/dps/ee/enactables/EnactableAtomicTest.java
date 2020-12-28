@@ -36,7 +36,7 @@ public class EnactableAtomicTest {
 		}
 
 		@Override
-		protected void myPlay() throws StopException {
+		protected void atomicPlay() throws StopException {
 		}
 
 		@Override
@@ -83,6 +83,7 @@ public class EnactableAtomicTest {
 	@Test
 	public void testMyInitCorrect() {
 		EnactableAtomic tested = getTested();
+		assertFalse(tested.init);
 		JsonElement value1 = mock(JsonElement.class);
 		JsonElement value2 = mock(JsonElement.class);
 		tested.inputMap.put(key1, value1);
@@ -91,6 +92,30 @@ public class EnactableAtomicTest {
 		JsonObject input = tested.jsonInput;
 		assertEquals(value1, input.get(key1));
 		assertEquals(value2, input.get(key2));
+		assertTrue(tested.init);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void testPlayNoInit() {
+		EnactableAtomic tested = getTested();
+		tested.setState(State.READY);
+		try {
+			tested.play();
+		} catch (StopException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testPlay() {
+		EnactableAtomic tested = getTested();
+		tested.setState(State.READY);
+		tested.init = true;
+		try {
+			tested.play();
+		} catch (StopException e) {
+			fail();
+		}
 	}
 
 	@Test

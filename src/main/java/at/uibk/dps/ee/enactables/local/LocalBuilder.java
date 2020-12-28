@@ -17,7 +17,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class LocalBuilder implements EnactableBuilder{
+public class LocalBuilder implements EnactableBuilder {
 
 	@Override
 	public FunctionType getType() {
@@ -25,12 +25,12 @@ public class LocalBuilder implements EnactableBuilder{
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(Task functionNode, Map<String, JsonElement> inputMap,
-			Set<EnactableStateListener> listeners) {
-		String name = functionNode.getId();
+	public EnactableAtomic buildEnactable(final Task functionNode, final Map<String, JsonElement> inputMap,
+			final Set<EnactableStateListener> listeners) {
+		final String name = functionNode.getId();
 		if (name.startsWith(ConstantsLocalEnactables.prefixAddition)) {
 			return new LocalAddition(listeners, inputMap, functionNode);
-		}else {
+		} else {
 			throw new IllegalArgumentException("No local enactables known for task " + name);
 		}
 	}

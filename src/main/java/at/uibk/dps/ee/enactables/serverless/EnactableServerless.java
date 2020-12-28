@@ -18,14 +18,25 @@ import net.sf.opendse.model.Task;
  */
 public class EnactableServerless extends EnactableAtomic {
 
+	protected final String resourceLink;
 
-	protected EnactableServerless(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			String resourceLink, Task functionNode) {
+	/**
+	 * Same constructor as for {@link EnactableAtomic}; Additionally setting the
+	 * resource link.
+	 * 
+	 * @param stateListeners
+	 * @param inputMap
+	 * @param resourceLink   the resource link
+	 * @param functionNode
+	 */
+	protected EnactableServerless(final Set<EnactableStateListener> stateListeners,
+			final Map<String, JsonElement> inputMap, final String resourceLink, final Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
+		this.resourceLink = resourceLink;
 	}
 
 	@Override
-	protected void myPlay() throws StopException {
+	protected void atomicPlay() throws StopException {
 		throw new IllegalStateException("Not yet implemented.");
 	}
 

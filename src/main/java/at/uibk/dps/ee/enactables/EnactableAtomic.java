@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
+import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import net.sf.opendse.model.Task;
 
@@ -24,6 +25,7 @@ public abstract class EnactableAtomic extends Enactable {
 	protected JsonObject jsonInput;
 	protected JsonObject jsonResult;
 	protected final Task functionNode;
+	protected boolean init = false;
 
 	/**
 	 * Protected constructor, used the factory to create enactables.
@@ -54,7 +56,23 @@ public abstract class EnactableAtomic extends Enactable {
 			final JsonElement value = entry.getValue();
 			jsonInput.add(key, value);
 		}
+		init = true;
 	}
+
+	@Override
+	protected void myPlay() throws StopException {
+		if (!init) {
+			throw new IllegalStateException("Play triggered before atomic initialized.");
+		}
+		atomicPlay();
+	}
+
+	/**
+	 * The method for the actual enactment
+	 * 
+	 * @throws StopException
+	 */
+	protected abstract void atomicPlay() throws StopException;
 
 	public Task getFunctionNode() {
 		return functionNode;
@@ -101,11 +119,11 @@ public abstract class EnactableAtomic extends Enactable {
 		for (final String key : inputMap.keySet()) {
 			inputMap.put(key, null);
 		}
-		jsonInput = null;
+		init = false;
 	}
 
 	@Override
-	public void setState(State state) {
+	public void setState(final State state) {
 		PropertyServiceFunction.setEnactableState(functionNode, state);
 		super.setState(state);
 	}

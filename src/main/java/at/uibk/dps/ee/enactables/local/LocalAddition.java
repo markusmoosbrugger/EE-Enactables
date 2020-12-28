@@ -21,21 +21,28 @@ import net.sf.opendse.model.Task;
  */
 public class LocalAddition extends EnactableAtomic {
 
-	protected LocalAddition(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			Task functionNode) {
+	/**
+	 * Identical to the constructor of the parent class
+	 * 
+	 * @param stateListeners
+	 * @param inputMap
+	 * @param functionNode
+	 */
+	protected LocalAddition(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+			final Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
 	}
 
 	@Override
-	protected void myPlay() throws StopException {
+	protected void atomicPlay() throws StopException {
 
-		int firstSummand = jsonInput.get(ConstantsLocalEnactables.inputSumFirst).getAsInt();
-		int secondSummand = jsonInput.get(ConstantsLocalEnactables.inputSumSecond).getAsInt();
-		int waitTime = jsonInput.get(ConstantsLocalEnactables.inputSumWaitTime).getAsInt();
+		final int firstSummand = jsonInput.get(ConstantsLocalEnactables.inputSumFirst).getAsInt();
+		final int secondSummand = jsonInput.get(ConstantsLocalEnactables.inputSumSecond).getAsInt();
+		final int waitTime = jsonInput.get(ConstantsLocalEnactables.inputSumWaitTime).getAsInt();
 
-		int sum = firstSummand + secondSummand;
+		final int sum = firstSummand + secondSummand;
 
-		JsonObject result = new JsonObject();
+		final JsonObject result = new JsonObject();
 		result.addProperty(ConstantsLocalEnactables.outputSumResult, sum);
 		result.addProperty(ConstantsLocalEnactables.outputWaitTime, waitTime);
 		this.jsonResult = result;
@@ -43,7 +50,7 @@ public class LocalAddition extends EnactableAtomic {
 		try {
 			TimeUnit.SECONDS.sleep(waitTime);
 		} catch (InterruptedException exc) {
-			throw new IllegalStateException("Interrupted while sleeping.");
+			throw new IllegalStateException("Interrupted while sleeping.", exc);
 		}
 
 	}
