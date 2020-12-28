@@ -25,7 +25,7 @@ public abstract class EnactableAtomic extends Enactable {
 	protected JsonObject jsonInput;
 	protected JsonObject jsonResult;
 	protected final Task functionNode;
-	protected boolean init = false;
+	protected boolean init;
 
 	/**
 	 * Protected constructor, used the factory to create enactables.
