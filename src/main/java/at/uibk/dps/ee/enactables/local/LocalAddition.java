@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.core.exception.StopException.StoppingReason;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
 import net.sf.opendse.model.Task;
 
@@ -36,9 +37,9 @@ public class LocalAddition extends EnactableAtomic {
 	@Override
 	protected void atomicPlay() throws StopException {
 
-		final int firstSummand = jsonInput.get(ConstantsLocalEnactables.inputSumFirst).getAsInt();
-		final int secondSummand = jsonInput.get(ConstantsLocalEnactables.inputSumSecond).getAsInt();
-		final int waitTime = jsonInput.get(ConstantsLocalEnactables.inputSumWaitTime).getAsInt();
+		final int firstSummand = readIntInput(ConstantsLocalEnactables.inputSumFirst);
+		final int secondSummand = readIntInput(ConstantsLocalEnactables.inputSumSecond);
+		final int waitTime = readIntInput(ConstantsLocalEnactables.inputSumWaitTime);
 
 		final int sum = firstSummand + secondSummand;
 
@@ -53,6 +54,19 @@ public class LocalAddition extends EnactableAtomic {
 			throw new IllegalStateException("Interrupted while sleeping.", exc);
 		}
 
+	}
+	
+	/**
+	 * Reads the int input with the provided member name. Throws an exception if no such member exists.
+	 * 
+	 * @param memberName the String key for the json int element
+	 * @return the integer value stored with the provided key
+	 */
+	protected int readIntInput(String memberName) throws StopException{
+		if (jsonInput.get(memberName) == null) {
+			throw new StopException(StoppingReason.ERROR);
+		}
+		return jsonInput.get(memberName).getAsInt();
 	}
 
 	@Override
