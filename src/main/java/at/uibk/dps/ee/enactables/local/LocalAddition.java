@@ -55,14 +55,15 @@ public class LocalAddition extends EnactableAtomic {
 		}
 
 	}
-	
+
 	/**
-	 * Reads the int input with the provided member name. Throws an exception if no such member exists.
+	 * Reads the int input with the provided member name. Throws an exception if no
+	 * such member exists.
 	 * 
 	 * @param memberName the String key for the json int element
 	 * @return the integer value stored with the provided key
 	 */
-	protected int readIntInput(String memberName) throws StopException{
+	protected int readIntInput(final String memberName) throws StopException {
 		if (jsonInput.get(memberName) == null) {
 			throw new StopException(StoppingReason.ERROR);
 		}
