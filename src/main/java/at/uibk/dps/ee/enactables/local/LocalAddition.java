@@ -9,8 +9,6 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.core.exception.StopException.StoppingReason;
-import at.uibk.dps.ee.enactables.EnactableAtomic;
 import net.sf.opendse.model.Task;
 
 /**
@@ -20,7 +18,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class LocalAddition extends EnactableAtomic {
+public class LocalAddition extends LocalAbstract {
 
 	/**
 	 * Identical to the constructor of the parent class
@@ -45,29 +43,14 @@ public class LocalAddition extends EnactableAtomic {
 
 		final JsonObject result = new JsonObject();
 		result.addProperty(ConstantsLocalEnactables.outputSumResult, sum);
-		result.addProperty(ConstantsLocalEnactables.outputWaitTime, waitTime);
 		this.jsonResult = result;
 
 		try {
-			TimeUnit.SECONDS.sleep(waitTime);
+			TimeUnit.MILLISECONDS.sleep(waitTime);
 		} catch (InterruptedException exc) {
 			throw new IllegalStateException("Interrupted while sleeping.", exc);
 		}
 
-	}
-
-	/**
-	 * Reads the int input with the provided member name. Throws an exception if no
-	 * such member exists.
-	 * 
-	 * @param memberName the String key for the json int element
-	 * @return the integer value stored with the provided key
-	 */
-	protected int readIntInput(final String memberName) throws StopException {
-		if (jsonInput.get(memberName) == null) {
-			throw new StopException(StoppingReason.ERROR);
-		}
-		return jsonInput.get(memberName).getAsInt();
 	}
 
 	@Override

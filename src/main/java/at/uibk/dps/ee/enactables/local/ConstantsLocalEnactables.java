@@ -17,6 +17,5 @@ public class ConstantsLocalEnactables {
 	public static final String inputSumSecond = "secondSummand";
 	public static final String inputSumWaitTime = "waitTimeIn";
 	public static final String outputSumResult = "sum";
-	public static final String outputWaitTime = "waitTimeOut";
 	
 }
