@@ -27,19 +27,19 @@ public class EarliestArrival extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected EarliestArrival(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			Task functionNode) {
+	protected EarliestArrival(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+			final Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
 	}
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		String key = ConstantsEEModel.EarliestArrivalJsonKey;
+		final String key = ConstantsEEModel.EarliestArrivalJsonKey;
 		// Get the input object
 		checkInputEntry(key);
-		JsonElement input = jsonInput.get(key);
+		final JsonElement input = jsonInput.get(key);
 		// Put it into the output
-		JsonObject result = new JsonObject();
+		final JsonObject result = new JsonObject();
 		result.add(key, input);
 		this.jsonResult = result;
 	}

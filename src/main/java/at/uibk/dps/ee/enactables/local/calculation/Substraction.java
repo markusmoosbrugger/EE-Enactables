@@ -19,7 +19,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class Substraction extends LocalAbstract{
+public class Substraction extends LocalAbstract {
 
 	/**
 	 * Same constructor as for the parent class.
@@ -28,8 +28,8 @@ public class Substraction extends LocalAbstract{
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	public Substraction(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			Task functionNode) {
+	public Substraction(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+			final Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
 	}
 

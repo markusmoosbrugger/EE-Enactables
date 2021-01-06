@@ -48,7 +48,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * 
 	 * @param milliseconds the wait time in milliseconds
 	 */
-	protected void waitMilliseconds(int milliseconds) {
+	protected void waitMilliseconds(final int milliseconds) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(milliseconds);
 		} catch (InterruptedException exc) {
@@ -62,7 +62,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * 
 	 * @param key the key to check
 	 */
-	protected void checkInputEntry(String key) throws StopException {
+	protected void checkInputEntry(final String key) throws StopException {
 		if (jsonInput.get(key) == null) {
 			throw new StopException(StoppingReason.ERROR);
 		}

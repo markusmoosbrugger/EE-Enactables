@@ -26,8 +26,8 @@ public class SyntaxBuilder implements EnactableBuilder {
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(Task functionNode, Map<String, JsonElement> inputMap,
-			Set<EnactableStateListener> listeners) {
+	public EnactableAtomic buildEnactable(final Task functionNode, final Map<String, JsonElement> inputMap,
+			final Set<EnactableStateListener> listeners) {
 		if (PropertyServiceFunctionSyntax.getSyntaxType(functionNode).equals(SyntaxType.EarliestInput)) {
 			return new EarliestArrival(listeners, inputMap, functionNode);
 		} else {
