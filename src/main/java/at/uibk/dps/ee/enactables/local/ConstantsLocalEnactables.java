@@ -10,6 +10,7 @@ public class ConstantsLocalEnactables {
 
 	// Name prefixes
 	public static final String prefixAddition = "addition_";
+	public static final String prefixSubstraction = "substraction_";
 	
 	
 	// Expected input and output names

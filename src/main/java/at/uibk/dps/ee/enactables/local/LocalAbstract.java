@@ -39,9 +39,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @return the integer value stored with the provided key
 	 */
 	protected int readIntInput(final String memberName) throws StopException {
-		if (jsonInput.get(memberName) == null) {
-			throw new StopException(StoppingReason.ERROR);
-		}
+		checkInputEntry(memberName);
 		return jsonInput.get(memberName).getAsInt();
 	}
 
@@ -55,6 +53,18 @@ public abstract class LocalAbstract extends EnactableAtomic {
 			TimeUnit.MILLISECONDS.sleep(milliseconds);
 		} catch (InterruptedException exc) {
 			throw new IllegalStateException("Interrupted while sleeping.", exc);
+		}
+	}
+
+	/**
+	 * Checks that an entry with the given key is present in the input object.
+	 * Throws an exception if this is not the case.
+	 * 
+	 * @param key the key to check
+	 */
+	protected void checkInputEntry(String key) throws StopException {
+		if (jsonInput.get(key) == null) {
+			throw new StopException(StoppingReason.ERROR);
 		}
 	}
 }

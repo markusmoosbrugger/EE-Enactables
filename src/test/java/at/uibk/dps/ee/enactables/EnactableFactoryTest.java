@@ -24,7 +24,7 @@ public class EnactableFactoryTest {
 	public void testGenerateBuilders() {
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		EnactableFactory tested = new EnactableFactory(stateListeners);
-		assertEquals(1, tested.enactableBuilders.size());
+		assertEquals(2, tested.enactableBuilders.size());
 	}
 
 	@Test

@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables.local.calculation;
 
 import static org.junit.Assert.*;
 
@@ -15,11 +15,12 @@ import com.google.gson.JsonParser;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.local.ConstantsLocalEnactables;
 import net.sf.opendse.model.Task;
 
-public class LocalAdditionTest {
+public class AdditionTest {
 
-	protected static class AdditionMock extends LocalAddition {
+	protected static class AdditionMock extends Addition {
 
 		protected AdditionMock(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
 				Task functionNode, JsonObject input) {
@@ -40,7 +41,7 @@ public class LocalAdditionTest {
 		input.add(ConstantsLocalEnactables.inputSumSecond, JsonParser.parseString("6"));
 		input.add(ConstantsLocalEnactables.inputWaitTime, JsonParser.parseString("500"));
 
-		LocalAddition tested = new AdditionMock(stateListeners, inputMap, funcNode, input);
+		Addition tested = new AdditionMock(stateListeners, inputMap, funcNode, input);
 		long start = System.currentTimeMillis();
 		long duration = 0;
 		try {

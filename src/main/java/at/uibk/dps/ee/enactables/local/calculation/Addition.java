@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables.local.calculation;
 
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +8,8 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.local.ConstantsLocalEnactables;
+import at.uibk.dps.ee.enactables.local.LocalAbstract;
 import net.sf.opendse.model.Task;
 
 /**
@@ -17,7 +19,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class LocalAddition extends LocalAbstract {
+public class Addition extends LocalAbstract {
 
 	/**
 	 * Identical to the constructor of the parent class
@@ -26,7 +28,7 @@ public class LocalAddition extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected LocalAddition(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+	public Addition(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
 			final Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
 	}

@@ -13,6 +13,8 @@ import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
+import at.uibk.dps.ee.enactables.local.calculation.Addition;
+import at.uibk.dps.ee.enactables.local.calculation.Substraction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
 
@@ -29,7 +31,13 @@ public class LocalBuilderTest {
 		Map<String, JsonElement> inputMap = new HashMap<>();
 
 		EnactableAtomic result = tested.buildEnactable(task, inputMap, stateListeners);
-		assertTrue(result instanceof LocalAddition);
+		assertTrue(result instanceof Addition);
+		
+		String nameSubst = ConstantsLocalEnactables.prefixSubstraction + "blabla";
+		task = new Task(nameSubst);
+
+		result = tested.buildEnactable(task, inputMap, stateListeners);
+		assertTrue(result instanceof Substraction);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
