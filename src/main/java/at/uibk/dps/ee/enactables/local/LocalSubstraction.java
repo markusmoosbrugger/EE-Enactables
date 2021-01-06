@@ -11,40 +11,40 @@ import at.uibk.dps.ee.core.exception.StopException;
 import net.sf.opendse.model.Task;
 
 /**
- * Simple Addition of 2 inputs and an option to wait for a given number of
+ * Simple substraction of 2 inputs with an option to wait for a given number of
  * milliseconds.
  * 
  * @author Fedor Smirnov
  *
  */
-public class LocalAddition extends LocalAbstract {
+public class LocalSubstraction extends LocalAbstract{
 
 	/**
-	 * Identical to the constructor of the parent class
+	 * Same constructor as for the parent class.
 	 * 
 	 * @param stateListeners
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected LocalAddition(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
-			final Task functionNode) {
+	protected LocalSubstraction(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
+			Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
 	}
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		final int firstSummand = readIntInput(ConstantsLocalEnactables.inputSumFirst);
-		final int secondSummand = readIntInput(ConstantsLocalEnactables.inputSumSecond);
+		final int minuend = readIntInput(ConstantsLocalEnactables.inputMinuend);
+		final int subtrahend = readIntInput(ConstantsLocalEnactables.inputSubtrahend);
 		final int waitTime = readIntInput(ConstantsLocalEnactables.inputWaitTime);
-		final int sum = firstSummand + secondSummand;
+		final int difference = minuend - subtrahend;
 		final JsonObject result = new JsonObject();
-		result.addProperty(ConstantsLocalEnactables.outputAdditionResult, sum);
+		result.addProperty(ConstantsLocalEnactables.outputSubstractionResult, difference);
 		this.jsonResult = result;
 		waitMilliseconds(waitTime);
 	}
 
 	@Override
 	protected void myPause() {
-		// Nothing here
+		// Nothing
 	}
 }

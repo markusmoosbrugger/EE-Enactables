@@ -2,6 +2,7 @@ package at.uibk.dps.ee.enactables.local;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonElement;
 
@@ -42,5 +43,18 @@ public abstract class LocalAbstract extends EnactableAtomic {
 			throw new StopException(StoppingReason.ERROR);
 		}
 		return jsonInput.get(memberName).getAsInt();
+	}
+
+	/**
+	 * Waits for the given number of milliseconds.
+	 * 
+	 * @param milliseconds the wait time in milliseconds
+	 */
+	protected void waitMilliseconds(int milliseconds) {
+		try {
+			TimeUnit.MILLISECONDS.sleep(milliseconds);
+		} catch (InterruptedException exc) {
+			throw new IllegalStateException("Interrupted while sleeping.", exc);
+		}
 	}
 }
