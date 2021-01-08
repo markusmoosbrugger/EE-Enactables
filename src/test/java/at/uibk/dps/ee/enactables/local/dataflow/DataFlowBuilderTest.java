@@ -22,7 +22,7 @@ public class DataFlowBuilderTest {
 	@Test
 	public void test() {
 		DataFlowBuilder tested = new DataFlowBuilder();
-
+		
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		Map<String, JsonElement> inputMap = new HashMap<>();
 

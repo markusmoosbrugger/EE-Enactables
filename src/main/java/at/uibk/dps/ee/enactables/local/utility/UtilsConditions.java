@@ -207,7 +207,7 @@ public final class UtilsConditions {
 	protected static boolean evaluateEqual(final JsonElement first, final JsonElement second) {
 		final double firstDouble = first.getAsDouble();
 		final double secondDouble = second.getAsDouble();
-		return Math.abs(firstDouble) - Math.abs(secondDouble) < ConstantsUtility.epsilon;
+		return Math.abs(Math.abs(firstDouble) - Math.abs(secondDouble)) < ConstantsUtility.epsilon;
 	}
 
 }
