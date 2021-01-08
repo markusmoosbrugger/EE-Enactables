@@ -2,14 +2,10 @@ package at.uibk.dps.ee.enactables.local.utility;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
-
-import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
@@ -30,7 +26,7 @@ public class UtilityBuilderTest {
 		assertEquals(FunctionType.Utility, tested.getType());
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 		Set<Condition> conditions = new HashSet<>();
 
 		Task input = new Task("task");
@@ -38,7 +34,7 @@ public class UtilityBuilderTest {
 		PropertyServiceFunctionUtility.setUtilityType(input, UtilityType.Condition);
 		PropertyServiceFunctionUtilityCondition.setConditions(input, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(input, Summary.AND);
-		EnactableAtomic result = tested.buildEnactable(input, inputMap, stateListeners);
+		EnactableAtomic result = tested.buildEnactable(input, inputKeys, stateListeners);
 
 		assertTrue(result instanceof ConditionEvaluation);
 	}

@@ -2,14 +2,11 @@ package at.uibk.dps.ee.enactables.local.dataflow;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -22,9 +19,9 @@ public class EarliestArrivalTest {
 
 	protected static class EarliestArrivalMock extends EarliestArrival {
 
-		protected EarliestArrivalMock(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
+		protected EarliestArrivalMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 				Task functionNode, JsonObject input) {
-			super(stateListeners, inputMap, functionNode);
+			super(stateListeners, inputKeys, functionNode);
 			jsonInput = input;
 		}
 
@@ -34,14 +31,14 @@ public class EarliestArrivalTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 
 		String content = "myInput";
 
 		JsonObject input = new JsonObject();
 		input.add(ConstantsEEModel.EarliestArrivalJsonKey, JsonParser.parseString(content));
 
-		EarliestArrival tested = new EarliestArrivalMock(stateListeners, inputMap, funcNode, input);
+		EarliestArrival tested = new EarliestArrivalMock(stateListeners, inputKeys, funcNode, input);
 		try {
 			tested.atomicPlay();
 		} catch (StopException e) {

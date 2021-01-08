@@ -1,55 +1,48 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables.local.calculation;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.gson.JsonElement;
-
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
-import at.uibk.dps.ee.enactables.local.calculation.Addition;
-import at.uibk.dps.ee.enactables.local.calculation.ConstantsCalculation;
-import at.uibk.dps.ee.enactables.local.calculation.Substraction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
 
-public class LocalBuilderTest {
+public class CalculationBuilderTest {
 
 	@Test
 	public void test() {
-		LocalBuilder tested = new LocalBuilder();
+		CalculationBuilder tested = new CalculationBuilder();
 		assertEquals(FunctionType.Local, tested.getType());
 
 		String name = ConstantsCalculation.prefixAddition + "bla";
 		Task task = new Task(name);
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 
-		EnactableAtomic result = tested.buildEnactable(task, inputMap, stateListeners);
+		EnactableAtomic result = tested.buildEnactable(task, inputKeys, stateListeners);
 		assertTrue(result instanceof Addition);
-		
+
 		String nameSubst = ConstantsCalculation.prefixSubstraction + "blabla";
 		task = new Task(nameSubst);
 
-		result = tested.buildEnactable(task, inputMap, stateListeners);
+		result = tested.buildEnactable(task, inputKeys, stateListeners);
 		assertTrue(result instanceof Substraction);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testUnknownName() {
-		LocalBuilder tested = new LocalBuilder();
+		CalculationBuilder tested = new CalculationBuilder();
 
 		String name = "bla";
 		Task task = new Task(name);
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 
-		tested.buildEnactable(task, inputMap, stateListeners);
+		tested.buildEnactable(task, inputKeys, stateListeners);
 	}
 }

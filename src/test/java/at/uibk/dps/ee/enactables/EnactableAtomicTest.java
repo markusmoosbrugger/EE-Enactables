@@ -2,9 +2,7 @@ package at.uibk.dps.ee.enactables;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
@@ -30,9 +28,9 @@ public class EnactableAtomicTest {
 	protected static final Task function = new Task("function");
 
 	protected static class EnactableMock extends EnactableAtomic {
-		protected EnactableMock(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
+		protected EnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 				Task functionNode) {
-			super(stateListeners, inputMap, functionNode);
+			super(stateListeners, inputKeys, functionNode);
 		}
 
 		@Override
@@ -45,10 +43,10 @@ public class EnactableAtomicTest {
 	}
 
 	protected static EnactableAtomic getTested() {
-		Map<String, JsonElement> inputMap = new HashMap<>();
-		inputMap.put(key1, null);
-		inputMap.put(key2, null);
-		return new EnactableMock(new HashSet<>(), inputMap, function);
+		Set<String> inputKeys = new HashSet<>();
+		inputKeys.add(key1);
+		inputKeys.add(key2);
+		return new EnactableMock(new HashSet<>(), inputKeys, function);
 	}
 
 	@Test

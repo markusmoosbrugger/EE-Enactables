@@ -1,9 +1,7 @@
 package at.uibk.dps.ee.enactables.local.calculation;
 
-import java.util.Map;
 import java.util.Set;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
@@ -27,9 +25,9 @@ public class Substraction extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	public Substraction(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+	public Substraction(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
 			final Task functionNode) {
-		super(stateListeners, inputMap, functionNode);
+		super(stateListeners, inputKeys, functionNode);
 	}
 
 	@Override

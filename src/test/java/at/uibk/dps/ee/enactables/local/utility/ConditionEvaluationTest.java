@@ -2,9 +2,7 @@ package at.uibk.dps.ee.enactables.local.utility;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
@@ -29,9 +27,9 @@ import net.sf.opendse.model.Task;
 public class ConditionEvaluationTest {
 
 	protected static class ConditionEvalMock extends ConditionEvaluation {
-		protected ConditionEvalMock(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
+		protected ConditionEvalMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 				Task functionNode, JsonObject input) {
-			super(stateListeners, inputMap, functionNode);
+			super(stateListeners, inputKeys, functionNode);
 			jsonInput = input;
 		}
 	}
@@ -40,7 +38,7 @@ public class ConditionEvaluationTest {
 	public void test() {
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 		JsonElement first = JsonParser.parseString("0.001");
 		JsonElement second = JsonParser.parseString("0.001000000001");
 		JsonObject input = new JsonObject();
@@ -63,7 +61,7 @@ public class ConditionEvaluationTest {
 		PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.AND);
 
-		ConditionEvaluation tested = new ConditionEvalMock(stateListeners, inputMap, funcNode, input);
+		ConditionEvaluation tested = new ConditionEvalMock(stateListeners, inputKeys, funcNode, input);
 		String expectedKey = funcNode.getId() + ConstantsEEModel.DecisionVariableSuffix;
 
 		try {
@@ -80,7 +78,7 @@ public class ConditionEvaluationTest {
 		PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.OR);
 
-		tested = new ConditionEvalMock(stateListeners, inputMap, funcNode, input);
+		tested = new ConditionEvalMock(stateListeners, inputKeys, funcNode, input);
 
 		try {
 			tested.atomicPlay();

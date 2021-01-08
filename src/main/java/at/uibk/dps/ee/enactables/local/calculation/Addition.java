@@ -1,9 +1,7 @@
 package at.uibk.dps.ee.enactables.local.calculation;
 
-import java.util.Map;
 import java.util.Set;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
@@ -24,12 +22,12 @@ public class Addition extends LocalAbstract {
 	 * Identical to the constructor of the parent class
 	 * 
 	 * @param stateListeners
-	 * @param inputMap
+	 * @param inputKeys
 	 * @param functionNode
 	 */
-	public Addition(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+	public Addition(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
 			final Task functionNode) {
-		super(stateListeners, inputMap, functionNode);
+		super(stateListeners, inputKeys, functionNode);
 	}
 
 	@Override

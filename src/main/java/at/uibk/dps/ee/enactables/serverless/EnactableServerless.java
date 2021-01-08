@@ -1,9 +1,6 @@
 package at.uibk.dps.ee.enactables.serverless;
 
-import java.util.Map;
 import java.util.Set;
-
-import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
@@ -30,8 +27,8 @@ public class EnactableServerless extends EnactableAtomic {
 	 * @param functionNode
 	 */
 	protected EnactableServerless(final Set<EnactableStateListener> stateListeners,
-			final Map<String, JsonElement> inputMap, final String resourceLink, final Task functionNode) {
-		super(stateListeners, inputMap, functionNode);
+			final Set<String> inputKeys, final String resourceLink, final Task functionNode) {
+		super(stateListeners, inputKeys, functionNode);
 		this.resourceLink = resourceLink;
 	}
 

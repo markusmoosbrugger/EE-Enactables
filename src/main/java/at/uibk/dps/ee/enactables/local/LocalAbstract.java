@@ -1,6 +1,5 @@
 package at.uibk.dps.ee.enactables.local;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -26,9 +25,9 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected LocalAbstract(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+	protected LocalAbstract(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
 			final Task functionNode) {
-		super(stateListeners, inputMap, functionNode);
+		super(stateListeners, inputKeys, functionNode);
 	}
 
 	/**
@@ -55,7 +54,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 			throw new IllegalStateException("Interrupted while sleeping.", exc);
 		}
 	}
-	
+
 	/**
 	 * Reads and returns the Json entry specified by the given key.
 	 * 
@@ -63,7 +62,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @return the Json entry specified by the given key
 	 * @throws StopException thrown if the entry is not found
 	 */
-	protected JsonElement readEntry(final String key) throws StopException{
+	protected JsonElement readEntry(final String key) throws StopException {
 		checkInputEntry(key);
 		return jsonInput.get(key);
 	}

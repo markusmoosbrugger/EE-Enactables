@@ -1,9 +1,6 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import java.util.Map;
 import java.util.Set;
-
-import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
@@ -26,10 +23,10 @@ public class DataFlowBuilder implements EnactableBuilder {
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(final Task functionNode, final Map<String, JsonElement> inputMap,
+	public EnactableAtomic buildEnactable(final Task functionNode, final Set<String> inputKeys,
 			final Set<EnactableStateListener> listeners) {
 		if (PropertyServiceFunctionDataFlow.getDataFlowType(functionNode).equals(DataFlowType.EarliestInput)) {
-			return new EarliestArrival(listeners, inputMap, functionNode);
+			return new EarliestArrival(listeners, inputKeys, functionNode);
 		} else {
 			throw new IllegalArgumentException(
 					"The node " + functionNode.getId() + " requires a syntax enactable which is not supported.");

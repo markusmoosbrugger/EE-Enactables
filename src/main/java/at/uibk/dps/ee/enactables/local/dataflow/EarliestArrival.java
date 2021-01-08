@@ -1,6 +1,5 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.JsonElement;
@@ -27,9 +26,9 @@ public class EarliestArrival extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected EarliestArrival(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+	protected EarliestArrival(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
 			final Task functionNode) {
-		super(stateListeners, inputMap, functionNode);
+		super(stateListeners, inputKeys, functionNode);
 	}
 
 	@Override

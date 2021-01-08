@@ -2,14 +2,11 @@ package at.uibk.dps.ee.enactables.local.calculation;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -21,9 +18,9 @@ public class SubstractionTest {
 
 	protected static class SubstractionMock extends Substraction {
 
-		protected SubstractionMock(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-				Task functionNode, JsonObject input) {
-			super(stateListeners, inputMap, functionNode);
+		protected SubstractionMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
+				JsonObject input) {
+			super(stateListeners, inputKeys, functionNode);
 			jsonInput = input;
 		}
 
@@ -33,14 +30,14 @@ public class SubstractionTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 
 		JsonObject input = new JsonObject();
 		input.add(ConstantsCalculation.inputMinuend, JsonParser.parseString("5"));
 		input.add(ConstantsCalculation.inputSubtrahend, JsonParser.parseString("6"));
 		input.add(ConstantsCalculation.inputWaitTime, JsonParser.parseString("0"));
 
-		Substraction tested = new SubstractionMock(stateListeners, inputMap, funcNode, input);
+		Substraction tested = new SubstractionMock(stateListeners, inputKeys, funcNode, input);
 		try {
 			tested.atomicPlay();
 		} catch (StopException e) {

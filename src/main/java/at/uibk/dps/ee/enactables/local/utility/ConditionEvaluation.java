@@ -1,6 +1,5 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.JsonElement;
@@ -37,8 +36,8 @@ public class ConditionEvaluation extends LocalAbstract {
 	 * @param functionNode
 	 */
 	protected ConditionEvaluation(final Set<EnactableStateListener> stateListeners,
-			final Map<String, JsonElement> inputMap, final Task functionNode) {
-		super(stateListeners, inputMap, functionNode);
+			final Set<String> inputKeys, final Task functionNode) {
+		super(stateListeners, inputKeys, functionNode);
 		this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
 		this.summary = PropertyServiceFunctionUtilityCondition.getSummary(functionNode);
 		this.resultJsonKey = functionNode.getId() + ConstantsEEModel.DecisionVariableSuffix;

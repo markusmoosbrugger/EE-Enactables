@@ -1,9 +1,6 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import java.util.Map;
 import java.util.Set;
-
-import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
@@ -26,10 +23,10 @@ public class UtilityBuilder implements EnactableBuilder {
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(final Task functionNode, final Map<String, JsonElement> inputMap,
+	public EnactableAtomic buildEnactable(final Task functionNode, final Set<String> inputKeys,
 			final Set<EnactableStateListener> listeners) {
 		if (PropertyServiceFunctionUtility.getUtilityType(functionNode).equals(UtilityType.Condition)) {
-			return new ConditionEvaluation(listeners, inputMap, functionNode);
+			return new ConditionEvaluation(listeners, inputKeys, functionNode);
 		} else {
 			throw new IllegalArgumentException(
 					"The node " + functionNode.getId() + " requires a utility enactable which is not supported.");

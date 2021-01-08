@@ -2,14 +2,10 @@ package at.uibk.dps.ee.enactables.local.dataflow;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
-
-import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
@@ -22,12 +18,12 @@ public class DataFlowBuilderTest {
 	@Test
 	public void test() {
 		DataFlowBuilder tested = new DataFlowBuilder();
-		
+
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 
 		Task input = PropertyServiceFunctionDataFlow.createDataFlowFunction("task", DataFlowType.EarliestInput);
-		EnactableAtomic result = tested.buildEnactable(input, inputMap, stateListeners);
+		EnactableAtomic result = tested.buildEnactable(input, inputKeys, stateListeners);
 		assertTrue(result instanceof EarliestArrival);
 	}
 

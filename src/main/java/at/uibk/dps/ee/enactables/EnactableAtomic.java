@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.gson.JsonElement;
@@ -22,6 +22,7 @@ import net.sf.opendse.model.Task;
 public abstract class EnactableAtomic extends Enactable {
 
 	protected final Map<String, JsonElement> inputMap;
+	protected final Set<String> inputKeys;
 	protected JsonObject jsonInput;
 	protected JsonObject jsonResult;
 	protected final Task functionNode;
@@ -36,10 +37,11 @@ public abstract class EnactableAtomic extends Enactable {
 	 * @param functionNode   the node from the enactment graph associated with this
 	 *                       enactable
 	 */
-	protected EnactableAtomic(final Set<EnactableStateListener> stateListeners, final Map<String, JsonElement> inputMap,
+	protected EnactableAtomic(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
 			final Task functionNode) {
 		super(stateListeners);
-		this.inputMap = inputMap;
+		this.inputMap = new HashMap<>();
+		this.inputKeys = inputKeys;
 		this.functionNode = functionNode;
 		PropertyServiceFunction.setEnactableState(functionNode, state);
 	}
@@ -48,12 +50,11 @@ public abstract class EnactableAtomic extends Enactable {
 	protected void myInit() {
 		// create the json object
 		jsonInput = new JsonObject();
-		for (final Entry<String, JsonElement> entry : inputMap.entrySet()) {
-			final String key = entry.getKey();
-			if (entry.getValue() == null) {
+		for (final String key : inputKeys) {
+			if (!inputMap.containsKey(key)) {
 				throw new IllegalStateException("Init called while the input " + key + " is still not set.");
 			}
-			final JsonElement value = entry.getValue();
+			final JsonElement value = inputMap.get(key);
 			jsonInput.add(key, value);
 		}
 		init = true;
@@ -86,8 +87,8 @@ public abstract class EnactableAtomic extends Enactable {
 	 * @param value the input value
 	 */
 	public void setInput(final String key, final JsonElement value) {
-		if (!inputMap.containsKey(key)) {
-			throw new IllegalArgumentException("The provided input key is not in the input map.");
+		if (!inputKeys.contains(key)) {
+			throw new IllegalArgumentException("Unknown input key: " + key);
 		}
 		inputMap.put(key, value);
 		if (areAllInputsSet()) {
@@ -101,7 +102,7 @@ public abstract class EnactableAtomic extends Enactable {
 	 * @return true iff all inputs are set.
 	 */
 	protected boolean areAllInputsSet() {
-		for (final String key : inputMap.keySet()) {
+		for (final String key : inputKeys) {
 			if (inputMap.get(key) == null) {
 				return false;
 			}
@@ -115,10 +116,8 @@ public abstract class EnactableAtomic extends Enactable {
 
 	@Override
 	protected void myReset() {
-		// sets the values of all entries to null
-		for (final String key : inputMap.keySet()) {
-			inputMap.put(key, null);
-		}
+		// empties the input map
+		inputMap.clear();
 		init = false;
 	}
 

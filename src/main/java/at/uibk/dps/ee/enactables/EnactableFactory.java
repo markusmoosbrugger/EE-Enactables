@@ -1,14 +1,11 @@
 package at.uibk.dps.ee.enactables;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-
-import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
-import at.uibk.dps.ee.enactables.local.LocalBuilder;
+import at.uibk.dps.ee.enactables.local.calculation.CalculationBuilder;
 import at.uibk.dps.ee.enactables.local.dataflow.DataFlowBuilder;
 import at.uibk.dps.ee.enactables.local.utility.UtilityBuilder;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
@@ -47,7 +44,7 @@ public class EnactableFactory {
 	 */
 	protected final Set<EnactableBuilder> generateBuilders() {
 		final Set<EnactableBuilder> result = new HashSet<>();
-		result.add(new LocalBuilder());
+		result.add(new CalculationBuilder());
 		result.add(new DataFlowBuilder());
 		result.add(new UtilityBuilder());
 		return result;
@@ -73,12 +70,12 @@ public class EnactableFactory {
 	 * @return an enactable which can be used to perform the enactment modeled by
 	 *         the provided function node
 	 */
-	public EnactableAtomic createEnactable(final Task functionNode, final Map<String, JsonElement> inputMap) {
+	public EnactableAtomic createEnactable(final Task functionNode, final Set<String> inputKeys) {
 		// look for the right builder
 		final FunctionType funcType = PropertyServiceFunction.getType(functionNode);
 		for (final EnactableBuilder builder : enactableBuilders) {
 			if (builder.getType().equals(funcType)) {
-				return builder.buildEnactable(functionNode, inputMap, stateListeners);
+				return builder.buildEnactable(functionNode, inputKeys, stateListeners);
 			}
 		}
 		throw new IllegalStateException("No builder provided for enactables of type " + funcType.name());

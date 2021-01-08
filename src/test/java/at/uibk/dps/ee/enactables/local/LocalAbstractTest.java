@@ -2,14 +2,11 @@ package at.uibk.dps.ee.enactables.local;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -21,9 +18,9 @@ public class LocalAbstractTest {
 
 	protected static class LocalMock extends LocalAbstract {
 
-		protected LocalMock(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-				Task functionNode, JsonObject jsonObject) {
-			super(stateListeners, inputMap, functionNode);
+		protected LocalMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
+				JsonObject jsonObject) {
+			super(stateListeners, inputKeys, functionNode);
 			jsonInput = jsonObject;
 		}
 
@@ -40,11 +37,11 @@ public class LocalAbstractTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Map<String, JsonElement> inputMap = new HashMap<>();
+		Set<String> inputKeys = new HashSet<>();
 
 		JsonObject input = new JsonObject();
 		input.add("prop", JsonParser.parseString("5"));
-		LocalAbstract tested = new LocalMock(stateListeners, inputMap, funcNode, input);
+		LocalAbstract tested = new LocalMock(stateListeners, inputKeys, funcNode, input);
 
 		try {
 			assertEquals(5, tested.readIntInput("prop"));
