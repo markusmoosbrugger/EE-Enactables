@@ -63,7 +63,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @return the Json entry specified by the given key
 	 * @throws StopException thrown if the entry is not found
 	 */
-	protected JsonElement readEntry(String key) throws StopException{
+	protected JsonElement readEntry(final String key) throws StopException{
 		checkInputEntry(key);
 		return jsonInput.get(key);
 	}

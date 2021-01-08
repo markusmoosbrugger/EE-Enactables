@@ -56,13 +56,13 @@ public final class UtilsConditions {
 
 		case ENDS_WITH:
 			return evaluateEndsWith(first, second);
-			
+
 		case AND:
 			return evaluateAnd(first, second);
-			
+
 		case OR:
 			return evaluateOr(first, second);
-			
+
 		default:
 			throw new IllegalArgumentException("Unknown condition operator");
 		}
@@ -71,29 +71,29 @@ public final class UtilsConditions {
 	/**
 	 * Evaluates the OR combination of 2 provided booleans.
 	 * 
-	 * @param first the first boolean
+	 * @param first  the first boolean
 	 * @param second the second boolean
 	 * @return the OR combination of 2 provided booleans
 	 */
-	protected static boolean evaluateOr(JsonElement first, JsonElement second) {
-		boolean firstBoolean = first.getAsBoolean();
-		boolean secondBoolean = second.getAsBoolean();
+	protected static boolean evaluateOr(final JsonElement first, final JsonElement second) {
+		final boolean firstBoolean = first.getAsBoolean();
+		final boolean secondBoolean = second.getAsBoolean();
 		return firstBoolean || secondBoolean;
 	}
-	
+
 	/**
 	 * Evaluates the AND combination of 2 provided booleans.
 	 * 
-	 * @param first the first boolean
+	 * @param first  the first boolean
 	 * @param second the second boolean
 	 * @return the AND combination of 2 provided booleans
 	 */
-	protected static boolean evaluateAnd(JsonElement first, JsonElement second) {
-		boolean firstBoolean = first.getAsBoolean();
-		boolean secondBoolean = second.getAsBoolean();
+	protected static boolean evaluateAnd(final JsonElement first, final JsonElement second) {
+		final boolean firstBoolean = first.getAsBoolean();
+		final boolean secondBoolean = second.getAsBoolean();
 		return firstBoolean && secondBoolean;
 	}
-	
+
 	/**
 	 * Evaluates whether the first string ends with the second one.
 	 * 
@@ -101,12 +101,12 @@ public final class UtilsConditions {
 	 * @param second the second string
 	 * @return evaluation result
 	 */
-	protected static boolean evaluateEndsWith(JsonElement first, JsonElement second) {
-		String firstString = first.getAsString();
-		String secondString = second.getAsString();
+	protected static boolean evaluateEndsWith(final JsonElement first, final JsonElement second) {
+		final String firstString = first.getAsString();
+		final String secondString = second.getAsString();
 		return firstString.endsWith(secondString);
 	}
-	
+
 	/**
 	 * Evaluates whether the first string starts with the second one.
 	 * 
@@ -114,9 +114,9 @@ public final class UtilsConditions {
 	 * @param second the second string
 	 * @return evaluation result
 	 */
-	protected static boolean evaluateStartsWith(JsonElement first, JsonElement second) {
-		String firstString = first.getAsString();
-		String secondString = second.getAsString();
+	protected static boolean evaluateStartsWith(final JsonElement first, final JsonElement second) {
+		final String firstString = first.getAsString();
+		final String secondString = second.getAsString();
 		return firstString.startsWith(secondString);
 	}
 
@@ -127,9 +127,9 @@ public final class UtilsConditions {
 	 * @param second the second string
 	 * @return evaluation result
 	 */
-	protected static boolean evaluateContains(JsonElement first, JsonElement second) {
-		String firstString = first.getAsString();
-		String secondString = second.getAsString();
+	protected static boolean evaluateContains(final JsonElement first, final JsonElement second) {
+		final String firstString = first.getAsString();
+		final String secondString = second.getAsString();
 		return firstString.contains(secondString);
 	}
 
@@ -140,12 +140,12 @@ public final class UtilsConditions {
 	 * @param second second number
 	 * @return equals greater
 	 */
-	protected static boolean evaluateGreater(JsonElement first, JsonElement second) {
+	protected static boolean evaluateGreater(final JsonElement first, final JsonElement second) {
 		if (evaluateEqual(first, second)) {
 			return false;
 		}
-		double firstDouble = first.getAsDouble();
-		double secondDouble = second.getAsDouble();
+		final double firstDouble = first.getAsDouble();
+		final double secondDouble = second.getAsDouble();
 		return firstDouble > secondDouble;
 	}
 
@@ -156,12 +156,12 @@ public final class UtilsConditions {
 	 * @param second second number
 	 * @return equals greater equal
 	 */
-	protected static boolean evaluateGreaterEqual(JsonElement first, JsonElement second) {
+	protected static boolean evaluateGreaterEqual(final JsonElement first, final JsonElement second) {
 		if (evaluateEqual(first, second)) {
 			return true;
 		}
-		double firstDouble = first.getAsDouble();
-		double secondDouble = second.getAsDouble();
+		final double firstDouble = first.getAsDouble();
+		final double secondDouble = second.getAsDouble();
 		return firstDouble > secondDouble;
 	}
 
@@ -172,12 +172,12 @@ public final class UtilsConditions {
 	 * @param second second number
 	 * @return equals less
 	 */
-	protected static boolean evaluateLess(JsonElement first, JsonElement second) {
+	protected static boolean evaluateLess(final JsonElement first, final JsonElement second) {
 		if (evaluateEqual(first, second)) {
 			return false;
 		}
-		double firstDouble = first.getAsDouble();
-		double secondDouble = second.getAsDouble();
+		final double firstDouble = first.getAsDouble();
+		final double secondDouble = second.getAsDouble();
 		return firstDouble < secondDouble;
 	}
 
@@ -188,12 +188,12 @@ public final class UtilsConditions {
 	 * @param second second number
 	 * @return equals less equal
 	 */
-	protected static boolean evaluateLessEqual(JsonElement first, JsonElement second) {
+	protected static boolean evaluateLessEqual(final JsonElement first, final JsonElement second) {
 		if (evaluateEqual(first, second)) {
 			return true;
 		}
-		double firstDouble = first.getAsDouble();
-		double secondDouble = second.getAsDouble();
+		final double firstDouble = first.getAsDouble();
+		final double secondDouble = second.getAsDouble();
 		return firstDouble < secondDouble;
 	}
 
@@ -204,9 +204,9 @@ public final class UtilsConditions {
 	 * @param second second number
 	 * @return equals result
 	 */
-	protected static boolean evaluateEqual(JsonElement first, JsonElement second) {
-		double firstDouble = first.getAsDouble();
-		double secondDouble = second.getAsDouble();
+	protected static boolean evaluateEqual(final JsonElement first, final JsonElement second) {
+		final double firstDouble = first.getAsDouble();
+		final double secondDouble = second.getAsDouble();
 		return Math.abs(firstDouble) - Math.abs(secondDouble) < ConstantsUtility.epsilon;
 	}
 

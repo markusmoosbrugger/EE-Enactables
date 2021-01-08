@@ -36,8 +36,8 @@ public class ConditionEvaluation extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected ConditionEvaluation(Set<EnactableStateListener> stateListeners, Map<String, JsonElement> inputMap,
-			Task functionNode) {
+	protected ConditionEvaluation(final Set<EnactableStateListener> stateListeners,
+			final Map<String, JsonElement> inputMap, final Task functionNode) {
 		super(stateListeners, inputMap, functionNode);
 		this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
 		this.summary = PropertyServiceFunctionUtilityCondition.getSummary(functionNode);
@@ -69,12 +69,12 @@ public class ConditionEvaluation extends LocalAbstract {
 	 * @param condition the provided condition
 	 * @return the result of the condition evaluation
 	 */
-	protected boolean evaluateCondition(Condition condition) throws StopException {
-		Operator operator = condition.getOperator();
+	protected boolean evaluateCondition(final Condition condition) throws StopException {
+		final Operator operator = condition.getOperator();
 		// get the inputs
-		JsonElement inputOne = readEntry(condition.getFirstInputId());
-		JsonElement inputTwo = readEntry(condition.getSecondInputId());
-		boolean result = UtilsConditions.evaluate(inputOne, inputTwo, operator);
+		final JsonElement inputOne = readEntry(condition.getFirstInputId());
+		final JsonElement inputTwo = readEntry(condition.getSecondInputId());
+		final boolean result = UtilsConditions.evaluate(inputOne, inputTwo, operator);
 		return condition.isNegation() ? !result : result;
 	}
 
