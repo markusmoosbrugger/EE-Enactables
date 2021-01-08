@@ -28,7 +28,7 @@ public final class UtilsConditions {
 	 * @return the boolean result which is obtained when combining the provided
 	 *         inputs with the provided operator
 	 */
-	public static boolean evaluate(JsonElement first, JsonElement second, Operator operator) {
+	public static boolean evaluate(final JsonElement first, final JsonElement second, final Operator operator) {
 		switch (operator) {
 		case EQUAL:
 			return evaluateEqual(first, second);

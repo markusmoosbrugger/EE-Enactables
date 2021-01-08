@@ -48,8 +48,8 @@ public class ConditionEvaluation extends LocalAbstract {
 	protected void atomicPlay() throws StopException {
 		boolean result = summary.equals(Summary.AND); // true is neutral for the AND
 		// iterate the conditions and process each of them
-		for (Condition condition : conditions) {
-			boolean conditionResult = evaluateCondition(condition);
+		for (final Condition condition : conditions) {
+			final boolean conditionResult = evaluateCondition(condition);
 			if (summary.equals(Summary.AND)) {
 				// summary is AND
 				result &= conditionResult;
@@ -58,7 +58,7 @@ public class ConditionEvaluation extends LocalAbstract {
 				result |= conditionResult;
 			}
 		}
-		JsonObject jsonResult = new JsonObject();
+		final JsonObject jsonResult = new JsonObject();
 		jsonResult.addProperty(resultJsonKey, result);
 		this.jsonResult = jsonResult;
 	}

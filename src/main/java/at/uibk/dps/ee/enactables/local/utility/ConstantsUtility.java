@@ -7,7 +7,7 @@ package at.uibk.dps.ee.enactables.local.utility;
  */
 public final class ConstantsUtility {
 
-	public static final double epsilon = 0.00_000_001;
+	public static final double epsilon = 0.000_000_001;
 	
 	/**
 	 * No constructor
