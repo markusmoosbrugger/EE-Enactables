@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables.local.calculation;
 
 /**
  * Static constants for the local enactables.
@@ -6,7 +6,7 @@ package at.uibk.dps.ee.enactables.local;
  * @author Fedor Smirnov
  *
  */
-public class ConstantsLocalEnactables {
+public class ConstantsCalculation {
 
 	// Name prefixes
 	public static final String prefixAddition = "addition_";

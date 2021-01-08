@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.enactables.local.ConstantsLocalEnactables;
 import at.uibk.dps.ee.enactables.local.LocalAbstract;
 import net.sf.opendse.model.Task;
 
@@ -35,12 +34,12 @@ public class Substraction extends LocalAbstract {
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		final int minuend = readIntInput(ConstantsLocalEnactables.inputMinuend);
-		final int subtrahend = readIntInput(ConstantsLocalEnactables.inputSubtrahend);
-		final int waitTime = readIntInput(ConstantsLocalEnactables.inputWaitTime);
+		final int minuend = readIntInput(ConstantsCalculation.inputMinuend);
+		final int subtrahend = readIntInput(ConstantsCalculation.inputSubtrahend);
+		final int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);
 		final int difference = minuend - subtrahend;
 		final JsonObject result = new JsonObject();
-		result.addProperty(ConstantsLocalEnactables.outputSubstractionResult, difference);
+		result.addProperty(ConstantsCalculation.outputSubstractionResult, difference);
 		this.jsonResult = result;
 		waitMilliseconds(waitTime);
 	}

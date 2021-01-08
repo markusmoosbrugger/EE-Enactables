@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.syntax;
+package at.uibk.dps.ee.enactables.local.dataflow;
 
 import java.util.Map;
 import java.util.Set;

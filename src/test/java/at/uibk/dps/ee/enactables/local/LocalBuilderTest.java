@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
 import at.uibk.dps.ee.enactables.local.calculation.Addition;
+import at.uibk.dps.ee.enactables.local.calculation.ConstantsCalculation;
 import at.uibk.dps.ee.enactables.local.calculation.Substraction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
@@ -25,7 +26,7 @@ public class LocalBuilderTest {
 		LocalBuilder tested = new LocalBuilder();
 		assertEquals(FunctionType.Local, tested.getType());
 
-		String name = ConstantsLocalEnactables.prefixAddition + "bla";
+		String name = ConstantsCalculation.prefixAddition + "bla";
 		Task task = new Task(name);
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		Map<String, JsonElement> inputMap = new HashMap<>();
@@ -33,7 +34,7 @@ public class LocalBuilderTest {
 		EnactableAtomic result = tested.buildEnactable(task, inputMap, stateListeners);
 		assertTrue(result instanceof Addition);
 		
-		String nameSubst = ConstantsLocalEnactables.prefixSubstraction + "blabla";
+		String nameSubst = ConstantsCalculation.prefixSubstraction + "blabla";
 		task = new Task(nameSubst);
 
 		result = tested.buildEnactable(task, inputMap, stateListeners);

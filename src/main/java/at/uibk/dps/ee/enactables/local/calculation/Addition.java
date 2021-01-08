@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.enactables.local.ConstantsLocalEnactables;
 import at.uibk.dps.ee.enactables.local.LocalAbstract;
 import net.sf.opendse.model.Task;
 
@@ -35,12 +34,12 @@ public class Addition extends LocalAbstract {
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		final int firstSummand = readIntInput(ConstantsLocalEnactables.inputSumFirst);
-		final int secondSummand = readIntInput(ConstantsLocalEnactables.inputSumSecond);
-		final int waitTime = readIntInput(ConstantsLocalEnactables.inputWaitTime);
+		final int firstSummand = readIntInput(ConstantsCalculation.inputSumFirst);
+		final int secondSummand = readIntInput(ConstantsCalculation.inputSumSecond);
+		final int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);
 		final int sum = firstSummand + secondSummand;
 		final JsonObject result = new JsonObject();
-		result.addProperty(ConstantsLocalEnactables.outputAdditionResult, sum);
+		result.addProperty(ConstantsCalculation.outputAdditionResult, sum);
 		this.jsonResult = result;
 		waitMilliseconds(waitTime);
 	}

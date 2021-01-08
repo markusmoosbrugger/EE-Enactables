@@ -55,6 +55,18 @@ public abstract class LocalAbstract extends EnactableAtomic {
 			throw new IllegalStateException("Interrupted while sleeping.", exc);
 		}
 	}
+	
+	/**
+	 * Reads and returns the Json entry specified by the given key.
+	 * 
+	 * @param key the given key
+	 * @return the Json entry specified by the given key
+	 * @throws StopException thrown if the entry is not found
+	 */
+	protected JsonElement readEntry(String key) throws StopException{
+		checkInputEntry(key);
+		return jsonInput.get(key);
+	}
 
 	/**
 	 * Checks that an entry with the given key is present in the input object.

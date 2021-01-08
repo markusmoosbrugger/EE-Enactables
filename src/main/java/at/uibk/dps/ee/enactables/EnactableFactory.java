@@ -9,7 +9,8 @@ import com.google.gson.JsonElement;
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.local.LocalBuilder;
-import at.uibk.dps.ee.enactables.local.syntax.SyntaxBuilder;
+import at.uibk.dps.ee.enactables.local.dataflow.DataFlowBuilder;
+import at.uibk.dps.ee.enactables.local.utility.UtilityBuilder;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
@@ -47,7 +48,8 @@ public class EnactableFactory {
 	protected final Set<EnactableBuilder> generateBuilders() {
 		final Set<EnactableBuilder> result = new HashSet<>();
 		result.add(new LocalBuilder());
-		result.add(new SyntaxBuilder());
+		result.add(new DataFlowBuilder());
+		result.add(new UtilityBuilder());
 		return result;
 	}
 

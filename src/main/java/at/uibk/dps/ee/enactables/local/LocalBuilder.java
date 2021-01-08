@@ -9,6 +9,7 @@ import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
 import at.uibk.dps.ee.enactables.EnactableBuilder;
 import at.uibk.dps.ee.enactables.local.calculation.Addition;
+import at.uibk.dps.ee.enactables.local.calculation.ConstantsCalculation;
 import at.uibk.dps.ee.enactables.local.calculation.Substraction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
@@ -30,9 +31,9 @@ public class LocalBuilder implements EnactableBuilder {
 	public EnactableAtomic buildEnactable(final Task functionNode, final Map<String, JsonElement> inputMap,
 			final Set<EnactableStateListener> listeners) {
 		final String name = functionNode.getId();
-		if (name.startsWith(ConstantsLocalEnactables.prefixAddition)) {
+		if (name.startsWith(ConstantsCalculation.prefixAddition)) {
 			return new Addition(listeners, inputMap, functionNode);
-		} else if (name.startsWith(ConstantsLocalEnactables.prefixSubstraction)) {
+		} else if (name.startsWith(ConstantsCalculation.prefixSubstraction)) {
 			return new Substraction(listeners, inputMap, functionNode);
 		} else {
 			throw new IllegalArgumentException("No local enactables known for task " + name);
