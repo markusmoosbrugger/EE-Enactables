@@ -3,6 +3,9 @@ package at.uibk.dps.ee.enactables;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.local.calculation.CalculationBuilder;
@@ -19,6 +22,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
+@Singleton
 public class EnactableFactory {
 
 	protected final Set<EnactableStateListener> stateListeners;
@@ -31,6 +35,7 @@ public class EnactableFactory {
 	 * @param stateListeners a list of listeners which are to be added to every
 	 *                       created enactable
 	 */
+	@Inject
 	public EnactableFactory(final Set<EnactableStateListener> stateListeners) {
 		this.stateListeners = new HashSet<>();
 		this.stateListeners.addAll(stateListeners);

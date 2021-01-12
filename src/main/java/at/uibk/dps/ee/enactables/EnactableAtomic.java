@@ -43,7 +43,7 @@ public abstract class EnactableAtomic extends Enactable {
 		this.inputMap = new HashMap<>();
 		this.inputKeys = inputKeys;
 		this.functionNode = functionNode;
-		PropertyServiceFunction.setEnactableState(functionNode, state);
+		PropertyServiceFunction.setEnactable(functionNode, this);
 	}
 
 	@Override
@@ -119,11 +119,5 @@ public abstract class EnactableAtomic extends Enactable {
 		// empties the input map
 		inputMap.clear();
 		init = false;
-	}
-
-	@Override
-	public void setState(final State state) {
-		PropertyServiceFunction.setEnactableState(functionNode, state);
-		super.setState(state);
 	}
 }

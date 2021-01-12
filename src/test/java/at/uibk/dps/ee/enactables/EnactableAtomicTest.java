@@ -13,7 +13,6 @@ import com.google.gson.JsonObject;
 import at.uibk.dps.ee.core.enactable.Enactable.State;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import net.sf.opendse.model.Task;
 
 import static org.mockito.Mockito.mock;
@@ -122,14 +121,6 @@ public class EnactableAtomicTest {
 		JsonObject result = new JsonObject();
 		tested.jsonResult = result;
 		assertEquals(result, tested.getJsonResult());
-	}
-
-	@Test
-	public void testSetState() {
-		EnactableAtomic tested = getTested();
-		PropertyServiceFunction.setEnactableState(function, State.READY);
-		tested.setState(State.STOPPED);
-		assertEquals(State.STOPPED, PropertyServiceFunction.getEnactableState(function));
 	}
 
 	@Test
