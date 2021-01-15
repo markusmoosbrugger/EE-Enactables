@@ -17,7 +17,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class SumCollection extends LocalAbstract{
+public class SumCollection extends LocalAbstract {
 
 	/**
 	 * Identical to the parent constructor.
@@ -26,21 +26,22 @@ public class SumCollection extends LocalAbstract{
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	public SumCollection(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
+	public SumCollection(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
+			final Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 	}
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		JsonArray jsonArray = readCollectionInput(ConstantsCalculation.inputSumCollection);
-		int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);
-		
+		final JsonArray jsonArray = readCollectionInput(ConstantsCalculation.inputSumCollection);
+		final int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);
+
 		int result = 0;
-		for (JsonElement jsonElement : jsonArray) {
+		for (final JsonElement jsonElement : jsonArray) {
 			result += jsonElement.getAsInt();
 		}
-		
-		JsonObject jsonResult = new JsonObject();
+
+		final JsonObject jsonResult = new JsonObject();
 		jsonResult.add(ConstantsCalculation.outputSumCollection, new JsonPrimitive(result));
 		this.jsonResult = jsonResult;
 		waitMilliseconds(waitTime);

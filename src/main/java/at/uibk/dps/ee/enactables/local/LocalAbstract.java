@@ -50,7 +50,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @return the json arry
 	 * @throws StopException
 	 */
-	protected JsonArray readCollectionInput(String memberName) throws StopException{
+	protected JsonArray readCollectionInput(final String memberName) throws StopException{
 		checkInputEntry(memberName);
 		return jsonInput.getAsJsonArray(memberName);
 	}

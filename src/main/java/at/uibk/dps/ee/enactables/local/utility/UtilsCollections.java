@@ -6,30 +6,37 @@ import com.google.gson.JsonObject;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel.EIdxParameters;
 
-public class UtilsCollections {
+public final class UtilsCollections {
+
+	/**
+	 * No constructor.
+	 */
+	private UtilsCollections() {
+	}
 
 	/**
 	 * Uses the descriptive string and the json input to generate the subcollections
 	 * object.
 	 * 
-	 * @param subCollString the string decribing the subcollections structure and
-	 *                      static parts
-	 * @param jsonInput     the json input (to get the dynamic parts)
+	 * @param inputString the string decribing the subcollections structure and
+	 *                    static parts
+	 * @param jsonInput   the json input (to get the dynamic parts)
 	 * @return the subcollections object
 	 */
-	public static SubCollections readSubCollections(String subCollString, JsonObject jsonInput) {
-		subCollString = subCollString.replaceAll("\\s+", "");
-		SubCollections result = new SubCollections();
-		if (subCollString.contains(ConstantsEEModel.EIdxSeparatorExternal)) {
+	public static SubCollections readSubCollections(final String inputString, final JsonObject jsonInput) {
+		// remove the white spaces
+		final String stringNoWs = inputString.replaceAll("\\s+", "");
+		final SubCollections result = new SubCollections();
+		if (stringNoWs.contains(ConstantsEEModel.EIdxSeparatorExternal)) {
 			// multiple comma-separated values
-			String[] subStrings = subCollString.split(ConstantsEEModel.EIdxSeparatorExternal);
+			final String[] subStrings = stringNoWs.split(ConstantsEEModel.EIdxSeparatorExternal);
 			for (int idx = 0; idx < subStrings.length; idx++) {
-				String subString = subStrings[idx];
+				final String subString = subStrings[idx];
 				result.add(getSubCollectionForString(subString, jsonInput, idx));
 			}
 		} else {
 			// only one number
-			result.add(getSubCollectionForString(subCollString, jsonInput, 0));
+			result.add(getSubCollectionForString(stringNoWs, jsonInput, 0));
 		}
 		return result;
 	}
@@ -42,25 +49,25 @@ public class UtilsCollections {
 	 * @param substring           idx (to know which json element ot access)
 	 * @return the subcollection for the given string
 	 */
-	protected static SubCollection getSubCollectionForString(String subcollectionString, JsonObject jsonInput,
-			int idx) {
+	protected static SubCollection getSubCollectionForString(final String subcollectionString,
+			final JsonObject jsonInput, final int idx) {
 		if (subcollectionString.contains(ConstantsEEModel.EIdxSeparatorInternal)) {
 			// start end stride
-			int numberSeparators = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal).length - 1;
+			final int numberSeparators = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal).length - 1;
 			if (numberSeparators == 1) {
-				String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
-				String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
-				int start = determineLoopParam(startString, EIdxParameters.Start, idx, jsonInput);
-				int end = determineLoopParam(endString, EIdxParameters.End, idx, jsonInput);
-				int stride = SubCollectionStartEndStride.defaultValue;
+				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
+				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
+				final int start = determineLoopParam(startString, EIdxParameters.Start, idx, jsonInput);
+				final int end = determineLoopParam(endString, EIdxParameters.End, idx, jsonInput);
+				final int stride = SubCollectionStartEndStride.defaultValue;
 				return new SubCollectionStartEndStride(start, end, stride);
 			} else if (numberSeparators == 2) {
-				String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
-				String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
-				String strideString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[2];
-				int start = determineLoopParam(startString, EIdxParameters.Start, idx, jsonInput);
-				int end = determineLoopParam(endString, EIdxParameters.End, idx, jsonInput);
-				int stride = determineLoopParam(strideString, EIdxParameters.Stride, idx, jsonInput);
+				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
+				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
+				final String strideString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[2];
+				final int start = determineLoopParam(startString, EIdxParameters.Start, idx, jsonInput);
+				final int end = determineLoopParam(endString, EIdxParameters.End, idx, jsonInput);
+				final int stride = determineLoopParam(strideString, EIdxParameters.Stride, idx, jsonInput);
 				return new SubCollectionStartEndStride(start, end, stride);
 			} else {
 				throw new IllegalArgumentException("Too many internal element index separators.");
@@ -87,7 +94,8 @@ public class UtilsCollections {
 	 * @param input           the json input
 	 * @return
 	 */
-	protected static int determineLoopParam(String loopParamString, EIdxParameters param, int idx, JsonObject input) {
+	protected static int determineLoopParam(final String loopParamString, final EIdxParameters param, final int idx,
+			final JsonObject input) {
 		if (loopParamString.equals(ConstantsEEModel.EIdxDataKeyWord)) {
 			return readDataFromInput(input, param, idx);
 		} else if (loopParamString.isEmpty()) {
@@ -105,9 +113,9 @@ public class UtilsCollections {
 	 * @param idx    the index of the substring
 	 * @return the int value read from the input
 	 */
-	protected static int readDataFromInput(JsonObject input, ConstantsEEModel.EIdxParameters params, int idx) {
-		String jsonKey = params.name() + ConstantsEEModel.EIdxEdgeIdxSeparator + idx;
-		JsonElement element = input.get(jsonKey);
+	protected static int readDataFromInput(final JsonObject input, final EIdxParameters params, final int idx) {
+		final String jsonKey = params.name() + ConstantsEEModel.EIdxEdgeIdxSeparator + idx;
+		final JsonElement element = input.get(jsonKey);
 		return element.getAsInt();
 	}
 
@@ -117,12 +125,11 @@ public class UtilsCollections {
 	 * @param intString the given string
 	 * @return the given string as int
 	 */
-	protected static int readElemendIdxInt(String intString) {
+	protected static int readElemendIdxInt(final String intString) {
 		try {
 			return Integer.parseInt(intString);
 		} catch (NumberFormatException exc) {
-			throw new IllegalArgumentException("Incorrect num string for element idx: " + intString);
+			throw new IllegalArgumentException("Incorrect num string for element idx: " + intString, exc);
 		}
 	}
-
 }

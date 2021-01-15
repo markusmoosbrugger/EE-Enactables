@@ -21,9 +21,16 @@ import net.sf.opendse.model.Task;
 public class ElementIndexEnactable extends LocalAbstract {
 
 	protected final String eIdxString;
-	
-	protected ElementIndexEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
-			Task functionNode) {
+
+	/**
+	 * Same constructor as for the parent class.
+	 * 
+	 * @param stateListeners
+	 * @param inputKeys
+	 * @param functionNode
+	 */
+	protected ElementIndexEnactable(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
+			final Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 		this.eIdxString = PropertyServiceFunctionUtilityElementIndex.getSubCollectionsString(functionNode);
 	}
@@ -33,24 +40,24 @@ public class ElementIndexEnactable extends LocalAbstract {
 		// get the collection object and the key
 		String collectionKey = null;
 		JsonArray jsonArray = null;
-		for (String key : jsonInput.keySet()) {
-			JsonElement element = jsonInput.get(key);
+		for (final String key : jsonInput.keySet()) {
+			final JsonElement element = jsonInput.get(key);
 			if (element.isJsonArray()) {
 				collectionKey = key;
 				jsonArray = element.getAsJsonArray();
 				break;
 			}
 		}
-		
+
 		if (collectionKey == null || jsonArray == null) {
 			throw new IllegalArgumentException("Key for collection not found.");
 		}
-		
+
 		// get the subcollections
-		SubCollections subcollections = UtilsCollections.readSubCollections(eIdxString, jsonInput);
-		
+		final SubCollections subcollections = UtilsCollections.readSubCollections(eIdxString, jsonInput);
+
 		// apply the operator and return the result
-		JsonElement resultElement = subcollections.processJsonArray(jsonArray);
+		final JsonElement resultElement = subcollections.processJsonArray(jsonArray);
 		jsonResult = new JsonObject();
 		jsonResult.add(collectionKey, resultElement);
 	}
