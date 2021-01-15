@@ -3,6 +3,7 @@ package at.uibk.dps.ee.enactables.local;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
@@ -40,6 +41,18 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	protected int readIntInput(final String memberName) throws StopException {
 		checkInputEntry(memberName);
 		return jsonInput.get(memberName).getAsInt();
+	}
+	
+	/**
+	 * Reads the input object to retrieve a jsonArray/collection
+	 * 
+	 * @param memberName the json key
+	 * @return the json arry
+	 * @throws StopException
+	 */
+	protected JsonArray readCollectionInput(String memberName) throws StopException{
+		checkInputEntry(memberName);
+		return jsonInput.getAsJsonArray(memberName);
 	}
 
 	/**

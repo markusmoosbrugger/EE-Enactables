@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
@@ -24,9 +25,6 @@ public class ElementIndexEnactable extends LocalAbstract {
 	protected ElementIndexEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 			Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
-		if (inputKeys.size() != 1) {
-			throw new IllegalArgumentException("The element index enactable expects exactly 1 input.");
-		}
 		this.eIdxString = PropertyServiceFunctionUtilityElementIndex.getSubCollectionsString(functionNode);
 	}
 
@@ -44,11 +42,16 @@ public class ElementIndexEnactable extends LocalAbstract {
 			}
 		}
 		
+		if (collectionKey == null || jsonArray == null) {
+			throw new IllegalArgumentException("Key for collection not found.");
+		}
+		
 		// get the subcollections
 		SubCollections subcollections = UtilsCollections.readSubCollections(eIdxString, jsonInput);
 		
 		// apply the operator and return the result
 		JsonElement resultElement = subcollections.processJsonArray(jsonArray);
+		jsonResult = new JsonObject();
 		jsonResult.add(collectionKey, resultElement);
 	}
 

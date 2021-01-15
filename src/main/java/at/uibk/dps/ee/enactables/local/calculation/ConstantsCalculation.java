@@ -11,6 +11,7 @@ public class ConstantsCalculation {
 	// Name prefixes
 	public static final String prefixAddition = "addition_";
 	public static final String prefixSubstraction = "substraction_";
+	public static final String prefixSumCollection = "collectionSum_";
 	
 	
 	// Expected input and output names
@@ -25,7 +26,11 @@ public class ConstantsCalculation {
 	public static final String inputSubtrahend = "subtrahend";
 	public static final String outputSubstractionResult = "difference";
 	
-	// used by mutliple classes 
+	// sum aggregation
+	public static final String inputSumCollection = "collectionToSum";
+	public static final String outputSumCollection = "collectionSum";
+	
+	// used by multiple classes 
 	public static final String inputWaitTime = "waitTimeIn";
 	
 }

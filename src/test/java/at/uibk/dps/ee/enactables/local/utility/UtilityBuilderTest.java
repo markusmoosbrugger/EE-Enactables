@@ -14,6 +14,7 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition.Summary;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityElementIndex;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
@@ -37,5 +38,9 @@ public class UtilityBuilderTest {
 		EnactableAtomic result = tested.buildEnactable(input, inputKeys, stateListeners);
 
 		assertTrue(result instanceof ConditionEvaluation);
+
+		Task otherTask = PropertyServiceFunctionUtilityElementIndex.createElementIndexTask("data", "subcoll");
+		EnactableAtomic secondResult = tested.buildEnactable(otherTask, inputKeys, stateListeners);
+		assertTrue(secondResult instanceof ElementIndexEnactable);
 	}
 }

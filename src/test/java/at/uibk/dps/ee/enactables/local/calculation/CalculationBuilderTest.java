@@ -32,6 +32,12 @@ public class CalculationBuilderTest {
 
 		result = tested.buildEnactable(task, inputKeys, stateListeners);
 		assertTrue(result instanceof Substraction);
+		
+		String nameSumColl = ConstantsCalculation.prefixSumCollection + "bl";
+		task = new Task(nameSumColl);
+
+		result = tested.buildEnactable(task, inputKeys, stateListeners);
+		assertTrue(result instanceof SumCollection);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

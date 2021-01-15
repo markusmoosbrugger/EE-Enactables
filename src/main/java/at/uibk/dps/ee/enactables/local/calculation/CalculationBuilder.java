@@ -29,6 +29,8 @@ public class CalculationBuilder implements EnactableBuilder {
 			return new Addition(listeners, inputKeys, functionNode);
 		} else if (name.startsWith(ConstantsCalculation.prefixSubstraction)) {
 			return new Substraction(listeners, inputKeys, functionNode);
+		} else if (name.startsWith(ConstantsCalculation.prefixSumCollection)) {
+			return new SumCollection(listeners, inputKeys, functionNode);
 		} else {
 			throw new IllegalArgumentException("No local enactables known for task " + name);
 		}
