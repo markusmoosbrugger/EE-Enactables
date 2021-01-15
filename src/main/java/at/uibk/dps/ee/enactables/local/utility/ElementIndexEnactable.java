@@ -64,5 +64,6 @@ public class ElementIndexEnactable extends LocalAbstract {
 
 	@Override
 	protected void myPause() {
+		// no special pause behavior
 	}
 }

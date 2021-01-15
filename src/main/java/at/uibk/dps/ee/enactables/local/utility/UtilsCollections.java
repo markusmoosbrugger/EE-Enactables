@@ -6,6 +6,11 @@ import com.google.gson.JsonObject;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel.EIdxParameters;
 
+/**
+ * Static method container for the methods handling the collections.
+ * 
+ * @author Fedor Smirnov
+ */
 public final class UtilsCollections {
 
 	/**
@@ -74,14 +79,12 @@ public final class UtilsCollections {
 			}
 		} else {
 			// index
-			int indexEntry = -1;
 			if (subcollectionString.equals(ConstantsEEModel.EIdxDataKeyWord)) {
 				// read from object
-				indexEntry = readDataFromInput(jsonInput, EIdxParameters.Index, idx);
+				return new SubCollectionElement(readDataFromInput(jsonInput, EIdxParameters.Index, idx));
 			} else {
-				indexEntry = readElemendIdxInt(subcollectionString);
+				return new SubCollectionElement(readElemendIdxInt(subcollectionString));
 			}
-			return new SubCollectionElement(indexEntry);
 		}
 	}
 

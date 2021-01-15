@@ -25,7 +25,7 @@ public class UtilityBuilder implements EnactableBuilder {
 	@Override
 	public EnactableAtomic buildEnactable(final Task functionNode, final Set<String> inputKeys,
 			final Set<EnactableStateListener> listeners) {
-		UtilityType type = PropertyServiceFunctionUtility.getUtilityType(functionNode);
+		final UtilityType type = PropertyServiceFunctionUtility.getUtilityType(functionNode);
 		if (type.equals(UtilityType.Condition)) {
 			return new ConditionEvaluation(listeners, inputKeys, functionNode);
 		} else if (type.equals(UtilityType.ElementIndex)) {
