@@ -1,10 +1,8 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
-import at.uibk.dps.ee.model.constants.ConstantsEEModel.EIdxParameters;
 
 /**
  * Static method container for the methods handling the collections.
@@ -30,18 +28,18 @@ public final class UtilsCollections {
 	 */
 	public static SubCollections readSubCollections(final String inputString, final JsonObject jsonInput) {
 		// remove the white spaces
-		final String stringNoWs = inputString.replaceAll("\\s+", "");
+		final String stringNoWs = inputString.trim();
 		final SubCollections result = new SubCollections();
 		if (stringNoWs.contains(ConstantsEEModel.EIdxSeparatorExternal)) {
 			// multiple comma-separated values
 			final String[] subStrings = stringNoWs.split(ConstantsEEModel.EIdxSeparatorExternal);
 			for (int idx = 0; idx < subStrings.length; idx++) {
 				final String subString = subStrings[idx];
-				result.add(getSubCollectionForString(subString, jsonInput, idx));
+				result.add(getSubCollectionForString(subString, jsonInput));
 			}
 		} else {
 			// only one number
-			result.add(getSubCollectionForString(stringNoWs, jsonInput, 0));
+			result.add(getSubCollectionForString(stringNoWs, jsonInput));
 		}
 		return result;
 	}
@@ -55,33 +53,33 @@ public final class UtilsCollections {
 	 * @return the subcollection for the given string
 	 */
 	protected static SubCollection getSubCollectionForString(final String subcollectionString,
-			final JsonObject jsonInput, final int idx) {
+			final JsonObject jsonInput) {
 		if (subcollectionString.contains(ConstantsEEModel.EIdxSeparatorInternal)) {
 			// start end stride
 			final int numberSeparators = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal).length - 1;
 			if (numberSeparators == 1) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
-				final int start = determineLoopParam(startString, EIdxParameters.Start, idx, jsonInput);
-				final int end = determineLoopParam(endString, EIdxParameters.End, idx, jsonInput);
+				final int start = determineLoopParam(startString, jsonInput);
+				final int end = determineLoopParam(endString, jsonInput);
 				final int stride = SubCollectionStartEndStride.defaultValue;
 				return new SubCollectionStartEndStride(start, end, stride);
 			} else if (numberSeparators == 2) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
 				final String strideString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[2];
-				final int start = determineLoopParam(startString, EIdxParameters.Start, idx, jsonInput);
-				final int end = determineLoopParam(endString, EIdxParameters.End, idx, jsonInput);
-				final int stride = determineLoopParam(strideString, EIdxParameters.Stride, idx, jsonInput);
+				final int start = determineLoopParam(startString, jsonInput);
+				final int end = determineLoopParam(endString, jsonInput);
+				final int stride = determineLoopParam(strideString, jsonInput);
 				return new SubCollectionStartEndStride(start, end, stride);
 			} else {
 				throw new IllegalArgumentException("Too many internal element index separators.");
 			}
 		} else {
 			// index
-			if (subcollectionString.equals(ConstantsEEModel.EIdxDataKeyWord)) {
+			if (jsonInput.has(subcollectionString)) {
 				// read from object
-				return new SubCollectionElement(readDataFromInput(jsonInput, EIdxParameters.Index, idx));
+				return new SubCollectionElement(jsonInput.get(subcollectionString).getAsInt());
 			} else {
 				return new SubCollectionElement(readElemendIdxInt(subcollectionString));
 			}
@@ -97,29 +95,15 @@ public final class UtilsCollections {
 	 * @param input           the json input
 	 * @return
 	 */
-	protected static int determineLoopParam(final String loopParamString, final EIdxParameters param, final int idx,
-			final JsonObject input) {
-		if (loopParamString.equals(ConstantsEEModel.EIdxDataKeyWord)) {
-			return readDataFromInput(input, param, idx);
-		} else if (loopParamString.isEmpty()) {
+	protected static int determineLoopParam(final String loopParamString, final JsonObject input) {
+		String trimmed = loopParamString.trim();
+		if (input.has(trimmed)) {
+			return input.get(trimmed).getAsInt();
+		} else if (trimmed.isEmpty()) {
 			return SubCollectionStartEndStride.defaultValue;
 		} else {
-			return readElemendIdxInt(loopParamString);
+			return readElemendIdxInt(trimmed);
 		}
-	}
-
-	/**
-	 * Reads the necessary data from the json input
-	 * 
-	 * @param input  the json input
-	 * @param params the enum describing the data role
-	 * @param idx    the index of the substring
-	 * @return the int value read from the input
-	 */
-	protected static int readDataFromInput(final JsonObject input, final EIdxParameters params, final int idx) {
-		final String jsonKey = params.name() + ConstantsEEModel.EIdxEdgeIdxSeparator + idx;
-		final JsonElement element = input.get(jsonKey);
-		return element.getAsInt();
 	}
 
 	/**

@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalAbstract;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityElementIndex;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import net.sf.opendse.model.Task;
 
 /**
@@ -32,7 +32,7 @@ public class ElementIndexEnactable extends LocalAbstract {
 	protected ElementIndexEnactable(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
 			final Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
-		this.eIdxString = PropertyServiceFunctionUtilityElementIndex.getSubCollectionsString(functionNode);
+		this.eIdxString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
 	}
 
 	@Override

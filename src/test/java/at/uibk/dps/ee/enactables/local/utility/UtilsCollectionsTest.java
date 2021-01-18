@@ -15,10 +15,10 @@ public class UtilsCollectionsTest {
 		String string1 = "3";
 		String string2 = "1::2";
 		String string3 = "1, 1:2, :3:1";
-		String string4 = "1, 1:2, data:3:1";
+		String string4 = "1, 1:2, producer/output:3:1";
 		
 		JsonObject object = new JsonObject();
-		String key = "Start!2";
+		String key = "producer/output";
 		JsonElement jsonInt = new JsonPrimitive(2);
 		object.add(key, jsonInt);
 		

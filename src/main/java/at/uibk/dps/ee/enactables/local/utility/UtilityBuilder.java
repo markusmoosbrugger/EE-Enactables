@@ -28,7 +28,7 @@ public class UtilityBuilder implements EnactableBuilder {
 		final UtilityType type = PropertyServiceFunctionUtility.getUtilityType(functionNode);
 		if (type.equals(UtilityType.Condition)) {
 			return new ConditionEvaluation(listeners, inputKeys, functionNode);
-		} else if (type.equals(UtilityType.ElementIndex)) {
+		} else if (type.equals(UtilityType.CollectionOperation)) {
 			return new ElementIndexEnactable(listeners, inputKeys, functionNode);
 		} else {
 			throw new IllegalArgumentException(

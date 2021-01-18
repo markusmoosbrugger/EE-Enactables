@@ -12,9 +12,10 @@ import at.uibk.dps.ee.enactables.EnactableAtomic;
 import at.uibk.dps.ee.model.objects.Condition;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition.Summary;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityElementIndex;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
@@ -39,7 +40,7 @@ public class UtilityBuilderTest {
 
 		assertTrue(result instanceof ConditionEvaluation);
 
-		Task otherTask = PropertyServiceFunctionUtilityElementIndex.createElementIndexTask("data", "subcoll");
+		Task otherTask = PropertyServiceFunctionUtilityCollections.createCollectionOperation("data", "subcoll", CollectionOperation.ElementIndex);
 		EnactableAtomic secondResult = tested.buildEnactable(otherTask, inputKeys, stateListeners);
 		assertTrue(secondResult instanceof ElementIndexEnactable);
 	}
