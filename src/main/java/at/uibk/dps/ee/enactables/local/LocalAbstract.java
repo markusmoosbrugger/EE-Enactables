@@ -42,7 +42,7 @@ public abstract class LocalAbstract extends EnactableAtomic {
 		checkInputEntry(memberName);
 		return jsonInput.get(memberName).getAsInt();
 	}
-	
+
 	/**
 	 * Reads the input object to retrieve a jsonArray/collection
 	 * 
@@ -50,9 +50,14 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @return the json arry
 	 * @throws StopException
 	 */
-	protected JsonArray readCollectionInput(final String memberName) throws StopException{
+	protected JsonArray readCollectionInput(final String memberName) throws StopException {
 		checkInputEntry(memberName);
-		return jsonInput.getAsJsonArray(memberName);
+		try {
+			return jsonInput.getAsJsonArray(memberName);
+		} catch (ClassCastException exc) {
+			throw new IllegalArgumentException("The entry saved as " + memberName + " cannot be read as json array.",
+					exc);
+		}
 	}
 
 	/**

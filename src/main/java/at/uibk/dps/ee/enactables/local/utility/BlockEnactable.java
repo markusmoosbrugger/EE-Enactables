@@ -13,44 +13,40 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections
 import net.sf.opendse.model.Task;
 
 /**
- * The {@link ElementIndexEnactable} is a utilization enactable which tranforms
- * collections following an element index description.
+ * The {@link BlockEnactable} is a utilization enactable which transforms
+ * collections following a block description.
  * 
  * @author Fedor Smirnov
+ *
  */
-public class ElementIndexEnactable extends LocalAbstract {
-
-	protected final String eIdxString;
+public class BlockEnactable extends LocalAbstract {
 
 	/**
-	 * Same constructor as for the parent class.
+	 * Same constructor as parent
 	 * 
 	 * @param stateListeners
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	protected ElementIndexEnactable(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
+	protected BlockEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
-		this.eIdxString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
 	}
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		// get the collection object and the key
+		// get the collection
 		String collectionKey = UtilsCollections.getCollectionKey(jsonInput)
 				.orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));
+		String subCollectionString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
 		JsonArray jsonArray = jsonInput.get(collectionKey).getAsJsonArray();
-		// get the subcollections
-		final SubCollections subcollections = UtilsCollections.readSubCollections(eIdxString, jsonInput);
-		// apply the operator and return the result
-		final JsonElement resultElement = subcollections.processJsonArray(jsonArray);
+		SubcollectionBlock blockOperation = new SubcollectionBlock(subCollectionString, jsonInput);
+		JsonElement resultElement = blockOperation.getSubCollection(jsonArray);
 		jsonResult = new JsonObject();
 		jsonResult.add(collectionKey, resultElement);
 	}
 
 	@Override
 	protected void myPause() {
-		// no special pause behavior
+		// no special behavior here
 	}
 }

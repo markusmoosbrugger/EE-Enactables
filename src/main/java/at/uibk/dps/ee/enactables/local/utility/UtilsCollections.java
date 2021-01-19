@@ -1,5 +1,8 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
+import java.util.Optional;
+
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
@@ -15,6 +18,25 @@ public final class UtilsCollections {
 	 * No constructor.
 	 */
 	private UtilsCollections() {
+	}
+
+	/**
+	 * Searches for the key to the collection in the given json object. Only use
+	 * this if there is at most one collection in the json input.
+	 * 
+	 * @param jsonInput the given json object
+	 * @return (optional) the key to the collection object
+	 */
+	public static Optional<String> getCollectionKey(JsonObject jsonInput) {
+		String result = null;
+		for (final String key : jsonInput.keySet()) {
+			final JsonElement element = jsonInput.get(key);
+			if (element.isJsonArray()) {
+				result = key;
+				break;
+			}
+		}
+		return Optional.ofNullable(result);
 	}
 
 	/**
@@ -60,17 +82,17 @@ public final class UtilsCollections {
 			if (numberSeparators == 1) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
-				final int start = determineLoopParam(startString, jsonInput);
-				final int end = determineLoopParam(endString, jsonInput);
+				final int start = determineSubcollectionParam(startString, jsonInput);
+				final int end = determineSubcollectionParam(endString, jsonInput);
 				final int stride = SubCollectionStartEndStride.defaultValue;
 				return new SubCollectionStartEndStride(start, end, stride);
 			} else if (numberSeparators == 2) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
 				final String strideString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[2];
-				final int start = determineLoopParam(startString, jsonInput);
-				final int end = determineLoopParam(endString, jsonInput);
-				final int stride = determineLoopParam(strideString, jsonInput);
+				final int start = determineSubcollectionParam(startString, jsonInput);
+				final int end = determineSubcollectionParam(endString, jsonInput);
+				final int stride = determineSubcollectionParam(strideString, jsonInput);
 				return new SubCollectionStartEndStride(start, end, stride);
 			} else {
 				throw new IllegalArgumentException("Too many internal element index separators.");
@@ -95,7 +117,7 @@ public final class UtilsCollections {
 	 * @param input           the json input
 	 * @return
 	 */
-	protected static int determineLoopParam(final String loopParamString, final JsonObject input) {
+	protected static int determineSubcollectionParam(final String loopParamString, final JsonObject input) {
 		String trimmed = loopParamString.trim();
 		if (input.has(trimmed)) {
 			return input.get(trimmed).getAsInt();
