@@ -42,6 +42,6 @@ public class UtilityBuilderTest {
 
 		Task otherTask = PropertyServiceFunctionUtilityCollections.createCollectionOperation("data", "subcoll", CollectionOperation.ElementIndex);
 		EnactableAtomic secondResult = tested.buildEnactable(otherTask, inputKeys, stateListeners);
-		assertTrue(secondResult instanceof ElementIndexEnactable);
+		assertTrue(secondResult instanceof CollectionOperationEnactable);
 	}
 }

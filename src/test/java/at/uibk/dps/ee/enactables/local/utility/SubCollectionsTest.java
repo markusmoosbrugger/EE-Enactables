@@ -72,7 +72,7 @@ public class SubCollectionsTest {
 		tested.add(sub2);
 		tested.add(sub3);
 
-		JsonElement result = tested.processJsonArray(input);
+		JsonElement result = tested.getSubCollection(input);
 		assertTrue(result.isJsonArray());
 		JsonArray resultArray = result.getAsJsonArray();
 		assertEquals(4, resultArray.size());
@@ -84,7 +84,7 @@ public class SubCollectionsTest {
 		SubCollections tested2 = new SubCollections();
 		tested2.add(sub2);
 
-		JsonElement result2 = tested2.processJsonArray(input);
+		JsonElement result2 = tested2.getSubCollection(input);
 		assertTrue(result2.isJsonArray());
 		JsonArray resultArray2 = result2.getAsJsonArray();
 		assertEquals(2, resultArray2.size());

@@ -13,7 +13,7 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  * 
  * @author Fedor Smirnov
  */
-public class SubCollections extends ArrayList<SubCollection> {
+public class SubCollections extends ArrayList<SubCollection> implements SubCollection{
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class SubCollections extends ArrayList<SubCollection> {
 	 * @param input the input json array
 	 * @return
 	 */
-	public JsonElement processJsonArray(final JsonArray input) {
+	public JsonElement getSubCollection(final JsonArray input) {
 		if (size() == 1) {
 			final SubCollection subCol = this.get(0);
 			return subCol.getSubCollection(input);
