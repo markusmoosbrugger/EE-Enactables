@@ -48,10 +48,10 @@ public final class UtilsCollections {
 	 * @param jsonInput   the json input (to get the dynamic parts)
 	 * @return the subcollections object
 	 */
-	public static SubCollections readSubCollections(final String inputString, final JsonObject jsonInput) {
+	public static CollOperEIdx readSubCollections(final String inputString, final JsonObject jsonInput) {
 		// remove the white spaces
 		final String stringNoWs = inputString.trim();
-		final SubCollections result = new SubCollections();
+		final CollOperEIdx result = new CollOperEIdx();
 		if (stringNoWs.contains(ConstantsEEModel.EIdxSeparatorExternal)) {
 			// multiple comma-separated values
 			final String[] subStrings = stringNoWs.split(ConstantsEEModel.EIdxSeparatorExternal);
@@ -74,7 +74,7 @@ public final class UtilsCollections {
 	 * @param substring           idx (to know which json element ot access)
 	 * @return the subcollection for the given string
 	 */
-	protected static SubCollection getSubCollectionForString(final String subcollectionString,
+	protected static CollOper getSubCollectionForString(final String subcollectionString,
 			final JsonObject jsonInput) {
 		if (subcollectionString.contains(ConstantsEEModel.EIdxSeparatorInternal)) {
 			// start end stride
@@ -84,8 +84,8 @@ public final class UtilsCollections {
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
 				final int start = determineSubcollectionParam(startString, jsonInput);
 				final int end = determineSubcollectionParam(endString, jsonInput);
-				final int stride = SubCollectionStartEndStride.defaultValue;
-				return new SubCollectionStartEndStride(start, end, stride);
+				final int stride = CollOperSubCollection.defaultValue;
+				return new CollOperSubCollection(start, end, stride);
 			} else if (numberSeparators == 2) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
@@ -93,7 +93,7 @@ public final class UtilsCollections {
 				final int start = determineSubcollectionParam(startString, jsonInput);
 				final int end = determineSubcollectionParam(endString, jsonInput);
 				final int stride = determineSubcollectionParam(strideString, jsonInput);
-				return new SubCollectionStartEndStride(start, end, stride);
+				return new CollOperSubCollection(start, end, stride);
 			} else {
 				throw new IllegalArgumentException("Too many internal element index separators.");
 			}
@@ -101,9 +101,9 @@ public final class UtilsCollections {
 			// index
 			if (jsonInput.has(subcollectionString)) {
 				// read from object
-				return new SubCollectionElement(jsonInput.get(subcollectionString).getAsInt());
+				return new CollOperIndex(jsonInput.get(subcollectionString).getAsInt());
 			} else {
-				return new SubCollectionElement(readElemendIdxInt(subcollectionString));
+				return new CollOperIndex(readElemendIdxInt(subcollectionString));
 			}
 		}
 	}
@@ -122,7 +122,7 @@ public final class UtilsCollections {
 		if (input.has(trimmed)) {
 			return input.get(trimmed).getAsInt();
 		} else if (trimmed.isEmpty()) {
-			return SubCollectionStartEndStride.defaultValue;
+			return CollOperSubCollection.defaultValue;
 		} else {
 			return readElemendIdxInt(trimmed);
 		}

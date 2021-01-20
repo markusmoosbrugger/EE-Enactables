@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 
 import static org.mockito.Mockito.mock;
 
-public class SubCollectionElementTest {
+public class CollOperIndexTest {
 
 	@Test
 	public void test() {
@@ -27,7 +27,7 @@ public class SubCollectionElementTest {
 		input.add(el3);
 		input.add(el4);
 		
-		SubCollectionElement tested = new SubCollectionElement(3);
+		CollOperIndex tested = new CollOperIndex(3);
 		assertEquals(el3, tested.getSubCollection(input));
 		assertEquals("3", tested.toString());
 	}

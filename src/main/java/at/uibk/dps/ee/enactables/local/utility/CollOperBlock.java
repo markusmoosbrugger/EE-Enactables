@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 
-public class SubCollectionBlock implements SubCollection {
+public class CollOperBlock implements CollOper {
 
 	protected final int size;
 	protected final int overlap;
@@ -19,7 +19,7 @@ public class SubCollectionBlock implements SubCollection {
 	 * @param jsonInput           the JsonInput of the enactable (possibly storing
 	 *                            the dynamic parameters)
 	 */
-	public SubCollectionBlock(final String subCollectionString, final JsonObject jsonInput) {
+	public CollOperBlock(final String subCollectionString, final JsonObject jsonInput) {
 		this.size = getSize(subCollectionString, jsonInput);
 		this.overlap = getOverlap(subCollectionString, jsonInput);
 		if (overlap >= size) {

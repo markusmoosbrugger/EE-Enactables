@@ -20,7 +20,7 @@ import net.sf.opendse.model.Task;
 
 public class ElementIndexEnactableTest {
 
-	protected static class EIdxEnactableMock extends CollectionOperationEnactable {
+	protected static class EIdxEnactableMock extends CollOperEnactable {
 
 		protected EIdxEnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 				Task functionNode, JsonObject input) {
@@ -59,7 +59,7 @@ public class ElementIndexEnactableTest {
 		input.add(strideKey, strideNum);
 
 		// create the object
-		CollectionOperationEnactable tested = new EIdxEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new EIdxEnactableMock(stateListeners, inputKeys, task, input);
 
 		try {
 			tested.atomicPlay();

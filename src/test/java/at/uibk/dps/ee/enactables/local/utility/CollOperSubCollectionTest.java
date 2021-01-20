@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
-public class SubCollectionStartEndStrideTest {
+public class CollOperSubCollectionTest {
 
 	@Test
 	public void test() {
@@ -25,7 +25,7 @@ public class SubCollectionStartEndStrideTest {
 		input.add(el3);
 		input.add(el4);
 		
-		SubCollectionStartEndStride tested1 = new SubCollectionStartEndStride(1, 2, -1);
+		CollOperSubCollection tested1 = new CollOperSubCollection(1, 2, -1);
 		JsonElement result1 = tested1.getSubCollection(input);
 		assertEquals("1:2:", tested1.toString());
 		assertTrue(result1.isJsonArray());
@@ -34,7 +34,7 @@ public class SubCollectionStartEndStrideTest {
 		assertEquals(el1, arrayResult1.get(0));
 		assertEquals(el2, arrayResult1.get(1));
 		
-		SubCollectionStartEndStride tested2 = new SubCollectionStartEndStride(-1, 1, -1);
+		CollOperSubCollection tested2 = new CollOperSubCollection(-1, 1, -1);
 		JsonElement result2 = tested2.getSubCollection(input);
 		assertEquals(":1:", tested2.toString());
 		assertTrue(result2.isJsonArray());
@@ -43,7 +43,7 @@ public class SubCollectionStartEndStrideTest {
 		assertEquals(el0, arrayResult2.get(0));
 		assertEquals(el1, arrayResult2.get(1));
 		
-		SubCollectionStartEndStride tested3 = new SubCollectionStartEndStride(1, -1, 2);
+		CollOperSubCollection tested3 = new CollOperSubCollection(1, -1, 2);
 		JsonElement result3 = tested3.getSubCollection(input);
 		assertEquals("1::2", tested3.toString());
 		assertTrue(result3.isJsonArray());
@@ -52,7 +52,7 @@ public class SubCollectionStartEndStrideTest {
 		assertEquals(el1, arrayResult3.get(0));
 		assertEquals(el3, arrayResult3.get(1));
 		
-		SubCollectionStartEndStride tested4 = new SubCollectionStartEndStride(1, -1, -1);
+		CollOperSubCollection tested4 = new CollOperSubCollection(1, -1, -1);
 		JsonElement result4 = tested4.getSubCollection(input);
 		assertEquals("1::", tested4.toString());
 		assertTrue(result4.isJsonArray());

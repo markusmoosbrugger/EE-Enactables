@@ -10,7 +10,7 @@ import com.google.gson.JsonElement;
  * @author Fedor Smirnov
  *
  */
-public interface SubCollection {
+public interface CollOper {
 
 	/**
 	 * Returns a json array creates as subcollection of the given array.

@@ -4,13 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 /**
- * The {@link SubCollectionElement} reads the entry from a single index of the
+ * The {@link CollOperIndex} reads the entry from a single index of the
  * original collection.
  * 
  * @author Fedor Smirnov
  *
  */
-public class SubCollectionElement implements SubCollection {
+public class CollOperIndex implements CollOper {
 
 	protected final int index;
 
@@ -19,7 +19,7 @@ public class SubCollectionElement implements SubCollection {
 	 * 
 	 * @param index the index
 	 */
-	public SubCollectionElement(final int index) {
+	public CollOperIndex(final int index) {
 		this.index = index;
 	}
 

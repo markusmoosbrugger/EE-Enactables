@@ -13,7 +13,7 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  * 
  * @author Fedor Smirnov
  */
-public class SubCollections extends ArrayList<SubCollection> implements SubCollection{
+public class CollOperEIdx extends ArrayList<CollOper> implements CollOper{
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,11 +26,11 @@ public class SubCollections extends ArrayList<SubCollection> implements SubColle
 	 */
 	public JsonElement getSubCollection(final JsonArray input) {
 		if (size() == 1) {
-			final SubCollection subCol = this.get(0);
+			final CollOper subCol = this.get(0);
 			return subCol.getSubCollection(input);
 		} else {
 			final JsonArray result = new JsonArray();
-			for (final SubCollection subCollection : this) {
+			for (final CollOper subCollection : this) {
 				final JsonElement subResult = subCollection.getSubCollection(input);
 				if (subResult.isJsonArray()) {
 					for (final JsonElement jsonElement : subResult.getAsJsonArray()) {

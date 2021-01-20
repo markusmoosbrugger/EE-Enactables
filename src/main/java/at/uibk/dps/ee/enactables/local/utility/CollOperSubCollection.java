@@ -6,13 +6,13 @@ import com.google.gson.JsonElement;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 
 /**
- * The {@link SubCollectionStartEndStride} reads a sub collection from the
+ * The {@link CollOperSubCollection} reads a sub collection from the
  * original collection.
  * 
  * @author Fedor Smirnov
  *
  */
-public class SubCollectionStartEndStride implements SubCollection {
+public class CollOperSubCollection implements CollOper {
 
 	protected static final int defaultValue = -1;
 
@@ -28,7 +28,7 @@ public class SubCollectionStartEndStride implements SubCollection {
 	 * @param end    end (defaults to the size of the collection)
 	 * @param stride (defaults to 1)
 	 */
-	public SubCollectionStartEndStride(final int start, final int end, final int stride) {
+	public CollOperSubCollection(final int start, final int end, final int stride) {
 		this.start = start;
 		this.end = end;
 		this.stride = stride;

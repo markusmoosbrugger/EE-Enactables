@@ -22,41 +22,41 @@ public class UtilsCollectionsTest {
 		JsonElement jsonInt = new JsonPrimitive(2);
 		object.add(key, jsonInt);
 		
-		SubCollections result1 = UtilsCollections.readSubCollections(string1, object);
-		SubCollections result2 = UtilsCollections.readSubCollections(string2, object);
-		SubCollections result3 = UtilsCollections.readSubCollections(string3, object);
-		SubCollections result4 = UtilsCollections.readSubCollections(string4, object);
+		CollOperEIdx result1 = UtilsCollections.readSubCollections(string1, object);
+		CollOperEIdx result2 = UtilsCollections.readSubCollections(string2, object);
+		CollOperEIdx result3 = UtilsCollections.readSubCollections(string3, object);
+		CollOperEIdx result4 = UtilsCollections.readSubCollections(string4, object);
 		
 		assertEquals(1, result1.size());
-		SubCollection sub1 = result1.get(0);
-		assertTrue(sub1 instanceof SubCollectionElement);
+		CollOper sub1 = result1.get(0);
+		assertTrue(sub1 instanceof CollOperIndex);
 		assertEquals("3", sub1.toString());
 		
 		assertEquals(1, result2.size());
-		SubCollection sub2 = result2.get(0);
-		assertTrue(sub2 instanceof SubCollectionStartEndStride);
+		CollOper sub2 = result2.get(0);
+		assertTrue(sub2 instanceof CollOperSubCollection);
 		assertEquals("1::2", sub2.toString());
 		
 		assertEquals(3, result3.size());
-		SubCollection sub31 = result3.get(0);
-		assertTrue(sub31 instanceof SubCollectionElement);
+		CollOper sub31 = result3.get(0);
+		assertTrue(sub31 instanceof CollOperIndex);
 		assertEquals("1", sub31.toString());
-		SubCollection sub32 = result3.get(1);
-		assertTrue(sub32 instanceof SubCollectionStartEndStride);
+		CollOper sub32 = result3.get(1);
+		assertTrue(sub32 instanceof CollOperSubCollection);
 		assertEquals("1:2:", sub32.toString());
-		SubCollection sub33 = result3.get(2);
-		assertTrue(sub33 instanceof SubCollectionStartEndStride);
+		CollOper sub33 = result3.get(2);
+		assertTrue(sub33 instanceof CollOperSubCollection);
 		assertEquals(":3:1", sub33.toString());
 		
 		assertEquals(3, result4.size());
-		SubCollection sub41 = result4.get(0);
-		assertTrue(sub41 instanceof SubCollectionElement);
+		CollOper sub41 = result4.get(0);
+		assertTrue(sub41 instanceof CollOperIndex);
 		assertEquals("1", sub41.toString());
-		SubCollection sub42 = result4.get(1);
-		assertTrue(sub42 instanceof SubCollectionStartEndStride);
+		CollOper sub42 = result4.get(1);
+		assertTrue(sub42 instanceof CollOperSubCollection);
 		assertEquals("1:2:", sub42.toString());
-		SubCollection sub43 = result4.get(2);
-		assertTrue(sub43 instanceof SubCollectionStartEndStride);
+		CollOper sub43 = result4.get(2);
+		assertTrue(sub43 instanceof CollOperSubCollection);
 		assertEquals("2:3:1", sub43.toString());
 	}
 }

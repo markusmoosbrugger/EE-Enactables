@@ -11,14 +11,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class SubCollectionsTest {
+public class CollOperEIdxTest {
 
 	@Test
 	public void testBasic() {
-		SubCollections tested = new SubCollections();
-		SubCollection mock1 = mock(SubCollection.class);
-		SubCollection mock2 = mock(SubCollection.class);
-		SubCollection mock3 = mock(SubCollection.class);
+		CollOperEIdx tested = new CollOperEIdx();
+		CollOper mock1 = mock(CollOper.class);
+		CollOper mock2 = mock(CollOper.class);
+		CollOper mock3 = mock(CollOper.class);
 		String string1 = "bla";
 		String string2 = "abc";
 		String string3 = "fun";
@@ -59,15 +59,15 @@ public class SubCollectionsTest {
 		JsonArray return3 = new JsonArray();
 		return3.add(el0);
 
-		SubCollection sub1 = mock(SubCollection.class);
-		SubCollection sub2 = mock(SubCollection.class);
-		SubCollection sub3 = mock(SubCollection.class);
+		CollOper sub1 = mock(CollOper.class);
+		CollOper sub2 = mock(CollOper.class);
+		CollOper sub3 = mock(CollOper.class);
 
 		when(sub1.getSubCollection(input)).thenReturn(return1);
 		when(sub2.getSubCollection(input)).thenReturn(return2);
 		when(sub3.getSubCollection(input)).thenReturn(return3);
 
-		SubCollections tested = new SubCollections();
+		CollOperEIdx tested = new CollOperEIdx();
 		tested.add(sub1);
 		tested.add(sub2);
 		tested.add(sub3);
@@ -81,7 +81,7 @@ public class SubCollectionsTest {
 		assertEquals(el4, resultArray.get(2));
 		assertEquals(el0, resultArray.get(3));
 		
-		SubCollections tested2 = new SubCollections();
+		CollOperEIdx tested2 = new CollOperEIdx();
 		tested2.add(sub2);
 
 		JsonElement result2 = tested2.getSubCollection(input);

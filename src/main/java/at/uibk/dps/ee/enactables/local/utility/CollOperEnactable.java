@@ -14,18 +14,18 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections
 import net.sf.opendse.model.Task;
 
 /**
- * The {@link CollectionOperationEnactable} is a utility enactable responsible
+ * The {@link CollOperEnactable} is a utility enactable responsible
  * for the transformation of collections.
  * 
  * @author Fedor Smirnov
  *
  */
-public class CollectionOperationEnactable extends LocalAbstract {
+public class CollOperEnactable extends LocalAbstract {
 
 	protected final String subCollectionString;
 	protected final CollectionOperation collectionOperation;
 
-	protected CollectionOperationEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
+	protected CollOperEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 			Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 		this.subCollectionString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
@@ -38,7 +38,7 @@ public class CollectionOperationEnactable extends LocalAbstract {
 		String collectionKey = UtilsCollections.getCollectionKey(jsonInput)
 				.orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));
 		JsonArray jsonArray = jsonInput.get(collectionKey).getAsJsonArray();
-		SubCollection subCollectionOperation = getSubCollectionOperation();
+		CollOper subCollectionOperation = getSubCollectionOperation();
 		JsonElement resultElement = subCollectionOperation.getSubCollection(jsonArray);
 		jsonResult = new JsonObject();
 		jsonResult.add(collectionKey, resultElement);
@@ -50,19 +50,19 @@ public class CollectionOperationEnactable extends LocalAbstract {
 	}
 
 	/**
-	 * Returns the {@link SubCollection} applicable for the configures collection
+	 * Returns the {@link CollOper} applicable for the configures collection
 	 * operation
 	 * 
-	 * @return the {@link SubCollection} applicable for the configures collection
+	 * @return the {@link CollOper} applicable for the configures collection
 	 *         operation
 	 */
-	protected SubCollection getSubCollectionOperation() {
+	protected CollOper getSubCollectionOperation() {
 		switch (collectionOperation) {
 		case ElementIndex:
 			return UtilsCollections.readSubCollections(subCollectionString, jsonInput);
 
 		case Block:
-			return new SubCollectionBlock(subCollectionString, jsonInput);
+			return new CollOperBlock(subCollectionString, jsonInput);
 
 		default:
 			throw new IllegalStateException("No subcollections known for operation " + collectionOperation.name());

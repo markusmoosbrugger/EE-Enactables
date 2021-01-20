@@ -29,7 +29,7 @@ public class UtilityBuilder implements EnactableBuilder {
 		if (type.equals(UtilityType.Condition)) {
 			return new ConditionEvaluation(listeners, inputKeys, functionNode);
 		} else if (type.equals(UtilityType.CollectionOperation)) {
-			return new CollectionOperationEnactable(listeners, inputKeys, functionNode);
+			return new CollOperEnactable(listeners, inputKeys, functionNode);
 		} else {
 			throw new IllegalArgumentException(
 					"The node " + functionNode.getId() + " requires a utility enactable which is not supported.");

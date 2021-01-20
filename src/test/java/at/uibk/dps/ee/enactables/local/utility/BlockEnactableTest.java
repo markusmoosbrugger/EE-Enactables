@@ -20,7 +20,7 @@ import net.sf.opendse.model.Task;
 
 public class BlockEnactableTest {
 
-	protected static class BlockEnactableMock extends CollectionOperationEnactable {
+	protected static class BlockEnactableMock extends CollOperEnactable {
 
 		protected BlockEnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
 				Task functionNode, JsonObject input) {
@@ -57,7 +57,7 @@ public class BlockEnactableTest {
 		JsonElement strideNum = new JsonPrimitive(0);
 		input.add(strideKey, strideNum);
 		
-		CollectionOperationEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
 		
 		try {
 			tested.atomicPlay();
@@ -103,7 +103,7 @@ public class BlockEnactableTest {
 		JsonElement strideNum = new JsonPrimitive(2);
 		input.add(strideKey, strideNum);
 		
-		CollectionOperationEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
 		
 		try {
 			tested.atomicPlay();
