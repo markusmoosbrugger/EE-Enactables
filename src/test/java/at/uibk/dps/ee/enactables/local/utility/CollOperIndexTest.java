@@ -28,7 +28,7 @@ public class CollOperIndexTest {
 		input.add(el4);
 		
 		CollOperIndex tested = new CollOperIndex(3);
-		assertEquals(el3, tested.getSubCollection(input));
+		assertEquals(el3, tested.transformCollection(input));
 		assertEquals("3", tested.toString());
 	}
 }

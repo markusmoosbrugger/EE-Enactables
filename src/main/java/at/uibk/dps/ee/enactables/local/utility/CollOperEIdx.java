@@ -24,14 +24,14 @@ public class CollOperEIdx extends ArrayList<CollOper> implements CollOper{
 	 * @param input the input json array
 	 * @return
 	 */
-	public JsonElement getSubCollection(final JsonArray input) {
+	public JsonElement transformCollection(final JsonArray input) {
 		if (size() == 1) {
 			final CollOper subCol = this.get(0);
-			return subCol.getSubCollection(input);
+			return subCol.transformCollection(input);
 		} else {
 			final JsonArray result = new JsonArray();
 			for (final CollOper subCollection : this) {
-				final JsonElement subResult = subCollection.getSubCollection(input);
+				final JsonElement subResult = subCollection.transformCollection(input);
 				if (subResult.isJsonArray()) {
 					for (final JsonElement jsonElement : subResult.getAsJsonArray()) {
 						result.add(jsonElement);

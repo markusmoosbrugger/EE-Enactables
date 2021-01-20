@@ -63,16 +63,16 @@ public class CollOperEIdxTest {
 		CollOper sub2 = mock(CollOper.class);
 		CollOper sub3 = mock(CollOper.class);
 
-		when(sub1.getSubCollection(input)).thenReturn(return1);
-		when(sub2.getSubCollection(input)).thenReturn(return2);
-		when(sub3.getSubCollection(input)).thenReturn(return3);
+		when(sub1.transformCollection(input)).thenReturn(return1);
+		when(sub2.transformCollection(input)).thenReturn(return2);
+		when(sub3.transformCollection(input)).thenReturn(return3);
 
 		CollOperEIdx tested = new CollOperEIdx();
 		tested.add(sub1);
 		tested.add(sub2);
 		tested.add(sub3);
 
-		JsonElement result = tested.getSubCollection(input);
+		JsonElement result = tested.transformCollection(input);
 		assertTrue(result.isJsonArray());
 		JsonArray resultArray = result.getAsJsonArray();
 		assertEquals(4, resultArray.size());
@@ -84,7 +84,7 @@ public class CollOperEIdxTest {
 		CollOperEIdx tested2 = new CollOperEIdx();
 		tested2.add(sub2);
 
-		JsonElement result2 = tested2.getSubCollection(input);
+		JsonElement result2 = tested2.transformCollection(input);
 		assertTrue(result2.isJsonArray());
 		JsonArray resultArray2 = result2.getAsJsonArray();
 		assertEquals(2, resultArray2.size());

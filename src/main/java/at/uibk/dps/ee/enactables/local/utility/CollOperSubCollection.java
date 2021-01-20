@@ -35,7 +35,7 @@ public class CollOperSubCollection implements CollOper {
 	}
 
 	@Override
-	public JsonElement getSubCollection(final JsonArray originalCollection) {
+	public JsonElement transformCollection(final JsonArray originalCollection) {
 		final JsonArray result = new JsonArray();
 		final int actualStart = start == defaultValue ? 0 : start;
 		final int actualEnd = end == defaultValue ? originalCollection.size() - 1 : end;

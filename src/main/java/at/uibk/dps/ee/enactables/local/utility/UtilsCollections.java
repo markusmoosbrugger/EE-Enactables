@@ -82,17 +82,17 @@ public final class UtilsCollections {
 			if (numberSeparators == 1) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
-				final int start = determineSubcollectionParam(startString, jsonInput);
-				final int end = determineSubcollectionParam(endString, jsonInput);
+				final int start = determineCollOperParam(startString, jsonInput);
+				final int end = determineCollOperParam(endString, jsonInput);
 				final int stride = CollOperSubCollection.defaultValue;
 				return new CollOperSubCollection(start, end, stride);
 			} else if (numberSeparators == 2) {
 				final String startString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[0];
 				final String endString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[1];
 				final String strideString = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal)[2];
-				final int start = determineSubcollectionParam(startString, jsonInput);
-				final int end = determineSubcollectionParam(endString, jsonInput);
-				final int stride = determineSubcollectionParam(strideString, jsonInput);
+				final int start = determineCollOperParam(startString, jsonInput);
+				final int end = determineCollOperParam(endString, jsonInput);
+				final int stride = determineCollOperParam(strideString, jsonInput);
 				return new CollOperSubCollection(start, end, stride);
 			} else {
 				throw new IllegalArgumentException("Too many internal element index separators.");
@@ -117,7 +117,7 @@ public final class UtilsCollections {
 	 * @param input           the json input
 	 * @return
 	 */
-	protected static int determineSubcollectionParam(final String loopParamString, final JsonObject input) {
+	protected static int determineCollOperParam(final String loopParamString, final JsonObject input) {
 		String trimmed = loopParamString.trim();
 		if (input.has(trimmed)) {
 			return input.get(trimmed).getAsInt();

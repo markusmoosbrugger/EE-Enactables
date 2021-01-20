@@ -29,7 +29,7 @@ public class CollOperIndex implements CollOper {
 	}
 
 	@Override
-	public JsonElement getSubCollection(final JsonArray originalCollection) {
+	public JsonElement transformCollection(final JsonArray originalCollection) {
 		return originalCollection.get(index);
 	}
 }

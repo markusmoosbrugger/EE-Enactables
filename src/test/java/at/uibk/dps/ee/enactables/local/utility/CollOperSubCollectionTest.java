@@ -26,7 +26,7 @@ public class CollOperSubCollectionTest {
 		input.add(el4);
 		
 		CollOperSubCollection tested1 = new CollOperSubCollection(1, 2, -1);
-		JsonElement result1 = tested1.getSubCollection(input);
+		JsonElement result1 = tested1.transformCollection(input);
 		assertEquals("1:2:", tested1.toString());
 		assertTrue(result1.isJsonArray());
 		JsonArray arrayResult1 = result1.getAsJsonArray();
@@ -35,7 +35,7 @@ public class CollOperSubCollectionTest {
 		assertEquals(el2, arrayResult1.get(1));
 		
 		CollOperSubCollection tested2 = new CollOperSubCollection(-1, 1, -1);
-		JsonElement result2 = tested2.getSubCollection(input);
+		JsonElement result2 = tested2.transformCollection(input);
 		assertEquals(":1:", tested2.toString());
 		assertTrue(result2.isJsonArray());
 		JsonArray arrayResult2 = result2.getAsJsonArray();
@@ -44,7 +44,7 @@ public class CollOperSubCollectionTest {
 		assertEquals(el1, arrayResult2.get(1));
 		
 		CollOperSubCollection tested3 = new CollOperSubCollection(1, -1, 2);
-		JsonElement result3 = tested3.getSubCollection(input);
+		JsonElement result3 = tested3.transformCollection(input);
 		assertEquals("1::2", tested3.toString());
 		assertTrue(result3.isJsonArray());
 		JsonArray arrayResult3 = result3.getAsJsonArray();
@@ -53,7 +53,7 @@ public class CollOperSubCollectionTest {
 		assertEquals(el3, arrayResult3.get(1));
 		
 		CollOperSubCollection tested4 = new CollOperSubCollection(1, -1, -1);
-		JsonElement result4 = tested4.getSubCollection(input);
+		JsonElement result4 = tested4.transformCollection(input);
 		assertEquals("1::", tested4.toString());
 		assertTrue(result4.isJsonArray());
 		JsonArray arrayResult4 = result4.getAsJsonArray();

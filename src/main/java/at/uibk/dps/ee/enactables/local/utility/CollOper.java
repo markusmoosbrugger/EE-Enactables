@@ -18,5 +18,5 @@ public interface CollOper {
 	 * @param originalCollection the original Json array
 	 * @return a sub collection (which can be a single element) from the given array
 	 */
-	JsonElement getSubCollection(JsonArray originalCollection);
+	JsonElement transformCollection(JsonArray originalCollection);
 }

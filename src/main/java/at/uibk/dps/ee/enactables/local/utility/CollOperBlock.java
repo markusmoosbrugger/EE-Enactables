@@ -28,7 +28,7 @@ public class CollOperBlock implements CollOper {
 	}
 
 	@Override
-	public JsonElement getSubCollection(final JsonArray originalCollection) {
+	public JsonElement transformCollection(final JsonArray originalCollection) {
 		if (size == 1 && overlap == 0) {
 			// do nothing for (1, 0)
 			return originalCollection;
@@ -54,7 +54,7 @@ public class CollOperBlock implements CollOper {
 	 */
 	protected final int getSize(final String subcollectionString, final JsonObject jsonInput) {
 		int result = UtilsCollections
-				.determineSubcollectionParam(subcollectionString.split(ConstantsEEModel.BlockSeparator)[0], jsonInput);
+				.determineCollOperParam(subcollectionString.split(ConstantsEEModel.BlockSeparator)[0], jsonInput);
 		if (result < 1) {
 			throw new IllegalArgumentException("Block size must be greater equal 1.");
 		}
@@ -70,7 +70,7 @@ public class CollOperBlock implements CollOper {
 	 */
 	protected final int getOverlap(final String subcollectionString, final JsonObject jsonInput) {
 		int result = UtilsCollections
-				.determineSubcollectionParam(subcollectionString.split(ConstantsEEModel.BlockSeparator)[1], jsonInput);
+				.determineCollOperParam(subcollectionString.split(ConstantsEEModel.BlockSeparator)[1], jsonInput);
 		if (result < 0) {
 			throw new IllegalArgumentException("Overlap must be non-negative.");
 		}

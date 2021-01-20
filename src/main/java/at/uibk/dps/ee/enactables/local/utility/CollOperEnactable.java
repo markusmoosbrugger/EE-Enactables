@@ -14,8 +14,8 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections
 import net.sf.opendse.model.Task;
 
 /**
- * The {@link CollOperEnactable} is a utility enactable responsible
- * for the transformation of collections.
+ * The {@link CollOperEnactable} is a utility enactable responsible for the
+ * transformation of collections.
  * 
  * @author Fedor Smirnov
  *
@@ -25,8 +25,7 @@ public class CollOperEnactable extends LocalAbstract {
 	protected final String subCollectionString;
 	protected final CollectionOperation collectionOperation;
 
-	protected CollOperEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
-			Task functionNode) {
+	protected CollOperEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 		this.subCollectionString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
 		this.collectionOperation = PropertyServiceFunctionUtilityCollections.getCollectionOperation(functionNode);
@@ -39,7 +38,7 @@ public class CollOperEnactable extends LocalAbstract {
 				.orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));
 		JsonArray jsonArray = jsonInput.get(collectionKey).getAsJsonArray();
 		CollOper subCollectionOperation = getSubCollectionOperation();
-		JsonElement resultElement = subCollectionOperation.getSubCollection(jsonArray);
+		JsonElement resultElement = subCollectionOperation.transformCollection(jsonArray);
 		jsonResult = new JsonObject();
 		jsonResult.add(collectionKey, resultElement);
 	}
@@ -63,6 +62,12 @@ public class CollOperEnactable extends LocalAbstract {
 
 		case Block:
 			return new CollOperBlock(subCollectionString, jsonInput);
+
+		case Replicate:
+			return new CollOperReplicate(subCollectionString, jsonInput);
+
+		case Split:
+			return new CollOperSplit(subCollectionString, jsonInput);
 
 		default:
 			throw new IllegalStateException("No subcollections known for operation " + collectionOperation.name());
