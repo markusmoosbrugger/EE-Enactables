@@ -25,7 +25,12 @@ public class CollOperEnactable extends LocalAbstract {
 	protected final String subCollectionString;
 	protected final CollectionOperation collectionOperation;
 
-	protected CollOperEnactable(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
+	/**
+	 * Constructor with the functionality of the parent and setting the
+	 * collOperation parameters
+	 */
+	protected CollOperEnactable(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
+			final Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 		this.subCollectionString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
 		this.collectionOperation = PropertyServiceFunctionUtilityCollections.getCollectionOperation(functionNode);
@@ -34,11 +39,11 @@ public class CollOperEnactable extends LocalAbstract {
 	@Override
 	protected void atomicPlay() throws StopException {
 		// get the collection
-		String collectionKey = UtilsCollections.getCollectionKey(jsonInput)
+		final String collectionKey = UtilsCollections.getCollectionKey(jsonInput)
 				.orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));
-		JsonArray jsonArray = jsonInput.get(collectionKey).getAsJsonArray();
-		CollOper subCollectionOperation = getSubCollectionOperation();
-		JsonElement resultElement = subCollectionOperation.transformCollection(jsonArray);
+		final JsonArray jsonArray = jsonInput.get(collectionKey).getAsJsonArray();
+		final CollOper subCollectionOperation = getSubCollectionOperation();
+		final JsonElement resultElement = subCollectionOperation.transformCollection(jsonArray);
 		jsonResult = new JsonObject();
 		jsonResult.add(collectionKey, resultElement);
 	}
