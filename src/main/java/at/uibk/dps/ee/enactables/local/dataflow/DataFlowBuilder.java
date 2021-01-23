@@ -29,7 +29,7 @@ public class DataFlowBuilder implements EnactableBuilder {
 			return new EarliestArrival(listeners, inputKeys, functionNode);
 		} else {
 			throw new IllegalArgumentException(
-					"The node " + functionNode.getId() + " requires a syntax enactable which is not supported.");
+					"The node " + functionNode.getId() + " requires a data flow enactable which is not supported.");
 		}
 	}
 }
