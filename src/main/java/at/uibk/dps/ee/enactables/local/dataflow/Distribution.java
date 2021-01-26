@@ -12,6 +12,7 @@ import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
 import net.sf.opendse.model.Task;
 
 /**
@@ -44,8 +45,9 @@ public class Distribution extends LocalAbstract {
 				if (element.isJsonPrimitive()) {
 					JsonPrimitive primitive = element.getAsJsonPrimitive();
 					if (primitive.isNumber()) {
-						int iteration = primitive.getAsInt();
-						processIntIterator(iteration);
+						int iterationNum = primitive.getAsInt();
+						PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, iterationNum);
+						processIntIterator(iterationNum);
 						return;
 					}
 				}
@@ -56,6 +58,8 @@ public class Distribution extends LocalAbstract {
 				if (element.isJsonArray()) {
 					JsonObject result = new JsonObject();
 					processCollection(key, element.getAsJsonArray(), result);
+					PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode,
+							element.getAsJsonArray().size());
 					this.jsonResult = result;
 					return;
 				} else {
@@ -81,6 +85,10 @@ public class Distribution extends LocalAbstract {
 				}
 				processCollection(key, array, result);
 			}
+			if (collSize == -1) {
+				throw new IllegalStateException("Empty json input distribution");
+			}
+			PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, collSize);
 			this.jsonResult = result;
 			return;
 		}

@@ -33,6 +33,18 @@ public class Aggregation extends LocalAbstract {
 		super(stateListeners, inputKeys, functionNode);
 	}
 
+	/**
+	 * Adjusts the input set to fit to the post-reproduction graph
+	 * 
+	 * @param elementNumber the number of elements that will be aggregated.
+	 */
+	public void adjustInputSet(int elementNumber) {
+		inputKeys.clear();
+		for (int idx = 0; idx < elementNumber; idx++) {
+			inputKeys.add(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, idx));
+		}
+	}
+
 	@Override
 	protected void atomicPlay() throws StopException {
 		JsonArray array = new JsonArray();

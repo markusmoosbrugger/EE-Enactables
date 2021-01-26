@@ -34,13 +34,15 @@ public class DataFlowBuilder implements EnactableBuilder {
 			if (PropertyServiceFunctionDataFlowCollections.getOperationType(functionNode)
 					.equals(OperationType.Distribution)) {
 				return new Distribution(listeners, inputKeys, functionNode);
+			} else if (PropertyServiceFunctionDataFlowCollections.getOperationType(functionNode)
+					.equals(OperationType.Aggregation)) {
+				return new Aggregation(listeners, inputKeys, functionNode);
 			} else {
 				throw new IllegalArgumentException("The node " + functionNode.getId()
 						+ " requires a data flow collection enactable which is not supported.");
 			}
 
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException(
 					"The node " + functionNode.getId() + " requires a data flow enactable which is not supported.");
 		}

@@ -1,8 +1,11 @@
 package at.uibk.dps.ee.enactables;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -84,5 +87,23 @@ public class EnactableFactory {
 			}
 		}
 		throw new IllegalStateException("No builder provided for enactables of type " + funcType.name());
+	}
+
+	/**
+	 * Creates the enactable of the given offspring task and adjusts its state so
+	 * that it corresponds to the state of the parent enactable.
+	 * 
+	 * @param offspring       the offspring task
+	 * @param parentEnactable the enactable of the parent
+	 * @return the child enactable, adjusted to have the same state as the parent
+	 *         enactable
+	 */
+	public void reproduceEnactable(Task offspring, EnactableAtomic parentEnactable) {
+		Set<String> inputKeysOffspring = new HashSet<>(parentEnactable.inputKeys);
+		Map<String, JsonElement> inputMapOffspring = new HashMap<>(parentEnactable.inputMap);
+		EnactableAtomic offspringEnactable = createEnactable(offspring, inputKeysOffspring);
+		offspringEnactable.inputMap.clear();
+		offspringEnactable.inputMap.putAll(inputMapOffspring);
+		PropertyServiceFunction.setEnactable(offspring, offspringEnactable);
 	}
 }

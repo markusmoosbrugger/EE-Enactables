@@ -14,6 +14,8 @@ import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections.OperationType;
 import net.sf.opendse.model.Task;
 
 public class DistributionTest {
@@ -47,7 +49,7 @@ public class DistributionTest {
 		} catch (StopException e) {
 		}
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testInorrectIterator2() {
 		Task funcNode = new Task("t");
@@ -70,7 +72,8 @@ public class DistributionTest {
 
 	@Test
 	public void testCorrectIntIterator() {
-		Task funcNode = new Task("t");
+		Task funcNode = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("t",
+				OperationType.Distribution, "scope");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		Set<String> inputKeys = new HashSet<>();
 
@@ -87,6 +90,8 @@ public class DistributionTest {
 		} catch (StopException e) {
 			fail();
 		}
+
+		assertEquals(5, PropertyServiceFunctionDataFlowCollections.getIterationNumber(tested.getFunctionNode()));
 
 		JsonObject output = tested.getJsonResult();
 		assertTrue(output.get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 0))
@@ -131,7 +136,9 @@ public class DistributionTest {
 
 	@Test
 	public void testCorrectCollections() {
-		Task funcNode = new Task("t");
+		Task funcNode = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("t",
+				OperationType.Distribution, "scope");
+
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		Set<String> inputKeys = new HashSet<>();
 
@@ -161,6 +168,8 @@ public class DistributionTest {
 			fail();
 		}
 
+		assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(tested.getFunctionNode()));
+
 		JsonObject output = tested.getJsonResult();
 		assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
 		assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
@@ -169,10 +178,11 @@ public class DistributionTest {
 		assertEquals("two", output.get(ConstantsEEModel.getCollectionElementKey(key2, 1)).getAsString());
 		assertEquals("three", output.get(ConstantsEEModel.getCollectionElementKey(key2, 2)).getAsString());
 	}
-	
+
 	@Test
 	public void testCorrectOneCollection() {
-		Task funcNode = new Task("t");
+		Task funcNode = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("t",
+				OperationType.Distribution, "scope");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		Set<String> inputKeys = new HashSet<>();
 
@@ -194,7 +204,7 @@ public class DistributionTest {
 		} catch (StopException e) {
 			fail();
 		}
-
+		assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(tested.getFunctionNode()));
 		JsonObject output = tested.getJsonResult();
 		assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
 		assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
