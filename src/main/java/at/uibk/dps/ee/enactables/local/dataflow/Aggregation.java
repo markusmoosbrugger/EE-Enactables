@@ -59,7 +59,7 @@ public class Aggregation extends LocalAbstract {
 			if (!collectionKey.equals(ConstantsEEModel.JsonKeyAggregation)) {
 				throw new IllegalArgumentException("Wrong input for aggregation.");
 			}
-			int idx = ConstantsEEModel.getElementIndex(key);
+			int idx = ConstantsEEModel.getArrayIndex(key);
 			array.set(idx, element);
 		}
 		JsonObject result = new JsonObject();
