@@ -25,6 +25,25 @@ public class AggregationTest {
 			super(stateListeners, inputKeys, functionNode);
 			jsonInput = input;
 		}
+		
+		protected Set<String> getInputKeys(){
+			return inputKeys;
+		}
+	}
+	
+	@Test
+	public void testAdjustInputSet() {
+		Task funcNode = new Task("t");
+		Set<EnactableStateListener> stateListeners = new HashSet<>();
+		Set<String> inputKeys = new HashSet<>();
+		AggregationMock tested = new AggregationMock(stateListeners, inputKeys, funcNode, new JsonObject());
+		tested.adjustInputSet(4);
+		Set<String> inputSet = tested.getInputKeys();
+		assertEquals(4, inputSet.size());
+		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 0)));
+		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 1)));
+		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 2)));
+		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 3)));
 	}
 
 	@Test

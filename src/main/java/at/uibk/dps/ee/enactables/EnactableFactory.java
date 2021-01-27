@@ -91,17 +91,18 @@ public class EnactableFactory {
 
 	/**
 	 * Creates the enactable of the given offspring task and adjusts its state so
-	 * that it corresponds to the state of the parent enactable.
+	 * that it corresponds to the state of the parent enactable (if e.g., some
+	 * inputs were already set before the reproduction).
 	 * 
 	 * @param offspring       the offspring task
 	 * @param parentEnactable the enactable of the parent
 	 * @return the child enactable, adjusted to have the same state as the parent
 	 *         enactable
 	 */
-	public void reproduceEnactable(Task offspring, EnactableAtomic parentEnactable) {
-		Set<String> inputKeysOffspring = new HashSet<>(parentEnactable.inputKeys);
-		Map<String, JsonElement> inputMapOffspring = new HashMap<>(parentEnactable.inputMap);
-		EnactableAtomic offspringEnactable = createEnactable(offspring, inputKeysOffspring);
+	public void reproduceEnactable(final Task offspring, final EnactableAtomic parentEnactable) {
+		final Set<String> inputKeysOffspring = new HashSet<>(parentEnactable.inputKeys);
+		final Map<String, JsonElement> inputMapOffspring = new HashMap<>(parentEnactable.inputMap);
+		final EnactableAtomic offspringEnactable = createEnactable(offspring, inputKeysOffspring);
 		offspringEnactable.inputMap.clear();
 		offspringEnactable.inputMap.putAll(inputMapOffspring);
 		PropertyServiceFunction.setEnactable(offspring, offspringEnactable);

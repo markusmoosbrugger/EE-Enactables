@@ -2,19 +2,37 @@ package at.uibk.dps.ee.enactables;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
+import com.google.gson.JsonPrimitive;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
+import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
 import net.sf.opendse.model.Task;
 
 public class EnactableFactoryTest {
+
+	protected class EnactableMock extends EnactableAtomic {
+		protected EnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
+			super(stateListeners, inputKeys, functionNode);
+		}
+
+		@Override
+		protected void atomicPlay() throws StopException {
+		}
+
+		@Override
+		protected void myPause() {
+		}
+	}
 
 	@Test
 	public void testGenerateBuilders() {
@@ -57,6 +75,30 @@ public class EnactableFactoryTest {
 		when(builder.getType()).thenReturn(FunctionType.Serverless);
 		EnactableAtomic result = tested.createEnactable(task, inputKeys);
 		assertEquals(expected, result);
+	}
+
+	@Test
+	public void testReproduceEnactable() {
+		Task taskParent = new Task("blabla");
+		Task task = new Task("bla");
+		PropertyServiceFunction.setType(FunctionType.Serverless, task);
+		Set<EnactableStateListener> stateListeners = new HashSet<>();
+		EnactableFactory tested = new EnactableFactory(stateListeners);
+		EnactableBuilder builder = mock(EnactableBuilder.class);
+		tested.enactableBuilders.add(builder);
+
+		Set<String> inputKeys = new HashSet<String>(Arrays.asList("one", "two"));
+		EnactableAtomic parentMock = new EnactableMock(stateListeners, inputKeys, taskParent);
+		EnactableAtomic childMock = new EnactableMock(stateListeners, inputKeys, task);
+
+		parentMock.inputMap.put("one", new JsonPrimitive(1));
+
+		when(builder.buildEnactable(task, inputKeys, stateListeners)).thenReturn(childMock);
+		when(builder.getType()).thenReturn(FunctionType.Serverless);
+
+		tested.reproduceEnactable(task, parentMock);
+		assertTrue(childMock.inputMap.containsKey("one"));
+		assertEquals(1, childMock.inputMap.get("one").getAsInt());
 	}
 
 }

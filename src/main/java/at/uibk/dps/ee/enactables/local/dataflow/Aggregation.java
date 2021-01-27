@@ -29,7 +29,8 @@ public class Aggregation extends LocalAbstract {
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	protected Aggregation(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
+	protected Aggregation(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
+			final Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 	}
 
@@ -38,7 +39,7 @@ public class Aggregation extends LocalAbstract {
 	 * 
 	 * @param elementNumber the number of elements that will be aggregated.
 	 */
-	public void adjustInputSet(int elementNumber) {
+	public void adjustInputSet(final int elementNumber) {
 		inputKeys.clear();
 		for (int idx = 0; idx < elementNumber; idx++) {
 			inputKeys.add(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, idx));
@@ -47,22 +48,22 @@ public class Aggregation extends LocalAbstract {
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		JsonArray array = new JsonArray();
+		final JsonArray array = new JsonArray();
 		// fill the array, so that we can set indices
 		for (int i = 0; i < jsonInput.size(); i++) {
 			array.add(0);
 		}
-		for (Entry<String, JsonElement> entry : jsonInput.entrySet()) {
-			String key = entry.getKey();
-			JsonElement element = entry.getValue();
-			String collectionKey = ConstantsEEModel.getCollectionName(key);
+		for (final Entry<String, JsonElement> entry : jsonInput.entrySet()) {
+			final String key = entry.getKey();
+			final JsonElement element = entry.getValue();
+			final String collectionKey = ConstantsEEModel.getCollectionName(key);
 			if (!collectionKey.equals(ConstantsEEModel.JsonKeyAggregation)) {
 				throw new IllegalArgumentException("Wrong input for aggregation.");
 			}
-			int idx = ConstantsEEModel.getArrayIndex(key);
+			final int idx = ConstantsEEModel.getArrayIndex(key);
 			array.set(idx, element);
 		}
-		JsonObject result = new JsonObject();
+		final JsonObject result = new JsonObject();
 		result.add(ConstantsEEModel.JsonKeyAggregation, array);
 		this.jsonResult = result;
 	}
