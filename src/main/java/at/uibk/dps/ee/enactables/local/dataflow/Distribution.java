@@ -41,7 +41,7 @@ public class Distribution extends LocalAbstract {
 
 	@Override
 	protected void atomicPlay() throws StopException {
-		Optional<JsonObject> operationResult = null;
+		Optional<JsonObject> operationResult;
 		if (jsonInput.size() == 1) {
 			final String key = jsonInput.keySet().iterator().next();
 			if (key.equals(ConstantsEEModel.JsonKeyConstantIterator)) {
@@ -91,7 +91,6 @@ public class Distribution extends LocalAbstract {
 		int collSize = -1;
 		final JsonObject result = new JsonObject();
 		for (final Entry<String, JsonElement> entry : input.entrySet()) {
-			final String key = entry.getKey();
 			final JsonElement element = entry.getValue();
 			if (!element.isJsonArray()) {
 				throw new IllegalArgumentException("Multiple iterators, not all are collections.");
@@ -103,6 +102,7 @@ public class Distribution extends LocalAbstract {
 			if (collSize != array.size()) {
 				throw new IllegalStateException("Collections of different size used as iterators.");
 			}
+			final String key = entry.getKey();
 			processCollection(key, array, result);
 		}
 		if (collSize == -1) {
