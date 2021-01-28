@@ -1,6 +1,10 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
@@ -30,68 +34,82 @@ public class Distribution extends LocalAbstract {
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	protected Distribution(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
+	protected Distribution(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
+			final Task functionNode) {
 		super(stateListeners, inputKeys, functionNode);
 	}
 
 	@Override
 	protected void atomicPlay() throws StopException {
-
+		Optional<JsonObject> operationResult = null;
 		if (jsonInput.size() == 1) {
-			String key = jsonInput.keySet().iterator().next();
+			final String key = jsonInput.keySet().iterator().next();
 			if (key.equals(ConstantsEEModel.JsonKeyConstantIterator)) {
 				// int iterator
-				JsonElement element = jsonInput.get(key);
-				if (element.isJsonPrimitive()) {
-					JsonPrimitive primitive = element.getAsJsonPrimitive();
-					if (primitive.isNumber()) {
-						int iterationNum = primitive.getAsInt();
-						PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, iterationNum);
-						processIntIterator(iterationNum);
-						return;
-					}
-				}
-				throw new IllegalArgumentException("Incorrect int iterator.");
+				operationResult = Optional.of(processIntegerIterator(jsonInput.get(key)));
 			} else {
 				// one collection
-				JsonElement element = jsonInput.get(key);
-				if (element.isJsonArray()) {
-					JsonObject result = new JsonObject();
-					processCollection(key, element.getAsJsonArray(), result);
-					PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode,
-							element.getAsJsonArray().size());
-					this.jsonResult = result;
-					return;
-				} else {
-					throw new IllegalArgumentException("Incorrect iterator.");
-				}
+				operationResult = Optional.of(processSingleCollection(jsonInput.get(key), key));
 			}
 		} else {
 			// multiple collections
-			int collSize = -1;
-			JsonObject result = new JsonObject();
-			for (Entry<String, JsonElement> entry : jsonInput.entrySet()) {
-				String key = entry.getKey();
-				JsonElement element = entry.getValue();
-				if (!element.isJsonArray()) {
-					throw new IllegalArgumentException("Multiple iterators, not all are collections.");
-				}
-				JsonArray array = element.getAsJsonArray();
-				if (collSize == -1) {
-					collSize = array.size();
-				}
-				if (collSize != array.size()) {
-					throw new IllegalStateException("Collections of different size used as iterators.");
-				}
-				processCollection(key, array, result);
-			}
-			if (collSize == -1) {
-				throw new IllegalStateException("Empty json input distribution");
-			}
-			PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, collSize);
-			this.jsonResult = result;
-			return;
+			operationResult = Optional.of(processMultipleCollections(jsonInput));
 		}
+		this.jsonResult = operationResult.orElseThrow(() -> new IllegalArgumentException("Incorrect Iterator"));
+	}
+
+	/**
+	 * Generates the json result for the case where one collection is used as
+	 * iterator.
+	 * 
+	 * @param element the element containing the collection (JSON array)
+	 * @param key     the key to refer to the collection
+	 * @return the json result for the case where one collection is used as iterator
+	 */
+	protected JsonObject processSingleCollection(final JsonElement element, final String key) {
+		if (element.isJsonArray()) {
+			final JsonObject result = new JsonObject();
+			processCollection(key, element.getAsJsonArray(), result);
+			PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode,
+					element.getAsJsonArray().size());
+			this.jsonResult = result;
+			return result;
+		} else {
+			throw new IllegalArgumentException("Incorrect iterator.");
+		}
+	}
+
+	/**
+	 * Generates the json result for the case where multiple collections are used as
+	 * iterators.
+	 * 
+	 * @param input the input json object
+	 * @return the json result for the case where multiple collections are used as
+	 *         iterators
+	 */
+	protected JsonObject processMultipleCollections(final JsonObject input) {
+		int collSize = -1;
+		final JsonObject result = new JsonObject();
+		for (final Entry<String, JsonElement> entry : input.entrySet()) {
+			final String key = entry.getKey();
+			final JsonElement element = entry.getValue();
+			if (!element.isJsonArray()) {
+				throw new IllegalArgumentException("Multiple iterators, not all are collections.");
+			}
+			final JsonArray array = element.getAsJsonArray();
+			if (collSize == -1) {
+				collSize = array.size();
+			}
+			if (collSize != array.size()) {
+				throw new IllegalStateException("Collections of different size used as iterators.");
+			}
+			processCollection(key, array, result);
+		}
+		if (collSize == -1) {
+			throw new IllegalStateException("Empty json input distribution");
+		}
+		PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, collSize);
+		return result;
 	}
 
 	/**
@@ -101,25 +119,32 @@ public class Distribution extends LocalAbstract {
 	 * @param array the array
 	 * @param the   object which will be the Json result
 	 */
-	protected void processCollection(String key, JsonArray array, JsonObject jsonObject) {
-		for (int idx = 0; idx < array.size(); idx++) {
-			String elementKey = ConstantsEEModel.getCollectionElementKey(key, idx);
-			jsonObject.add(elementKey, array.get(idx));
-		}
+	protected void processCollection(final String key, final JsonArray array, final JsonObject jsonObject) {
+		final List<String> elementKeyList = Stream.iterate(0, i -> i + 1).limit(array.size())
+				.map(i -> ConstantsEEModel.getCollectionElementKey(key, i)).collect(Collectors.toList());
+		elementKeyList.forEach(elementKey -> jsonObject.add(elementKey, array.get(elementKeyList.indexOf(elementKey))));
 	}
 
 	/**
-	 * Creates a collection rerpesenting iterations with the provided number.
+	 * Creates a collection representing iterations with the provided number.
 	 * 
 	 * @param iterationNum
 	 */
-	protected void processIntIterator(int iterationNum) {
-		JsonObject result = new JsonObject();
-		for (int i = 0; i < iterationNum; i++) {
-			String key = ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, i);
-			result.add(key, new JsonPrimitive(true));
+	protected JsonObject processIntegerIterator(final JsonElement element) {
+		if (element.isJsonPrimitive()) {
+			final JsonPrimitive primitive = element.getAsJsonPrimitive();
+			if (primitive.isNumber()) {
+				final int iterationNum = primitive.getAsInt();
+				PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, iterationNum);
+				final JsonObject result = new JsonObject();
+				final List<String> keyList = Stream.iterate(0, i -> i + 1).limit(iterationNum)
+						.map(i -> ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, i))
+						.collect(Collectors.toList());
+				keyList.forEach(key -> result.add(key, new JsonPrimitive(true)));
+				return result;
+			}
 		}
-		this.jsonResult = result;
+		throw new IllegalArgumentException("Incorrect int iterator.");
 	}
 
 	@Override
