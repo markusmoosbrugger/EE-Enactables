@@ -31,6 +31,18 @@ public class BlockEnactableTest {
 	}
 
 	@Test
+	public void testBlockResultEntryNumber() {
+		String string = "2,0";
+		JsonObject input = new JsonObject();
+		CollOperBlock tested = new CollOperBlock(string, input);
+
+		assertEquals(3, tested.getResultEntryNumber(6, 2, 0));
+		assertEquals(2, tested.getResultEntryNumber(6, 3, 0));
+		assertEquals(5, tested.getResultEntryNumber(6, 2, 1));
+		assertEquals(2, tested.getResultEntryNumber(6, 3, 1));
+	}
+
+	@Test
 	public void testBlockOneZero() {
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
@@ -56,15 +68,15 @@ public class BlockEnactableTest {
 		String strideKey = overlapSrc;
 		JsonElement strideNum = new JsonPrimitive(0);
 		input.add(strideKey, strideNum);
-		
+
 		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
-		
+
 		try {
 			tested.atomicPlay();
 		} catch (StopException e) {
 			fail();
 		}
-		
+
 		JsonObject jsonResult = tested.getJsonResult();
 		JsonElement result = jsonResult.get(someKey);
 		assertTrue(result.isJsonArray());
@@ -75,7 +87,7 @@ public class BlockEnactableTest {
 		assertEquals(3, resultArray.get(2).getAsInt());
 		assertEquals(4, resultArray.get(3).getAsInt());
 	}
-	
+
 	@Test
 	public void testBlockTwoOne() {
 		JsonObject input = new JsonObject();
@@ -102,15 +114,15 @@ public class BlockEnactableTest {
 		String strideKey = sizeSrc;
 		JsonElement strideNum = new JsonPrimitive(2);
 		input.add(strideKey, strideNum);
-		
+
 		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
-		
+
 		try {
 			tested.atomicPlay();
 		} catch (StopException e) {
 			fail();
 		}
-		
+
 		JsonObject jsonResult = tested.getJsonResult();
 		JsonElement result = jsonResult.get(someKey);
 		assertTrue(result.isJsonArray());
@@ -129,6 +141,5 @@ public class BlockEnactableTest {
 		assertEquals(3, array2.get(0).getAsInt());
 		assertEquals(4, array2.get(1).getAsInt());
 	}
-
 
 }

@@ -30,9 +30,9 @@ public class CollOperSplit implements CollOper {
 	}
 
 	@Override
-	public JsonElement transformCollection(JsonArray originalCollection) {
+	public JsonElement transformCollection(final JsonArray originalCollection) {
 		final JsonArray result = new JsonArray();
-		final int elementsPerResultEntry = (int) Math.round((Math.ceil(1. * originalCollection.size() / splitNumber)));
+		final int elementsPerResultEntry = (int) Math.round(Math.ceil(1. * originalCollection.size() / splitNumber));
 
 		final List<JsonArray> resultEntries = Stream.generate(() -> new JsonArray()).limit(splitNumber)
 				.collect(Collectors.toList());
