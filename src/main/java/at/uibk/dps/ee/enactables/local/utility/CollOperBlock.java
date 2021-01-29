@@ -67,10 +67,10 @@ public class CollOperBlock implements CollOper {
 	 * @param overlap
 	 * @return
 	 */
-	protected int getResultEntryNumber(int originalSize, final int blockSize, final int overlap) {
-		originalSize -= blockSize;
+	protected int getResultEntryNumber(final int originalSize, final int blockSize, final int overlap) {
+		final int sizeAfterFirst = originalSize - blockSize;
 		final int advance = blockSize - overlap;
-		return (int) Math.floor(originalSize / advance) + 1;
+		return (int) Math.floor(sizeAfterFirst / advance) + 1;
 	}
 
 	/***
