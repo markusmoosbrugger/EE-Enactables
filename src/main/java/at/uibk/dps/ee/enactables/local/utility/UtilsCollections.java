@@ -27,7 +27,7 @@ public final class UtilsCollections {
 	 * @param jsonInput the given json object
 	 * @return (optional) the key to the collection object
 	 */
-	public static Optional<String> getCollectionKey(JsonObject jsonInput) {
+	public static Optional<String> getCollectionKey(final JsonObject jsonInput) {
 		String result = null;
 		for (final String key : jsonInput.keySet()) {
 			final JsonElement element = jsonInput.get(key);
@@ -55,8 +55,7 @@ public final class UtilsCollections {
 		if (stringNoWs.contains(ConstantsEEModel.EIdxSeparatorExternal)) {
 			// multiple comma-separated values
 			final String[] subStrings = stringNoWs.split(ConstantsEEModel.EIdxSeparatorExternal);
-			for (int idx = 0; idx < subStrings.length; idx++) {
-				final String subString = subStrings[idx];
+			for (final String subString : subStrings) {
 				result.add(getSubCollectionForString(subString, jsonInput));
 			}
 		} else {
@@ -74,8 +73,7 @@ public final class UtilsCollections {
 	 * @param substring           idx (to know which json element ot access)
 	 * @return the subcollection for the given string
 	 */
-	protected static CollOper getSubCollectionForString(final String subcollectionString,
-			final JsonObject jsonInput) {
+	protected static CollOper getSubCollectionForString(final String subcollectionString, final JsonObject jsonInput) {
 		if (subcollectionString.contains(ConstantsEEModel.EIdxSeparatorInternal)) {
 			// start end stride
 			final int numberSeparators = subcollectionString.split(ConstantsEEModel.EIdxSeparatorInternal).length - 1;
@@ -118,7 +116,7 @@ public final class UtilsCollections {
 	 * @return
 	 */
 	protected static int determineCollOperParam(final String loopParamString, final JsonObject input) {
-		String trimmed = loopParamString.trim();
+		final String trimmed = loopParamString.trim();
 		if (input.has(trimmed)) {
 			return input.get(trimmed).getAsInt();
 		} else if (trimmed.isEmpty()) {

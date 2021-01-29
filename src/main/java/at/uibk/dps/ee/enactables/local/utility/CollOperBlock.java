@@ -6,6 +6,12 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 
+/**
+ * Utility function to transform a collection following the BLOCK operators as
+ * defined in the AFCL language.
+ * 
+ * @author Fedor Smirnov
+ */
 public class CollOperBlock implements CollOper {
 
 	protected final int size;
@@ -33,7 +39,7 @@ public class CollOperBlock implements CollOper {
 			// do nothing for (1, 0)
 			return originalCollection;
 		} else {
-			JsonArray result = new JsonArray();
+			final JsonArray result = new JsonArray();
 			for (int start = 0; start - overlap + size < originalCollection.size(); start += (size - overlap)) {
 				JsonArray entry = new JsonArray();
 				for (int idx = start; idx < start + size; idx++) {

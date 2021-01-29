@@ -1,6 +1,7 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
 import java.util.Map.Entry;
+import java.util.stream.Stream;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
@@ -41,9 +42,8 @@ public class Aggregation extends LocalAbstract {
 	 */
 	public void adjustInputSet(final int elementNumber) {
 		inputKeys.clear();
-		for (int idx = 0; idx < elementNumber; idx++) {
-			inputKeys.add(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, idx));
-		}
+		Stream.iterate(0, idx -> idx + 1).limit(elementNumber).forEach(idx -> inputKeys
+				.add(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, idx)));
 	}
 
 	@Override
@@ -55,12 +55,12 @@ public class Aggregation extends LocalAbstract {
 		}
 		for (final Entry<String, JsonElement> entry : jsonInput.entrySet()) {
 			final String key = entry.getKey();
-			final JsonElement element = entry.getValue();
 			final String collectionKey = ConstantsEEModel.getCollectionName(key);
 			if (!collectionKey.equals(ConstantsEEModel.JsonKeyAggregation)) {
 				throw new IllegalArgumentException("Wrong input for aggregation.");
 			}
 			final int idx = ConstantsEEModel.getArrayIndex(key);
+			final JsonElement element = entry.getValue();
 			array.set(idx, element);
 		}
 		final JsonObject result = new JsonObject();

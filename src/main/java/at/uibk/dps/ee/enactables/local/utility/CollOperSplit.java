@@ -1,5 +1,9 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,13 +31,15 @@ public class CollOperSplit implements CollOper {
 
 	@Override
 	public JsonElement transformCollection(JsonArray originalCollection) {
-		JsonArray result = new JsonArray();
-		int elementsPerResultEntry = (int) Math.round((Math.ceil(1. * originalCollection.size() / splitNumber)));
+		final JsonArray result = new JsonArray();
+		final int elementsPerResultEntry = (int) Math.round((Math.ceil(1. * originalCollection.size() / splitNumber)));
 
+		final List<JsonArray> resultEntries = Stream.generate(() -> new JsonArray()).limit(splitNumber)
+				.collect(Collectors.toList());
 		for (int i = 0; i < splitNumber; i++) {
-			int start = i * elementsPerResultEntry;
-			int end = Math.min(originalCollection.size(), (i + 1) * elementsPerResultEntry);
-			JsonArray entry = new JsonArray();
+			final int start = i * elementsPerResultEntry;
+			final int end = Math.min(originalCollection.size(), (i + 1) * elementsPerResultEntry);
+			final JsonArray entry = resultEntries.get(i);
 			for (int ii = start; ii < end; ii++) {
 				entry.add(originalCollection.get(ii));
 			}
@@ -51,7 +57,7 @@ public class CollOperSplit implements CollOper {
 	 * @return the replication number
 	 */
 	protected final int getSplitNumber(final String collOperString, final JsonObject jsonInput) {
-		int result = UtilsCollections.determineCollOperParam(collOperString, jsonInput);
+		final int result = UtilsCollections.determineCollOperParam(collOperString, jsonInput);
 		if (result < 2) {
 			throw new IllegalArgumentException("The split number must be bigger than 1.");
 		}

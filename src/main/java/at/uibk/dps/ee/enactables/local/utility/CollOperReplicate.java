@@ -26,9 +26,9 @@ public class CollOperReplicate implements CollOper {
 	}
 
 	@Override
-	public JsonElement transformCollection(JsonArray originalCollection) {
-		JsonArray result = new JsonArray();
-		for (JsonElement entry : originalCollection) {
+	public JsonElement transformCollection(final JsonArray originalCollection) {
+		final JsonArray result = new JsonArray();
+		for (final JsonElement entry : originalCollection) {
 			for (int i = 0; i < replicationNumber; i++) {
 				result.add(entry);
 			}
@@ -45,7 +45,7 @@ public class CollOperReplicate implements CollOper {
 	 * @return the replication number
 	 */
 	protected final int getReplicationNumber(final String collOperString, final JsonObject jsonInput) {
-		int result = UtilsCollections.determineCollOperParam(collOperString, jsonInput);
+		final int result = UtilsCollections.determineCollOperParam(collOperString, jsonInput);
 		if (result < 2) {
 			throw new IllegalArgumentException("The replication number must be bigger than 1.");
 		}

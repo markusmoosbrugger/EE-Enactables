@@ -1,9 +1,9 @@
 package at.uibk.dps.ee.enactables;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.inject.Inject;
@@ -101,7 +101,7 @@ public class EnactableFactory {
 	 */
 	public void reproduceEnactable(final Task offspring, final EnactableAtomic parentEnactable) {
 		final Set<String> inputKeysOffspring = new HashSet<>(parentEnactable.inputKeys);
-		final Map<String, JsonElement> inputMapOffspring = new HashMap<>(parentEnactable.inputMap);
+		final Map<String, JsonElement> inputMapOffspring = new ConcurrentHashMap<>(parentEnactable.inputMap);
 		final EnactableAtomic offspringEnactable = createEnactable(offspring, inputKeysOffspring);
 		offspringEnactable.inputMap.clear();
 		offspringEnactable.inputMap.putAll(inputMapOffspring);
