@@ -20,37 +20,16 @@ import net.sf.opendse.model.Task;
 public class AggregationTest {
 
 	protected static class AggregationMock extends Aggregation {
-		protected AggregationMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
-				JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+		protected AggregationMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
+			super(stateListeners, functionNode);
 			jsonInput = input;
 		}
-		
-		protected Set<String> getInputKeys(){
-			return inputKeys;
-		}
-	}
-	
-	@Test
-	public void testAdjustInputSet() {
-		Task funcNode = new Task("t");
-		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
-		AggregationMock tested = new AggregationMock(stateListeners, inputKeys, funcNode, new JsonObject());
-		tested.adjustInputSet(4);
-		Set<String> inputSet = tested.getInputKeys();
-		assertEquals(4, inputSet.size());
-		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 0)));
-		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 1)));
-		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 2)));
-		assertTrue(inputSet.contains(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, 3)));
 	}
 
 	@Test
 	public void testCorrect() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key = ConstantsEEModel.JsonKeyAggregation;
 
@@ -60,10 +39,10 @@ public class AggregationTest {
 		input.add(ConstantsEEModel.getCollectionElementKey(key, 2), new JsonPrimitive(2));
 		input.add(ConstantsEEModel.getCollectionElementKey(key, 3), new JsonPrimitive(3));
 
-		Aggregation tested = new AggregationMock(stateListeners, inputKeys, funcNode, input);
+		Aggregation tested = new AggregationMock(stateListeners, funcNode, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -84,7 +63,6 @@ public class AggregationTest {
 	public void testInCorrect() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key = ConstantsEEModel.JsonKeyAggregation;
 
@@ -94,10 +72,10 @@ public class AggregationTest {
 		input.add("randomOtherKey", new JsonPrimitive(2));
 		input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(3));
 
-		Aggregation tested = new AggregationMock(stateListeners, inputKeys, funcNode, input);
+		Aggregation tested = new AggregationMock(stateListeners, funcNode, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

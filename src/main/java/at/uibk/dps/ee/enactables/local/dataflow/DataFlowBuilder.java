@@ -25,18 +25,17 @@ public class DataFlowBuilder implements EnactableBuilder {
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(final Task functionNode, final Set<String> inputKeys,
-			final Set<EnactableStateListener> listeners) {
+	public EnactableAtomic buildEnactable(final Task functionNode, final Set<EnactableStateListener> listeners) {
 		if (PropertyServiceFunctionDataFlow.getDataFlowType(functionNode).equals(DataFlowType.EarliestInput)) {
-			return new EarliestArrival(listeners, inputKeys, functionNode);
+			return new EarliestArrival(listeners, functionNode);
 		} else if (PropertyServiceFunctionDataFlow.getDataFlowType(functionNode).equals(DataFlowType.Collections)) {
 
 			if (PropertyServiceFunctionDataFlowCollections.getOperationType(functionNode)
 					.equals(OperationType.Distribution)) {
-				return new Distribution(listeners, inputKeys, functionNode);
+				return new Distribution(listeners, functionNode);
 			} else if (PropertyServiceFunctionDataFlowCollections.getOperationType(functionNode)
 					.equals(OperationType.Aggregation)) {
-				return new Aggregation(listeners, inputKeys, functionNode);
+				return new Aggregation(listeners, functionNode);
 			} else {
 				throw new IllegalArgumentException("The node " + functionNode.getId()
 						+ " requires a data flow collection enactable which is not supported.");

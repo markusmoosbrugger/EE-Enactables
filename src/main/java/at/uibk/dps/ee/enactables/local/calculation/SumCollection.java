@@ -26,13 +26,12 @@ public class SumCollection extends LocalAbstract {
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	public SumCollection(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	public SumCollection(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		final JsonArray jsonArray = readCollectionInput(ConstantsCalculation.inputSumCollection);
 		final int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);
 

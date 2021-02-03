@@ -18,9 +18,8 @@ public class SubstractionTest {
 
 	protected static class SubstractionMock extends Substraction {
 
-		protected SubstractionMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
-				JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+		protected SubstractionMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
+			super(stateListeners, functionNode);
 			jsonInput = input;
 		}
 
@@ -30,16 +29,15 @@ public class SubstractionTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		JsonObject input = new JsonObject();
 		input.add(ConstantsCalculation.inputMinuend, JsonParser.parseString("5"));
 		input.add(ConstantsCalculation.inputSubtrahend, JsonParser.parseString("6"));
 		input.add(ConstantsCalculation.inputWaitTime, JsonParser.parseString("0"));
 
-		Substraction tested = new SubstractionMock(stateListeners, inputKeys, funcNode, input);
+		Substraction tested = new SubstractionMock(stateListeners, funcNode, input);
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

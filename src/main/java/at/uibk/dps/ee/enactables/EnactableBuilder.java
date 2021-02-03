@@ -29,5 +29,5 @@ public interface EnactableBuilder {
 	 * @param listeners    the set of enactable listeners
 	 * @return an enactable for the provided function node
 	 */
-	EnactableAtomic buildEnactable(Task functionNode, Set<String> inputKeys, Set<EnactableStateListener> listeners);
+	EnactableAtomic buildEnactable(Task functionNode, Set<EnactableStateListener> listeners);
 }

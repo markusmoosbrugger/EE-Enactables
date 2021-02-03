@@ -25,13 +25,12 @@ public class Substraction extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	public Substraction(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	public Substraction(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		final int minuend = readIntInput(ConstantsCalculation.inputMinuend);
 		final int subtrahend = readIntInput(ConstantsCalculation.inputSubtrahend);
 		final int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);

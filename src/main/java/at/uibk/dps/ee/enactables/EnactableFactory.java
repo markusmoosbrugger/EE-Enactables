@@ -1,11 +1,7 @@
 package at.uibk.dps.ee.enactables;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import com.google.gson.JsonElement;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -78,12 +74,12 @@ public class EnactableFactory {
 	 * @return an enactable which can be used to perform the enactment modeled by
 	 *         the provided function node
 	 */
-	public EnactableAtomic createEnactable(final Task functionNode, final Set<String> inputKeys) {
+	public EnactableAtomic createEnactable(final Task functionNode) {
 		// look for the right builder
 		final FunctionType funcType = PropertyServiceFunction.getType(functionNode);
 		for (final EnactableBuilder builder : enactableBuilders) {
 			if (builder.getType().equals(funcType)) {
-				return builder.buildEnactable(functionNode, inputKeys, stateListeners);
+				return builder.buildEnactable(functionNode, stateListeners);
 			}
 		}
 		throw new IllegalStateException("No builder provided for enactables of type " + funcType.name());
@@ -100,11 +96,7 @@ public class EnactableFactory {
 	 *         enactable
 	 */
 	public void reproduceEnactable(final Task offspring, final EnactableAtomic parentEnactable) {
-		final Set<String> inputKeysOffspring = new HashSet<>(parentEnactable.inputKeys);
-		final Map<String, JsonElement> inputMapOffspring = new ConcurrentHashMap<>(parentEnactable.inputMap);
-		final EnactableAtomic offspringEnactable = createEnactable(offspring, inputKeysOffspring);
-		offspringEnactable.inputMap.clear();
-		offspringEnactable.inputMap.putAll(inputMapOffspring);
+		final EnactableAtomic offspringEnactable = createEnactable(offspring);
 		PropertyServiceFunction.setEnactable(offspring, offspringEnactable);
 	}
 }

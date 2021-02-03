@@ -22,9 +22,9 @@ import net.sf.opendse.model.Task;
 public class ReplicateEnactableTest {
 
 	protected static class ReplicateEnactableMock extends CollOperEnactable {
-		protected ReplicateEnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
+		protected ReplicateEnactableMock(Set<EnactableStateListener> stateListeners, 
 				Task functionNode, JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+			super(stateListeners, functionNode);
 			this.jsonInput = input;
 		}
 	}
@@ -33,7 +33,6 @@ public class ReplicateEnactableTest {
 	public void testReplicate3() {
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		// create the input collection
 		JsonArray array = new JsonArray();
@@ -55,10 +54,10 @@ public class ReplicateEnactableTest {
 		JsonElement replNum = new JsonPrimitive(3);
 		input.add(replKey, replNum);
 		
-		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, task, input);
 		
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

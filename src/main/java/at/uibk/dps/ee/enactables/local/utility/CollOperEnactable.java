@@ -29,15 +29,14 @@ public class CollOperEnactable extends LocalAbstract {
 	 * Constructor with the functionality of the parent and setting the
 	 * collOperation parameters
 	 */
-	protected CollOperEnactable(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	protected CollOperEnactable(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 		this.subCollectionString = PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
 		this.collectionOperation = PropertyServiceFunctionUtilityCollections.getCollectionOperation(functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		// get the collection
 		final String collectionKey = UtilsCollections.getCollectionKey(jsonInput)
 				.orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));

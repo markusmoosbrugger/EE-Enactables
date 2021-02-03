@@ -22,15 +22,14 @@ public class CalculationBuilder implements EnactableBuilder {
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(final Task functionNode, final Set<String> inputKeys,
-			final Set<EnactableStateListener> listeners) {
+	public EnactableAtomic buildEnactable(final Task functionNode, final Set<EnactableStateListener> listeners) {
 		final String name = functionNode.getId();
 		if (name.startsWith(ConstantsCalculation.prefixAddition)) {
-			return new Addition(listeners, inputKeys, functionNode);
+			return new Addition(listeners, functionNode);
 		} else if (name.startsWith(ConstantsCalculation.prefixSubstraction)) {
-			return new Substraction(listeners, inputKeys, functionNode);
+			return new Substraction(listeners, functionNode);
 		} else if (name.startsWith(ConstantsCalculation.prefixSumCollection)) {
-			return new SumCollection(listeners, inputKeys, functionNode);
+			return new SumCollection(listeners, functionNode);
 		} else {
 			throw new IllegalArgumentException("No local enactables known for task " + name);
 		}

@@ -25,13 +25,12 @@ public class Addition extends LocalAbstract {
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	public Addition(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	public Addition(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		final int firstSummand = readIntInput(ConstantsCalculation.inputSumFirst);
 		final int secondSummand = readIntInput(ConstantsCalculation.inputSumSecond);
 		final int waitTime = readIntInput(ConstantsCalculation.inputWaitTime);

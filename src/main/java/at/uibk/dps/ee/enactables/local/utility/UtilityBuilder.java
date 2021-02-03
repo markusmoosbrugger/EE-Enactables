@@ -23,13 +23,12 @@ public class UtilityBuilder implements EnactableBuilder {
 	}
 
 	@Override
-	public EnactableAtomic buildEnactable(final Task functionNode, final Set<String> inputKeys,
-			final Set<EnactableStateListener> listeners) {
+	public EnactableAtomic buildEnactable(final Task functionNode, final Set<EnactableStateListener> listeners) {
 		final UtilityType type = PropertyServiceFunctionUtility.getUtilityType(functionNode);
 		if (type.equals(UtilityType.Condition)) {
-			return new ConditionEvaluation(listeners, inputKeys, functionNode);
+			return new ConditionEvaluation(listeners, functionNode);
 		} else if (type.equals(UtilityType.CollectionOperation)) {
-			return new CollOperEnactable(listeners, inputKeys, functionNode);
+			return new CollOperEnactable(listeners, functionNode);
 		} else {
 			throw new IllegalArgumentException(
 					"The node " + functionNode.getId() + " requires a utility enactable which is not supported.");

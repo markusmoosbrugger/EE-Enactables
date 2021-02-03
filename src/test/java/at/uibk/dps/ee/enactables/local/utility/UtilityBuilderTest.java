@@ -28,7 +28,6 @@ public class UtilityBuilderTest {
 		assertEquals(FunctionType.Utility, tested.getType());
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 		Set<Condition> conditions = new HashSet<>();
 
 		Task input = new Task("task");
@@ -36,12 +35,12 @@ public class UtilityBuilderTest {
 		PropertyServiceFunctionUtility.setUtilityType(input, UtilityType.Condition);
 		PropertyServiceFunctionUtilityCondition.setConditions(input, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(input, Summary.AND);
-		EnactableAtomic result = tested.buildEnactable(input, inputKeys, stateListeners);
+		EnactableAtomic result = tested.buildEnactable(input, stateListeners);
 
 		assertTrue(result instanceof ConditionEvaluation);
 
 		Task otherTask = PropertyServiceFunctionUtilityCollections.createCollectionOperation("data", "subcoll", CollectionOperation.ElementIndex);
-		EnactableAtomic secondResult = tested.buildEnactable(otherTask, inputKeys, stateListeners);
+		EnactableAtomic secondResult = tested.buildEnactable(otherTask, stateListeners);
 		assertTrue(secondResult instanceof CollOperEnactable);
 	}
 }

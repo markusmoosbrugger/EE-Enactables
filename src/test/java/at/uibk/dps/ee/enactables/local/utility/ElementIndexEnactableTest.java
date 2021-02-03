@@ -22,9 +22,9 @@ public class ElementIndexEnactableTest {
 
 	protected static class EIdxEnactableMock extends CollOperEnactable {
 
-		protected EIdxEnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
+		protected EIdxEnactableMock(Set<EnactableStateListener> stateListeners, 
 				Task functionNode, JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+			super(stateListeners, functionNode);
 			this.jsonInput = input;
 		}
 
@@ -35,7 +35,6 @@ public class ElementIndexEnactableTest {
 
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		// create the input collection
 		JsonArray array = new JsonArray();
@@ -59,10 +58,10 @@ public class ElementIndexEnactableTest {
 		input.add(strideKey, strideNum);
 
 		// create the object
-		CollOperEnactable tested = new EIdxEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new EIdxEnactableMock(stateListeners, task, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

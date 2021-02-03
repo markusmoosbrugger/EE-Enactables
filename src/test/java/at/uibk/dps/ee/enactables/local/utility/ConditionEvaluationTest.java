@@ -27,9 +27,9 @@ import net.sf.opendse.model.Task;
 public class ConditionEvaluationTest {
 
 	protected static class ConditionEvalMock extends ConditionEvaluation {
-		protected ConditionEvalMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
+		protected ConditionEvalMock(Set<EnactableStateListener> stateListeners,
 				Task functionNode, JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+			super(stateListeners, functionNode);
 			jsonInput = input;
 		}
 	}
@@ -38,7 +38,6 @@ public class ConditionEvaluationTest {
 	public void test() {
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 		JsonElement first = JsonParser.parseString("0.001");
 		JsonElement second = JsonParser.parseString("0.001000000001");
 		JsonObject input = new JsonObject();
@@ -61,11 +60,11 @@ public class ConditionEvaluationTest {
 		PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.AND);
 
-		ConditionEvaluation tested = new ConditionEvalMock(stateListeners, inputKeys, funcNode, input);
+		ConditionEvaluation tested = new ConditionEvalMock(stateListeners, funcNode, input);
 		String expectedKey = funcNode.getId() + ConstantsEEModel.DecisionVariableSuffix;
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -78,10 +77,10 @@ public class ConditionEvaluationTest {
 		PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.OR);
 
-		tested = new ConditionEvalMock(stateListeners, inputKeys, funcNode, input);
+		tested = new ConditionEvalMock(stateListeners, funcNode, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

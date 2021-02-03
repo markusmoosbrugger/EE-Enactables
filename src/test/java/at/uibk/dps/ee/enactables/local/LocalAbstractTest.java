@@ -18,14 +18,13 @@ public class LocalAbstractTest {
 
 	protected static class LocalMock extends LocalAbstract {
 
-		protected LocalMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
-				JsonObject jsonObject) {
-			super(stateListeners, inputKeys, functionNode);
+		protected LocalMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject jsonObject) {
+			super(stateListeners, functionNode);
 			jsonInput = jsonObject;
 		}
 
 		@Override
-		protected void atomicPlay() throws StopException {
+		protected void myPlay() throws StopException {
 		}
 
 		@Override
@@ -37,11 +36,10 @@ public class LocalAbstractTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		JsonObject input = new JsonObject();
 		input.add("prop", JsonParser.parseString("5"));
-		LocalAbstract tested = new LocalMock(stateListeners, inputKeys, funcNode, input);
+		LocalAbstract tested = new LocalMock(stateListeners, funcNode, input);
 
 		try {
 			assertEquals(5, tested.readIntInput("prop"));

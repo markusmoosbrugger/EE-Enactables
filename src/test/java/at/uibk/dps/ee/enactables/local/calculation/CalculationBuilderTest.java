@@ -22,21 +22,20 @@ public class CalculationBuilderTest {
 		String name = ConstantsCalculation.prefixAddition + "bla";
 		Task task = new Task(name);
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
-		EnactableAtomic result = tested.buildEnactable(task, inputKeys, stateListeners);
+		EnactableAtomic result = tested.buildEnactable(task, stateListeners);
 		assertTrue(result instanceof Addition);
 
 		String nameSubst = ConstantsCalculation.prefixSubstraction + "blabla";
 		task = new Task(nameSubst);
 
-		result = tested.buildEnactable(task, inputKeys, stateListeners);
+		result = tested.buildEnactable(task, stateListeners);
 		assertTrue(result instanceof Substraction);
-		
+
 		String nameSumColl = ConstantsCalculation.prefixSumCollection + "bl";
 		task = new Task(nameSumColl);
 
-		result = tested.buildEnactable(task, inputKeys, stateListeners);
+		result = tested.buildEnactable(task, stateListeners);
 		assertTrue(result instanceof SumCollection);
 	}
 
@@ -47,8 +46,7 @@ public class CalculationBuilderTest {
 		String name = "bla";
 		Task task = new Task(name);
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
-		tested.buildEnactable(task, inputKeys, stateListeners);
+		tested.buildEnactable(task, stateListeners);
 	}
 }

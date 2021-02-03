@@ -22,9 +22,8 @@ public class DistributionTest {
 
 	protected static class DistributionMock extends Distribution {
 
-		protected DistributionMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
-				JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+		protected DistributionMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
+			super(stateListeners, functionNode);
 			jsonInput = input;
 		}
 
@@ -34,7 +33,6 @@ public class DistributionTest {
 	public void testInorrectIterator() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key = ConstantsEEModel.JsonKeyConstantIterator;
 
@@ -42,10 +40,10 @@ public class DistributionTest {
 
 		jsonInput.add(key, new JsonPrimitive("bla"));
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 		}
 	}
@@ -54,7 +52,6 @@ public class DistributionTest {
 	public void testInorrectIterator2() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key = "key";
 
@@ -62,10 +59,10 @@ public class DistributionTest {
 
 		jsonInput.add(key, new JsonPrimitive("bla"));
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 		}
 	}
@@ -75,7 +72,6 @@ public class DistributionTest {
 		Task funcNode = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("t",
 				OperationType.Distribution, "scope");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key = ConstantsEEModel.JsonKeyConstantIterator;
 
@@ -83,10 +79,10 @@ public class DistributionTest {
 
 		jsonInput.add(key, new JsonPrimitive(5));
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -110,7 +106,6 @@ public class DistributionTest {
 	public void testIntIteratorAndCollection() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key = ConstantsEEModel.JsonKeyConstantIterator;
 		String key1 = "coll1";
@@ -126,10 +121,10 @@ public class DistributionTest {
 
 		jsonInput.add(key1, array1);
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 		}
 	}
@@ -140,7 +135,6 @@ public class DistributionTest {
 				OperationType.Distribution, "scope");
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key1 = "coll1";
 		String key2 = "coll2";
@@ -160,10 +154,10 @@ public class DistributionTest {
 		jsonInput.add(key1, array1);
 		jsonInput.add(key2, array2);
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -184,7 +178,6 @@ public class DistributionTest {
 		Task funcNode = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("t",
 				OperationType.Distribution, "scope");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key1 = "coll1";
 
@@ -197,10 +190,10 @@ public class DistributionTest {
 
 		jsonInput.add(key1, array1);
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -215,7 +208,6 @@ public class DistributionTest {
 	public void testUnequalCollections() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String key1 = "coll1";
 		String key2 = "coll2";
@@ -236,10 +228,10 @@ public class DistributionTest {
 		jsonInput.add(key1, array1);
 		jsonInput.add(key2, array2);
 
-		Distribution tested = new DistributionMock(stateListeners, inputKeys, funcNode, jsonInput);
+		Distribution tested = new DistributionMock(stateListeners, funcNode, jsonInput);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 		}
 	}

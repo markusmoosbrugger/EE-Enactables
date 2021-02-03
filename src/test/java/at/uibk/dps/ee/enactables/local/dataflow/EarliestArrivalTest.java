@@ -19,9 +19,8 @@ public class EarliestArrivalTest {
 
 	protected static class EarliestArrivalMock extends EarliestArrival {
 
-		protected EarliestArrivalMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
-				Task functionNode, JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+		protected EarliestArrivalMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
+			super(stateListeners, functionNode);
 			jsonInput = input;
 		}
 
@@ -31,16 +30,15 @@ public class EarliestArrivalTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		String content = "myInput";
 
 		JsonObject input = new JsonObject();
 		input.add(ConstantsEEModel.EarliestArrivalJsonKey, JsonParser.parseString(content));
 
-		EarliestArrival tested = new EarliestArrivalMock(stateListeners, inputKeys, funcNode, input);
+		EarliestArrival tested = new EarliestArrivalMock(stateListeners, funcNode, input);
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

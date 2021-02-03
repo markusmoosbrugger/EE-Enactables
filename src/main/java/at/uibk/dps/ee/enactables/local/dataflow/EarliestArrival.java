@@ -26,13 +26,12 @@ public class EarliestArrival extends LocalAbstract {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected EarliestArrival(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	protected EarliestArrival(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		final String key = ConstantsEEModel.EarliestArrivalJsonKey;
 		// Get the input object
 		checkInputEntry(key);

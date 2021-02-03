@@ -22,9 +22,9 @@ import net.sf.opendse.model.Task;
 public class SplitEnactableTest {
 
 	protected static class SplitEnactableMock extends CollOperEnactable {
-		protected SplitEnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
+		protected SplitEnactableMock(Set<EnactableStateListener> stateListeners,
 				Task functionNode, JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+			super(stateListeners, functionNode);
 			this.jsonInput = input;
 		}
 	}
@@ -34,7 +34,6 @@ public class SplitEnactableTest {
 	public void testSplit3uneven() {
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		// create the input collection
 		JsonArray array = new JsonArray();
@@ -61,10 +60,10 @@ public class SplitEnactableTest {
 		JsonElement replNum = new JsonPrimitive(3);
 		input.add(splitKey, replNum);
 		
-		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, task, input);
 		
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -102,7 +101,6 @@ public class SplitEnactableTest {
 	public void testSplit3even() {
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		// create the input collection
 		JsonArray array = new JsonArray();
@@ -128,10 +126,10 @@ public class SplitEnactableTest {
 		JsonElement replNum = new JsonPrimitive(3);
 		input.add(splitKey, replNum);
 		
-		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, task, input);
 		
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

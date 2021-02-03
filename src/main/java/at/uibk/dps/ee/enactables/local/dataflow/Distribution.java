@@ -34,13 +34,12 @@ public class Distribution extends LocalAbstract {
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	protected Distribution(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	protected Distribution(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		Optional<JsonObject> operationResult;
 		if (jsonInput.size() == 1) {
 			final String key = jsonInput.keySet().iterator().next();

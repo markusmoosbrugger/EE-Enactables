@@ -19,9 +19,8 @@ import net.sf.opendse.model.Task;
 public class SumCollectionTest {
 
 	protected static class SumCollectionMock extends SumCollection {
-		public SumCollectionMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
-				JsonObject jsonInput) {
-			super(stateListeners, inputKeys, functionNode);
+		public SumCollectionMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject jsonInput) {
+			super(stateListeners, functionNode);
 			this.jsonInput = jsonInput;
 		}
 	}
@@ -43,12 +42,11 @@ public class SumCollectionTest {
 
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
-		SumCollection tested = new SumCollectionMock(stateListeners, inputKeys, funcNode, input);
+		SumCollection tested = new SumCollectionMock(stateListeners, funcNode, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 			assertTrue(tested.getResult().has(ConstantsCalculation.outputSumCollection));
 			int result = tested.getResult().get(ConstantsCalculation.outputSumCollection).getAsInt();
 			assertEquals(result, 9);

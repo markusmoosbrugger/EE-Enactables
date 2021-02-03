@@ -1,7 +1,6 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
 import java.util.Map.Entry;
-import java.util.stream.Stream;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
@@ -30,24 +29,12 @@ public class Aggregation extends LocalAbstract {
 	 * @param inputKeys
 	 * @param functionNode
 	 */
-	protected Aggregation(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
-	}
-
-	/**
-	 * Adjusts the input set to fit to the post-reproduction graph
-	 * 
-	 * @param elementNumber the number of elements that will be aggregated.
-	 */
-	public void adjustInputSet(final int elementNumber) {
-		inputKeys.clear();
-		Stream.iterate(0, idx -> idx + 1).limit(elementNumber).forEach(idx -> inputKeys
-				.add(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyAggregation, idx)));
+	protected Aggregation(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		final JsonArray array = new JsonArray();
 		// fill the array, so that we can set indices
 		for (int i = 0; i < jsonInput.size(); i++) {

@@ -36,15 +36,15 @@ public class ConditionEvaluation extends LocalAbstract {
 	 * @param functionNode
 	 */
 	protected ConditionEvaluation(final Set<EnactableStateListener> stateListeners,
-			final Set<String> inputKeys, final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+			final Task functionNode) {
+		super(stateListeners, functionNode);
 		this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
 		this.summary = PropertyServiceFunctionUtilityCondition.getSummary(functionNode);
 		this.resultJsonKey = functionNode.getId() + ConstantsEEModel.DecisionVariableSuffix;
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		boolean result = summary.equals(Summary.AND); // true is neutral for the AND
 		// iterate the conditions and process each of them
 		for (final Condition condition : conditions) {

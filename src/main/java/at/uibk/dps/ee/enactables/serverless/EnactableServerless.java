@@ -26,14 +26,14 @@ public class EnactableServerless extends EnactableAtomic {
 	 * @param resourceLink   the resource link
 	 * @param functionNode
 	 */
-	protected EnactableServerless(final Set<EnactableStateListener> stateListeners,
-			final Set<String> inputKeys, final String resourceLink, final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	protected EnactableServerless(final Set<EnactableStateListener> stateListeners, final String resourceLink,
+			final Task functionNode) {
+		super(stateListeners, functionNode);
 		this.resourceLink = resourceLink;
 	}
 
 	@Override
-	protected void atomicPlay() throws StopException {
+	protected void myPlay() throws StopException {
 		throw new IllegalStateException("Not yet implemented.");
 	}
 

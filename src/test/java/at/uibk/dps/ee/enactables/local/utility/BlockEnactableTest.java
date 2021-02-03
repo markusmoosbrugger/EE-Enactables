@@ -22,9 +22,8 @@ public class BlockEnactableTest {
 
 	protected static class BlockEnactableMock extends CollOperEnactable {
 
-		protected BlockEnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys,
-				Task functionNode, JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+		protected BlockEnactableMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
+			super(stateListeners, functionNode);
 			this.jsonInput = input;
 		}
 
@@ -46,7 +45,6 @@ public class BlockEnactableTest {
 	public void testBlockOneZero() {
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		// create the input collection
 		JsonArray array = new JsonArray();
@@ -69,10 +67,10 @@ public class BlockEnactableTest {
 		JsonElement strideNum = new JsonPrimitive(0);
 		input.add(strideKey, strideNum);
 
-		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, task, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
@@ -92,7 +90,6 @@ public class BlockEnactableTest {
 	public void testBlockTwoOne() {
 		JsonObject input = new JsonObject();
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		// create the input collection
 		JsonArray array = new JsonArray();
@@ -115,10 +112,10 @@ public class BlockEnactableTest {
 		JsonElement strideNum = new JsonPrimitive(2);
 		input.add(strideKey, strideNum);
 
-		CollOperEnactable tested = new BlockEnactableMock(stateListeners, inputKeys, task, input);
+		CollOperEnactable tested = new BlockEnactableMock(stateListeners, task, input);
 
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}

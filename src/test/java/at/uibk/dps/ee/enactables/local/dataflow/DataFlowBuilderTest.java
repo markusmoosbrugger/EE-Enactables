@@ -22,10 +22,9 @@ public class DataFlowBuilderTest {
 		DataFlowBuilder tested = new DataFlowBuilder();
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		Task input = PropertyServiceFunctionDataFlow.createDataFlowFunction("task", DataFlowType.EarliestInput);
-		EnactableAtomic result = tested.buildEnactable(input, inputKeys, stateListeners);
+		EnactableAtomic result = tested.buildEnactable(input, stateListeners);
 		assertTrue(result instanceof EarliestArrival);
 
 		Task inputDist = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("id",
@@ -33,10 +32,10 @@ public class DataFlowBuilderTest {
 		Task inputAggr = PropertyServiceFunctionDataFlowCollections.createCollectionDataFlowTask("id",
 				OperationType.Aggregation, "scope");
 
-		EnactableAtomic resultDist = tested.buildEnactable(inputDist, inputKeys, stateListeners);
+		EnactableAtomic resultDist = tested.buildEnactable(inputDist, stateListeners);
 		assertTrue(resultDist instanceof Distribution);
 
-		EnactableAtomic resultAggr = tested.buildEnactable(inputAggr, inputKeys, stateListeners);
+		EnactableAtomic resultAggr = tested.buildEnactable(inputAggr, stateListeners);
 		assertTrue(resultAggr instanceof Aggregation);
 	}
 

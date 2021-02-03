@@ -2,13 +2,10 @@ package at.uibk.dps.ee.enactables;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
-import com.google.gson.JsonPrimitive;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,12 +18,12 @@ import net.sf.opendse.model.Task;
 public class EnactableFactoryTest {
 
 	protected class EnactableMock extends EnactableAtomic {
-		protected EnactableMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode) {
-			super(stateListeners, inputKeys, functionNode);
+		protected EnactableMock(Set<EnactableStateListener> stateListeners, Task functionNode) {
+			super(stateListeners, functionNode);
 		}
 
 		@Override
-		protected void atomicPlay() throws StopException {
+		protected void myPlay() throws StopException {
 		}
 
 		@Override
@@ -57,8 +54,7 @@ public class EnactableFactoryTest {
 		EnactableFactory tested = new EnactableFactory(stateListeners);
 		Task task = new Task("task");
 		PropertyServiceFunction.setType(FunctionType.Serverless, task);
-		Set<String> inputKeys = new HashSet<>();
-		tested.createEnactable(task, inputKeys);
+		tested.createEnactable(task);
 	}
 
 	@Test
@@ -68,12 +64,11 @@ public class EnactableFactoryTest {
 		EnactableBuilder builder = mock(EnactableBuilder.class);
 		Task task = new Task("bla");
 		PropertyServiceFunction.setType(FunctionType.Serverless, task);
-		Set<String> inputKeys = new HashSet<>();
 		EnactableAtomic expected = mock(EnactableAtomic.class);
 		tested.enactableBuilders.add(builder);
-		when(builder.buildEnactable(task, inputKeys, stateListeners)).thenReturn(expected);
+		when(builder.buildEnactable(task, stateListeners)).thenReturn(expected);
 		when(builder.getType()).thenReturn(FunctionType.Serverless);
-		EnactableAtomic result = tested.createEnactable(task, inputKeys);
+		EnactableAtomic result = tested.createEnactable(task);
 		assertEquals(expected, result);
 	}
 
@@ -87,18 +82,14 @@ public class EnactableFactoryTest {
 		EnactableBuilder builder = mock(EnactableBuilder.class);
 		tested.enactableBuilders.add(builder);
 
-		Set<String> inputKeys = new HashSet<String>(Arrays.asList("one", "two"));
-		EnactableAtomic parentMock = new EnactableMock(stateListeners, inputKeys, taskParent);
-		EnactableAtomic childMock = new EnactableMock(stateListeners, inputKeys, task);
+		EnactableAtomic parentMock = new EnactableMock(stateListeners, taskParent);
+		EnactableAtomic childMock = new EnactableMock(stateListeners, task);
 
-		parentMock.inputMap.put("one", new JsonPrimitive(1));
-
-		when(builder.buildEnactable(task, inputKeys, stateListeners)).thenReturn(childMock);
+		when(builder.buildEnactable(task, stateListeners)).thenReturn(childMock);
 		when(builder.getType()).thenReturn(FunctionType.Serverless);
 
 		tested.reproduceEnactable(task, parentMock);
-		assertTrue(childMock.inputMap.containsKey("one"));
-		assertEquals(1, childMock.inputMap.get("one").getAsInt());
+		assertEquals(childMock, PropertyServiceFunction.getEnactable(task));
 	}
 
 }

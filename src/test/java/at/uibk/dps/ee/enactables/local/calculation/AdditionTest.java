@@ -18,9 +18,8 @@ public class AdditionTest {
 
 	protected static class AdditionMock extends Addition {
 
-		protected AdditionMock(Set<EnactableStateListener> stateListeners, Set<String> inputKeys, Task functionNode,
-				JsonObject input) {
-			super(stateListeners, inputKeys, functionNode);
+		protected AdditionMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
+			super(stateListeners, functionNode);
 			jsonInput = input;
 		}
 
@@ -30,18 +29,17 @@ public class AdditionTest {
 	public void test() {
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
-		Set<String> inputKeys = new HashSet<>();
 
 		JsonObject input = new JsonObject();
 		input.add(ConstantsCalculation.inputSumFirst, JsonParser.parseString("5"));
 		input.add(ConstantsCalculation.inputSumSecond, JsonParser.parseString("6"));
 		input.add(ConstantsCalculation.inputWaitTime, JsonParser.parseString("500"));
 
-		Addition tested = new AdditionMock(stateListeners, inputKeys, funcNode, input);
+		Addition tested = new AdditionMock(stateListeners, funcNode, input);
 		long start = System.currentTimeMillis();
 		long duration = 0;
 		try {
-			tested.atomicPlay();
+			tested.myPlay();
 			duration = System.currentTimeMillis() - start;
 		} catch (StopException e) {
 			fail();

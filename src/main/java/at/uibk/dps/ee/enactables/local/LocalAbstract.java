@@ -26,9 +26,8 @@ public abstract class LocalAbstract extends EnactableAtomic {
 	 * @param inputMap
 	 * @param functionNode
 	 */
-	protected LocalAbstract(final Set<EnactableStateListener> stateListeners, final Set<String> inputKeys,
-			final Task functionNode) {
-		super(stateListeners, inputKeys, functionNode);
+	protected LocalAbstract(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
+		super(stateListeners, functionNode);
 	}
 
 	/**
