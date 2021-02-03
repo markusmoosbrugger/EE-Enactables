@@ -43,7 +43,7 @@ public class SubstractionTest {
 		} catch (StopException e) {
 			fail();
 		}
-		int result = tested.getJsonResult().get(ConstantsCalculation.outputSubstractionResult).getAsInt();
+		int result = tested.getResult().get(ConstantsCalculation.outputSubstractionResult).getAsInt();
 		assertEquals(-1, result);
 	}
 }

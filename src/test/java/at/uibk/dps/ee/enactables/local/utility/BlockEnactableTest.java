@@ -77,7 +77,7 @@ public class BlockEnactableTest {
 			fail();
 		}
 
-		JsonObject jsonResult = tested.getJsonResult();
+		JsonObject jsonResult = tested.getResult();
 		JsonElement result = jsonResult.get(someKey);
 		assertTrue(result.isJsonArray());
 		JsonArray resultArray = result.getAsJsonArray();
@@ -123,7 +123,7 @@ public class BlockEnactableTest {
 			fail();
 		}
 
-		JsonObject jsonResult = tested.getJsonResult();
+		JsonObject jsonResult = tested.getResult();
 		JsonElement result = jsonResult.get(someKey);
 		assertTrue(result.isJsonArray());
 		JsonArray resultArray = result.getAsJsonArray();

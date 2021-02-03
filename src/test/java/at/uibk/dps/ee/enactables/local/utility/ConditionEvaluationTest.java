@@ -69,7 +69,7 @@ public class ConditionEvaluationTest {
 		} catch (StopException e) {
 			fail();
 		}
-		boolean result = tested.getJsonResult().get(expectedKey).getAsBoolean();
+		boolean result = tested.getResult().get(expectedKey).getAsBoolean();
 		assertFalse(result);
 
 		funcNode = new Task("t");
@@ -85,7 +85,7 @@ public class ConditionEvaluationTest {
 		} catch (StopException e) {
 			fail();
 		}
-		result = tested.getJsonResult().get(expectedKey).getAsBoolean();
+		result = tested.getResult().get(expectedKey).getAsBoolean();
 		assertTrue(result);
 	}
 

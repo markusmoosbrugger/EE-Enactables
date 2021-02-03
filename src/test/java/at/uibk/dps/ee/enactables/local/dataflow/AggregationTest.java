@@ -68,7 +68,7 @@ public class AggregationTest {
 			fail();
 		}
 
-		JsonObject result = tested.getJsonResult();
+		JsonObject result = tested.getResult();
 		assertTrue(result.has(key));
 		JsonElement element = result.get(key);
 		assertTrue(element.isJsonArray());

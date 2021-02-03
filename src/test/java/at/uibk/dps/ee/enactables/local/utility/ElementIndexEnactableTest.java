@@ -67,7 +67,7 @@ public class ElementIndexEnactableTest {
 			fail();
 		}
 
-		JsonObject jsonResult = tested.getJsonResult();
+		JsonObject jsonResult = tested.getResult();
 		JsonElement result = jsonResult.get(someKey);
 		assertTrue(result.isJsonArray());
 		JsonArray resultArray = result.getAsJsonArray();

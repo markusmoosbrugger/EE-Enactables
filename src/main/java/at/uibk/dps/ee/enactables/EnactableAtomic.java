@@ -23,8 +23,6 @@ public abstract class EnactableAtomic extends Enactable {
 
 	protected final Map<String, JsonElement> inputMap;
 	protected final Set<String> inputKeys;
-	protected JsonObject jsonInput;
-	protected JsonObject jsonResult;
 	protected final Task functionNode;
 	protected boolean init;
 
@@ -108,10 +106,6 @@ public abstract class EnactableAtomic extends Enactable {
 			}
 		}
 		return true;
-	}
-
-	public JsonObject getJsonResult() {
-		return jsonResult;
 	}
 
 	@Override

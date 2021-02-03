@@ -44,7 +44,7 @@ public class EarliestArrivalTest {
 		} catch (StopException e) {
 			fail();
 		}
-		String result = tested.getJsonResult().get(ConstantsEEModel.EarliestArrivalJsonKey).getAsString();
+		String result = tested.getResult().get(ConstantsEEModel.EarliestArrivalJsonKey).getAsString();
 		assertEquals(content, result);
 	}
 

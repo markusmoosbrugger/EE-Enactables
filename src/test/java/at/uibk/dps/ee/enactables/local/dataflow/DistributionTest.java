@@ -93,7 +93,7 @@ public class DistributionTest {
 
 		assertEquals(5, PropertyServiceFunctionDataFlowCollections.getIterationNumber(tested.getFunctionNode()));
 
-		JsonObject output = tested.getJsonResult();
+		JsonObject output = tested.getResult();
 		assertTrue(output.get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 0))
 				.getAsBoolean());
 		assertTrue(output.get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 1))
@@ -170,7 +170,7 @@ public class DistributionTest {
 
 		assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(tested.getFunctionNode()));
 
-		JsonObject output = tested.getJsonResult();
+		JsonObject output = tested.getResult();
 		assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
 		assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
 		assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());
@@ -205,7 +205,7 @@ public class DistributionTest {
 			fail();
 		}
 		assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(tested.getFunctionNode()));
-		JsonObject output = tested.getJsonResult();
+		JsonObject output = tested.getResult();
 		assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
 		assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
 		assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());

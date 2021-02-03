@@ -86,7 +86,7 @@ public class EnactableAtomicTest {
 		tested.inputMap.put(key1, value1);
 		tested.inputMap.put(key2, value2);
 		tested.myInit();
-		JsonObject input = tested.jsonInput;
+		JsonObject input = tested.getInput();
 		assertEquals(value1, input.get(key1));
 		assertEquals(value2, input.get(key2));
 		assertTrue(tested.init);
@@ -113,14 +113,6 @@ public class EnactableAtomicTest {
 		} catch (StopException e) {
 			fail();
 		}
-	}
-
-	@Test
-	public void testGetJsonResult() {
-		EnactableAtomic tested = getTested();
-		JsonObject result = new JsonObject();
-		tested.jsonResult = result;
-		assertEquals(result, tested.getJsonResult());
 	}
 
 	@Test

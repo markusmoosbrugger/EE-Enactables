@@ -46,7 +46,7 @@ public class AdditionTest {
 		} catch (StopException e) {
 			fail();
 		}
-		int result = tested.getJsonResult().get(ConstantsCalculation.outputAdditionResult).getAsInt();
+		int result = tested.getResult().get(ConstantsCalculation.outputAdditionResult).getAsInt();
 		assertEquals(11, result);
 		assertTrue(duration >= 500);
 	}
