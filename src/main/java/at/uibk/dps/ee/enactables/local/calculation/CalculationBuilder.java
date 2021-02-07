@@ -5,7 +5,7 @@ import java.util.Set;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
 import at.uibk.dps.ee.enactables.EnactableBuilder;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import net.sf.opendse.model.Task;
 
 /**
@@ -17,8 +17,8 @@ import net.sf.opendse.model.Task;
 public class CalculationBuilder implements EnactableBuilder {
 
 	@Override
-	public FunctionType getType() {
-		return FunctionType.Local;
+	public UsageType getType() {
+		return UsageType.Local;
 	}
 
 	@Override

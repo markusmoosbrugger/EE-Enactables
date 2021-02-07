@@ -4,7 +4,7 @@ import java.util.Set;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import net.sf.opendse.model.Task;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 
 /**
  * Interface for the classes used for the construction of enactables.
@@ -19,7 +19,7 @@ public interface EnactableBuilder {
 	 * 
 	 * @return the type of the enactable built by the given builder
 	 */
-	FunctionType getType();
+	UsageType getType();
 
 	/**
 	 * Builds an enactable for the provided function node.

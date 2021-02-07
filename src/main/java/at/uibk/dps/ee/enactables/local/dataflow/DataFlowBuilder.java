@@ -5,7 +5,7 @@ import java.util.Set;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
 import at.uibk.dps.ee.enactables.EnactableBuilder;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow.DataFlowType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections.OperationType;
@@ -20,8 +20,8 @@ import net.sf.opendse.model.Task;
 public class DataFlowBuilder implements EnactableBuilder {
 
 	@Override
-	public FunctionType getType() {
-		return FunctionType.DataFlow;
+	public UsageType getType() {
+		return UsageType.DataFlow;
 	}
 
 	@Override

@@ -1,7 +1,10 @@
 package at.uibk.dps.ee.enactables;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+
+import com.google.gson.JsonObject;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -11,7 +14,7 @@ import at.uibk.dps.ee.enactables.local.calculation.CalculationBuilder;
 import at.uibk.dps.ee.enactables.local.dataflow.DataFlowBuilder;
 import at.uibk.dps.ee.enactables.local.utility.UtilityBuilder;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import net.sf.opendse.model.Task;
 
 /**
@@ -76,7 +79,7 @@ public class EnactableFactory {
 	 */
 	public EnactableAtomic createEnactable(final Task functionNode) {
 		// look for the right builder
-		final FunctionType funcType = PropertyServiceFunction.getType(functionNode);
+		final UsageType funcType = PropertyServiceFunction.getUsageType(functionNode);
 		for (final EnactableBuilder builder : enactableBuilders) {
 			if (builder.getType().equals(funcType)) {
 				return builder.buildEnactable(functionNode, stateListeners);
@@ -97,6 +100,9 @@ public class EnactableFactory {
 	 */
 	public void reproduceEnactable(final Task offspring, final EnactableAtomic parentEnactable) {
 		final EnactableAtomic offspringEnactable = createEnactable(offspring);
+		JsonObject offspringInput = offspringEnactable.getInput();
+		JsonObject parentInput = Optional.ofNullable(parentEnactable.getInput()).orElseGet(() -> new JsonObject());
+		parentInput.keySet().forEach(key -> offspringInput.add(key, parentInput.get(key)));
 		PropertyServiceFunction.setEnactable(offspring, offspringEnactable);
 	}
 }

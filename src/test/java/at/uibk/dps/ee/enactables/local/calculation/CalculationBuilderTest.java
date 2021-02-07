@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import net.sf.opendse.model.Task;
 
 public class CalculationBuilderTest {
@@ -17,7 +17,7 @@ public class CalculationBuilderTest {
 	@Test
 	public void test() {
 		CalculationBuilder tested = new CalculationBuilder();
-		assertEquals(FunctionType.Local, tested.getType());
+		assertEquals(UsageType.Local, tested.getType());
 
 		String name = ConstantsCalculation.prefixAddition + "bla";
 		Task task = new Task(name);

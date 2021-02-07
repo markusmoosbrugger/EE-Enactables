@@ -17,7 +17,7 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityTyp
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition.Summary;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import net.sf.opendse.model.Task;
 
 public class UtilityBuilderTest {
@@ -25,13 +25,13 @@ public class UtilityBuilderTest {
 	@Test
 	public void test() {
 		UtilityBuilder tested = new UtilityBuilder();
-		assertEquals(FunctionType.Utility, tested.getType());
+		assertEquals(UsageType.Utility, tested.getType());
 
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 		Set<Condition> conditions = new HashSet<>();
 
 		Task input = new Task("task");
-		PropertyServiceFunction.setType(FunctionType.Utility, input);
+		PropertyServiceFunction.setUsageType(UsageType.Utility, input);
 		PropertyServiceFunctionUtility.setUtilityType(input, UtilityType.Condition);
 		PropertyServiceFunctionUtilityCondition.setConditions(input, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(input, Summary.AND);

@@ -19,7 +19,7 @@ import at.uibk.dps.ee.model.objects.Condition.Operator;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition.Summary;
 import net.sf.opendse.model.Task;
@@ -55,7 +55,7 @@ public class ConditionEvaluationTest {
 		conditions.add(condition4);
 
 		Task funcNode = new Task("t");
-		PropertyServiceFunction.setType(FunctionType.Utility, funcNode);
+		PropertyServiceFunction.setUsageType(UsageType.Utility, funcNode);
 		PropertyServiceFunctionUtility.setUtilityType(funcNode, UtilityType.Condition);
 		PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.AND);
@@ -72,7 +72,7 @@ public class ConditionEvaluationTest {
 		assertFalse(result);
 
 		funcNode = new Task("t");
-		PropertyServiceFunction.setType(FunctionType.Utility, funcNode);
+		PropertyServiceFunction.setUsageType(UsageType.Utility, funcNode);
 		PropertyServiceFunctionUtility.setUtilityType(funcNode, UtilityType.Condition);
 		PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
 		PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.OR);

@@ -5,7 +5,7 @@ import java.util.Set;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.enactables.EnactableAtomic;
 import at.uibk.dps.ee.enactables.EnactableBuilder;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.FunctionType;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
 import net.sf.opendse.model.Task;
@@ -18,8 +18,8 @@ import net.sf.opendse.model.Task;
 public class UtilityBuilder implements EnactableBuilder {
 
 	@Override
-	public FunctionType getType() {
-		return FunctionType.Utility;
+	public UsageType getType() {
+		return UsageType.Utility;
 	}
 
 	@Override
