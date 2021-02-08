@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.calculation;
+package at.uibk.dps.ee.enactables.local;
 
 /**
  * Static constants for the local enactables.
@@ -6,8 +6,12 @@ package at.uibk.dps.ee.enactables.local.calculation;
  * @author Fedor Smirnov
  *
  */
-public class ConstantsCalculation {
+public class ConstantsLocal {
 
+	public enum LocalCalculations{
+		Addition, Subtraction, SumCollection
+	}
+	
 	// Name prefixes
 	public static final String prefixAddition = "addition_";
 	public static final String prefixSubstraction = "substraction_";

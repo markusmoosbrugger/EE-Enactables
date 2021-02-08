@@ -5,16 +5,13 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.Set;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.enactables.local.LocalAbstract;
+import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
 import net.sf.opendse.model.Task;
@@ -25,36 +22,31 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class Distribution extends LocalAbstract {
+public class Distribution extends LocalFunctionAbstract {
 
-	/**
-	 * Same constructor as parent
-	 * 
-	 * @param stateListeners
-	 * @param inputKeys
-	 * @param functionNode
-	 */
-	protected Distribution(final Set<EnactableStateListener> stateListeners, final Task functionNode) {
-		super(stateListeners, functionNode);
+	protected final Task functionNode;
+	
+	public Distribution(Task functionNode) {
+		this.functionNode = functionNode;
 	}
 
 	@Override
-	protected void myPlay() throws StopException {
+	public JsonObject processInput(JsonObject input) throws StopException {
 		Optional<JsonObject> operationResult;
-		if (jsonInput.size() == 1) {
-			final String key = jsonInput.keySet().iterator().next();
+		if (input.size() == 1) {
+			final String key = input.keySet().iterator().next();
 			if (key.equals(ConstantsEEModel.JsonKeyConstantIterator)) {
 				// int iterator
-				operationResult = Optional.of(processIntegerIterator(jsonInput.get(key)));
+				operationResult = Optional.of(processIntegerIterator(input.get(key)));
 			} else {
 				// one collection
-				operationResult = Optional.of(processSingleCollection(jsonInput.get(key), key));
+				operationResult = Optional.of(processSingleCollection(input.get(key), key));
 			}
 		} else {
 			// multiple collections
-			operationResult = Optional.of(processMultipleCollections(jsonInput));
+			operationResult = Optional.of(processMultipleCollections(input));
 		}
-		this.jsonResult = operationResult.orElseThrow(() -> new IllegalArgumentException("Incorrect Iterator"));
+		return operationResult.orElseThrow(() -> new IllegalArgumentException("Incorrect Iterator"));
 	}
 
 	/**
@@ -71,7 +63,6 @@ public class Distribution extends LocalAbstract {
 			processCollection(key, element.getAsJsonArray(), result);
 			PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode,
 					element.getAsJsonArray().size());
-			this.jsonResult = result;
 			return result;
 		} else {
 			throw new IllegalArgumentException("Incorrect iterator.");
@@ -144,10 +135,5 @@ public class Distribution extends LocalAbstract {
 			}
 		}
 		throw new IllegalArgumentException("Incorrect int iterator.");
-	}
-
-	@Override
-	protected void myPause() {
-		// Nothing here
 	}
 }

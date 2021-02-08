@@ -16,7 +16,7 @@ import net.sf.opendse.model.Task;
 
 public class LocalAbstractTest {
 
-	protected static class LocalMock extends LocalAbstract {
+	protected static class LocalMock extends LocalFunctionAbstract {
 
 		protected LocalMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject jsonObject) {
 			super(stateListeners, functionNode);
@@ -39,7 +39,7 @@ public class LocalAbstractTest {
 
 		JsonObject input = new JsonObject();
 		input.add("prop", JsonParser.parseString("5"));
-		LocalAbstract tested = new LocalMock(stateListeners, funcNode, input);
+		LocalFunctionAbstract tested = new LocalMock(stateListeners, funcNode, input);
 
 		try {
 			assertEquals(5, tested.readIntInput("prop"));

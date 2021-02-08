@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables;
+package at.uibk.dps.ee.enactables.schedule;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public interface EESchedule {
+public interface ScheduleModel {
 
 	/**
 	 * Returns true if the task is already scheduled.

@@ -7,22 +7,22 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 
 /**
- * Simple Addition of 2 inputs and an option to wait for a given number of
+ * Simple substraction of 2 inputs with an option to wait for a given number of
  * milliseconds.
  * 
  * @author Fedor Smirnov
  *
  */
-public class Addition extends LocalFunctionAbstract {
+public class Subtraction extends LocalFunctionAbstract {
 
 	@Override
 	public JsonObject processInput(JsonObject input) throws StopException {
-		final int firstSummand = readIntInput(input, ConstantsLocal.inputSumFirst);
-		final int secondSummand = readIntInput(input, ConstantsLocal.inputSumSecond);
+		final int minuend = readIntInput(input, ConstantsLocal.inputMinuend);
+		final int subtrahend = readIntInput(input, ConstantsLocal.inputSubtrahend);
 		final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
-		final int sum = firstSummand + secondSummand;
+		final int difference = minuend - subtrahend;
 		final JsonObject result = new JsonObject();
-		result.addProperty(ConstantsLocal.outputAdditionResult, sum);
+		result.addProperty(ConstantsLocal.outputSubstractionResult, difference);
 		waitMilliseconds(waitTime);
 		return result;
 	}

@@ -12,11 +12,12 @@ import com.google.gson.JsonParser;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import net.sf.opendse.model.Task;
 
 public class SubstractionTest {
 
-	protected static class SubstractionMock extends Substraction {
+	protected static class SubstractionMock extends Subtraction {
 
 		protected SubstractionMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
 			super(stateListeners, functionNode);
@@ -31,17 +32,17 @@ public class SubstractionTest {
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 
 		JsonObject input = new JsonObject();
-		input.add(ConstantsCalculation.inputMinuend, JsonParser.parseString("5"));
-		input.add(ConstantsCalculation.inputSubtrahend, JsonParser.parseString("6"));
-		input.add(ConstantsCalculation.inputWaitTime, JsonParser.parseString("0"));
+		input.add(ConstantsLocal.inputMinuend, JsonParser.parseString("5"));
+		input.add(ConstantsLocal.inputSubtrahend, JsonParser.parseString("6"));
+		input.add(ConstantsLocal.inputWaitTime, JsonParser.parseString("0"));
 
-		Substraction tested = new SubstractionMock(stateListeners, funcNode, input);
+		Subtraction tested = new SubstractionMock(stateListeners, funcNode, input);
 		try {
 			tested.myPlay();
 		} catch (StopException e) {
 			fail();
 		}
-		int result = tested.getResult().get(ConstantsCalculation.outputSubstractionResult).getAsInt();
+		int result = tested.getResult().get(ConstantsLocal.outputSubstractionResult).getAsInt();
 		assertEquals(-1, result);
 	}
 }

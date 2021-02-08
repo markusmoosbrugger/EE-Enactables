@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.enactables.local.LocalAbstract;
+import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.objects.Condition;
 import at.uibk.dps.ee.model.objects.Condition.Operator;
@@ -22,7 +22,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class ConditionEvaluation extends LocalAbstract {
+public class ConditionEvaluation extends LocalFunctionAbstract {
 
 	protected final Set<Condition> conditions;
 	protected final Summary summary;

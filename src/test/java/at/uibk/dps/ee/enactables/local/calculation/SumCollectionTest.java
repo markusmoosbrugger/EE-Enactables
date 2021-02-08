@@ -14,6 +14,7 @@ import com.google.gson.JsonPrimitive;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import net.sf.opendse.model.Task;
 
 public class SumCollectionTest {
@@ -36,9 +37,9 @@ public class SumCollectionTest {
 		collection.add(third);
 
 		JsonObject input = new JsonObject();
-		input.add(ConstantsCalculation.inputSumCollection, collection);
+		input.add(ConstantsLocal.inputSumCollection, collection);
 		JsonElement waitTime = new JsonPrimitive(0);
-		input.add(ConstantsCalculation.inputWaitTime, waitTime);
+		input.add(ConstantsLocal.inputWaitTime, waitTime);
 
 		Task funcNode = new Task("t");
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
@@ -47,8 +48,8 @@ public class SumCollectionTest {
 
 		try {
 			tested.myPlay();
-			assertTrue(tested.getResult().has(ConstantsCalculation.outputSumCollection));
-			int result = tested.getResult().get(ConstantsCalculation.outputSumCollection).getAsInt();
+			assertTrue(tested.getResult().has(ConstantsLocal.outputSumCollection));
+			int result = tested.getResult().get(ConstantsLocal.outputSumCollection).getAsInt();
 			assertEquals(result, 9);
 		} catch (StopException e) {
 			fail();

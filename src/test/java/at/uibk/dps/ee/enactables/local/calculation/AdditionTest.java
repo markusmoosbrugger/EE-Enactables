@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import net.sf.opendse.model.Task;
 
 public class AdditionTest {
@@ -31,9 +32,9 @@ public class AdditionTest {
 		Set<EnactableStateListener> stateListeners = new HashSet<>();
 
 		JsonObject input = new JsonObject();
-		input.add(ConstantsCalculation.inputSumFirst, JsonParser.parseString("5"));
-		input.add(ConstantsCalculation.inputSumSecond, JsonParser.parseString("6"));
-		input.add(ConstantsCalculation.inputWaitTime, JsonParser.parseString("500"));
+		input.add(ConstantsLocal.inputSumFirst, JsonParser.parseString("5"));
+		input.add(ConstantsLocal.inputSumSecond, JsonParser.parseString("6"));
+		input.add(ConstantsLocal.inputWaitTime, JsonParser.parseString("500"));
 
 		Addition tested = new AdditionMock(stateListeners, funcNode, input);
 		long start = System.currentTimeMillis();
@@ -44,7 +45,7 @@ public class AdditionTest {
 		} catch (StopException e) {
 			fail();
 		}
-		int result = tested.getResult().get(ConstantsCalculation.outputAdditionResult).getAsInt();
+		int result = tested.getResult().get(ConstantsLocal.outputAdditionResult).getAsInt();
 		assertEquals(11, result);
 		assertTrue(duration >= 500);
 	}
