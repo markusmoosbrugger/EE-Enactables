@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.schedule;
 
 import java.util.Set;
-
+import com.google.inject.ImplementedBy;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
@@ -14,6 +14,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
+@ImplementedBy(ScheduleInterpreterAll.class)
 public interface ScheduleInterpreter {
 
 	/**

@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.schedule;
 
 import java.util.Set;
-
+import com.google.inject.Inject;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 import at.uibk.dps.ee.enactables.local.calculation.LocalFunctionFactory;
@@ -23,6 +23,7 @@ public class ScheduleInterpreterUserSingle extends ScheduleInterpreterUser {
 
 	protected final LocalFunctionFactory localFunctionFactory;
 	
+	@Inject
 	public ScheduleInterpreterUserSingle(LocalFunctionFactory localFunctionFactory) {
 		this.localFunctionFactory = localFunctionFactory;
 	}

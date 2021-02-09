@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.schedule;
 
 import java.util.Set;
-
+import com.google.inject.Inject;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
@@ -20,6 +20,7 @@ public class ScheduleInterpreterAll implements ScheduleInterpreter{
 	protected final ScheduleInterpreterEE interpreterEE;
 	protected final ScheduleInterpreterUser interpreterUser;
 	
+	@Inject
 	public ScheduleInterpreterAll(ScheduleInterpreterEE interpreterEE, ScheduleInterpreterUser interpreterUser) {
 		this.interpreterEE = interpreterEE;
 		this.interpreterUser = interpreterUser;

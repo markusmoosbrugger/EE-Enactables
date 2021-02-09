@@ -13,7 +13,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public abstract class EnactableAtomic extends Enactable {
+public class EnactableAtomic extends Enactable {
 
 	protected final Task functionNode;
 
