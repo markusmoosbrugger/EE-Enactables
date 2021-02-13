@@ -15,15 +15,15 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class Addition extends LocalFunctionAbstract {
 
-	@Override
-	public JsonObject processInput(JsonObject input) throws StopException {
-		final int firstSummand = readIntInput(input, ConstantsLocal.inputSumFirst);
-		final int secondSummand = readIntInput(input, ConstantsLocal.inputSumSecond);
-		final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
-		final int sum = firstSummand + secondSummand;
-		final JsonObject result = new JsonObject();
-		result.addProperty(ConstantsLocal.outputAdditionResult, sum);
-		waitMilliseconds(waitTime);
-		return result;
-	}
+  @Override
+  public JsonObject processInput(final JsonObject input) throws StopException {
+    final int firstSummand = readIntInput(input, ConstantsLocal.inputAdditionFirst);
+    final int secondSummand = readIntInput(input, ConstantsLocal.inputAdditionSecond);
+    final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
+    final int sum = firstSummand + secondSummand;
+    final JsonObject result = new JsonObject();
+    result.addProperty(ConstantsLocal.outputAdditionResult, sum);
+    waitMilliseconds(waitTime);
+    return result;
+  }
 }

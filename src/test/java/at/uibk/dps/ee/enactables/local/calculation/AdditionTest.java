@@ -1,52 +1,34 @@
 package at.uibk.dps.ee.enactables.local.calculation;
 
 import static org.junit.Assert.*;
-
-import java.util.HashSet;
-import java.util.Set;
-
+import java.time.Duration;
+import java.time.Instant;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
-import net.sf.opendse.model.Task;
 
 public class AdditionTest {
 
-	protected static class AdditionMock extends Addition {
+  @Test
+  public void test() {
 
-		protected AdditionMock(Set<EnactableStateListener> stateListeners, Task functionNode, JsonObject input) {
-			super(stateListeners, functionNode);
-			jsonInput = input;
-		}
+    Addition tested = new Addition();
+    JsonObject input = new JsonObject();
+    input.addProperty(ConstantsLocal.inputAdditionFirst, 6);
+    input.addProperty(ConstantsLocal.inputAdditionSecond, 7);
+    input.addProperty(ConstantsLocal.inputWaitTime, 150);
 
-	}
-
-	@Test
-	public void test() {
-		Task funcNode = new Task("t");
-		Set<EnactableStateListener> stateListeners = new HashSet<>();
-
-		JsonObject input = new JsonObject();
-		input.add(ConstantsLocal.inputSumFirst, JsonParser.parseString("5"));
-		input.add(ConstantsLocal.inputSumSecond, JsonParser.parseString("6"));
-		input.add(ConstantsLocal.inputWaitTime, JsonParser.parseString("500"));
-
-		Addition tested = new AdditionMock(stateListeners, funcNode, input);
-		long start = System.currentTimeMillis();
-		long duration = 0;
-		try {
-			tested.myPlay();
-			duration = System.currentTimeMillis() - start;
-		} catch (StopException e) {
-			fail();
-		}
-		int result = tested.getResult().get(ConstantsLocal.outputAdditionResult).getAsInt();
-		assertEquals(11, result);
-		assertTrue(duration >= 500);
-	}
+    Instant before = Instant.now();
+    JsonObject result;
+    try {
+      result = tested.processInput(input);
+      Instant after = Instant.now();
+      assertEquals(13, result.get(ConstantsLocal.outputAdditionResult).getAsLong());
+      assertTrue(Duration.between(before, after).toMillis() >= 150);
+    } catch (StopException e) {
+      fail();
+    }
+  }
 }

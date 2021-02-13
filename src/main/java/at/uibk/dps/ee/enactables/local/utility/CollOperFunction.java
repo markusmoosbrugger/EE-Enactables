@@ -11,13 +11,13 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections
 import net.sf.opendse.model.Task;
 
 /**
- * The {@link CollOperEnactable} is a utility enactable responsible for the transformation of
+ * The {@link CollOperFunction} is a utility enactable responsible for the transformation of
  * collections.
  * 
  * @author Fedor Smirnov
  *
  */
-public class CollOperEnactable extends LocalFunctionAbstract {
+public class CollOperFunction extends LocalFunctionAbstract {
 
   protected final String subCollectionString;
   protected final CollectionOperation collectionOperation;
@@ -27,7 +27,7 @@ public class CollOperEnactable extends LocalFunctionAbstract {
    * 
    * @param functionNode the function node modeling the collection operation
    */
-  public CollOperEnactable(final Task functionNode) {
+  public CollOperFunction(final Task functionNode) {
     this.subCollectionString =
         PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
     this.collectionOperation =

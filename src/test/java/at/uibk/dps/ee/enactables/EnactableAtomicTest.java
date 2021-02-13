@@ -3,44 +3,44 @@ package at.uibk.dps.ee.enactables;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.Test;
+import org.mockito.Mockito;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.any;
 
-import at.uibk.dps.ee.core.enactable.EnactableStateListener;
+import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
 import net.sf.opendse.model.Task;
 
 public class EnactableAtomicTest {
 
-	protected static final String key1 = "input1";
-	protected static final String key2 = "input2";
-	protected static final Task function = new Task("function");
+  @Test
+  public void testPlayException() {
+    Task functionNode = new Task("functionNode");
+    EnactableAtomic tested = new EnactableAtomic(new HashSet<>(), functionNode);
+    EnactmentFunction funcMock = mock(EnactmentFunction.class);
+    tested.init();
+    tested.schedule(funcMock);
+    String innerMessage = "some internal detail";
+    String expected = innerMessage + " \nProblem task: " + functionNode.getId();
+    tested.setInputValue("bla", new JsonPrimitive(true));
+    try {
+      Mockito.doThrow(new StopException(innerMessage)).when(funcMock)
+          .processInput(any(JsonObject.class));
+      tested.play();
+      fail();
+    } catch (StopException stopExc) {
+      assertEquals(expected, stopExc.getMessage());
+    }
+  }
 
-	protected static class EnactableMock extends EnactableAtomic {
-		protected EnactableMock(Set<EnactableStateListener> stateListeners, Task functionNode) {
-			super(stateListeners, functionNode);
-		}
 
-		@Override
-		protected void myPlay() throws StopException {
-		}
-
-		@Override
-		protected void myPause() {
-		}
-	}
-
-	protected static EnactableAtomic getTested() {
-		Set<String> inputKeys = new HashSet<>();
-		inputKeys.add(key1);
-		inputKeys.add(key2);
-		return new EnactableMock(new HashSet<>(), function);
-	}
-
-	@Test
-	public void testGetFunction() {
-		EnactableAtomic tested = getTested();
-		assertEquals(function, tested.getFunctionNode());
-	}
+  @Test
+  public void testGetFunctionNode() {
+    Task functionNode = new Task("functionNode");
+    EnactableAtomic tested = new EnactableAtomic(new HashSet<>(), functionNode);
+    assertEquals(functionNode, tested.getFunctionNode());
+  }
 }

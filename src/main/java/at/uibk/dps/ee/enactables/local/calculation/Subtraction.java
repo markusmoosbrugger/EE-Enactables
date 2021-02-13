@@ -15,15 +15,15 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class Subtraction extends LocalFunctionAbstract {
 
-	@Override
-	public JsonObject processInput(JsonObject input) throws StopException {
-		final int minuend = readIntInput(input, ConstantsLocal.inputMinuend);
-		final int subtrahend = readIntInput(input, ConstantsLocal.inputSubtrahend);
-		final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
-		final int difference = minuend - subtrahend;
-		final JsonObject result = new JsonObject();
-		result.addProperty(ConstantsLocal.outputSubstractionResult, difference);
-		waitMilliseconds(waitTime);
-		return result;
-	}
+  @Override
+  public JsonObject processInput(final JsonObject input) throws StopException {
+    final int minuend = readIntInput(input, ConstantsLocal.inputSubtractionMinuend);
+    final int subtrahend = readIntInput(input, ConstantsLocal.inputSubtractionSubtrahend);
+    final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
+    final int difference = minuend - subtrahend;
+    final JsonObject result = new JsonObject();
+    result.addProperty(ConstantsLocal.outputSubstractionResult, difference);
+    waitMilliseconds(waitTime);
+    return result;
+  }
 }
