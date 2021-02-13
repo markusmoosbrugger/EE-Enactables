@@ -13,10 +13,8 @@ import at.uibk.dps.ee.core.exception.StopException;
  */
 public class EnactableServerless implements EnactmentFunction {
 
-	@Override
-	public JsonObject processInput(JsonObject input) throws StopException {
-		throw new IllegalStateException("Not yet implemented.");
-	}
-	
-	
+  @Override
+  public JsonObject processInput(JsonObject input) throws StopException {
+    throw new IllegalStateException("Not yet implemented.");
+  }
 }

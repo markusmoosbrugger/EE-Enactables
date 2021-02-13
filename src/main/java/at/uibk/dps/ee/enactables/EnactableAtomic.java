@@ -22,8 +22,10 @@ public class EnactableAtomic extends Enactable {
    * Protected constructor, used the factory to create enactables.
    * 
    * @param stateListeners the state listeners
-   * @param inputMap map containing the expected input names as keys with null values
-   * @param functionNode the node from the enactment graph associated with this enactable
+   * @param inputMap map containing the expected input names as keys with null
+   *        values
+   * @param functionNode the node from the enactment graph associated with this
+   *        enactable
    */
   protected EnactableAtomic(final Set<EnactableStateListener> stateListeners,
       final Task functionNode) {

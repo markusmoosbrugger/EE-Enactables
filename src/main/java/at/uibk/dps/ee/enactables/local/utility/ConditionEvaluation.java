@@ -15,8 +15,8 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition.S
 import net.sf.opendse.model.Task;
 
 /**
- * The {@link ConditionEvaluation} is an enactable used to process a set of conditions and calculate
- * a boolean result.
+ * The {@link ConditionEvaluation} is an enactable used to process a set of
+ * conditions and calculate a boolean result.
  * 
  * @author Fedor Smirnov
  *

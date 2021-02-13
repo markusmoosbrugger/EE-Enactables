@@ -15,15 +15,15 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  */
 public class EarliestArrival extends LocalFunctionAbstract {
 
-	@Override
-	public JsonObject processInput(JsonObject input) throws StopException {
-		final String key = ConstantsEEModel.EarliestArrivalJsonKey;
-		// Get the input object
-		checkInputEntry(input, key);
-		final JsonElement element = input.get(key);
-		// Put it into the output
-		final JsonObject result = new JsonObject();
-		result.add(key, element);
-		return result;
-	}
+  @Override
+  public JsonObject processInput(JsonObject input) throws StopException {
+    final String key = ConstantsEEModel.EarliestArrivalJsonKey;
+    // Get the input object
+    checkInputEntry(input, key);
+    final JsonElement element = input.get(key);
+    // Put it into the output
+    final JsonObject result = new JsonObject();
+    result.add(key, element);
+    return result;
+  }
 }

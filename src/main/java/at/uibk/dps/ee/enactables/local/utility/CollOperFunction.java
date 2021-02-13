@@ -11,8 +11,8 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections
 import net.sf.opendse.model.Task;
 
 /**
- * The {@link CollOperFunction} is a utility enactable responsible for the transformation of
- * collections.
+ * The {@link CollOperFunction} is a utility enactable responsible for the
+ * transformation of collections.
  * 
  * @author Fedor Smirnov
  *
@@ -48,11 +48,13 @@ public class CollOperFunction extends LocalFunctionAbstract {
   }
 
   /**
-   * Returns the {@link CollOper} applicable for the configures collection operation
+   * Returns the {@link CollOper} applicable for the configures collection
+   * operation
    * 
    * @param jsonInput the input object of the function task
    * 
-   * @return the {@link CollOper} applicable for the configures collection operation
+   * @return the {@link CollOper} applicable for the configures collection
+   *         operation
    */
   protected CollOper getSubCollectionOperation(JsonObject jsonInput) {
     switch (collectionOperation) {

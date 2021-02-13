@@ -16,17 +16,17 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class SumCollection extends LocalFunctionAbstract {
 
-	@Override
-	public JsonObject processInput(JsonObject input) throws StopException {
-		final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSumCollection);
-		final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
-		int result = 0;
-		for (final JsonElement jsonElement : jsonArray) {
-			result += jsonElement.getAsInt();
-		}
-		final JsonObject jsonResult = new JsonObject();
-		jsonResult.add(ConstantsLocal.outputSumCollection, new JsonPrimitive(result));
-		waitMilliseconds(waitTime);
-		return jsonResult;
-	}
+  @Override
+  public JsonObject processInput(JsonObject input) throws StopException {
+    final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSumCollection);
+    final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
+    int result = 0;
+    for (final JsonElement jsonElement : jsonArray) {
+      result += jsonElement.getAsInt();
+    }
+    final JsonObject jsonResult = new JsonObject();
+    jsonResult.add(ConstantsLocal.outputSumCollection, new JsonPrimitive(result));
+    waitMilliseconds(waitTime);
+    return jsonResult;
+  }
 }
