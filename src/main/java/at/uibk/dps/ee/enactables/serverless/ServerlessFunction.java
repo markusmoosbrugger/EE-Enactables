@@ -6,15 +6,15 @@ import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
 
 /**
- * The {@link EnactableServerless} models the enactment of an atomic serverless
+ * The {@link ServerlessFunction} models the enactment of an atomic serverless
  * function.
  * 
  * @author Fedor Smirnov
  */
-public class EnactableServerless implements EnactmentFunction {
+public class ServerlessFunction implements EnactmentFunction {
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     throw new IllegalStateException("Not yet implemented.");
   }
 }

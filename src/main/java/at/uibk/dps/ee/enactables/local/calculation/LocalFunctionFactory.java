@@ -18,7 +18,7 @@ public class LocalFunctionFactory {
    * @param localFunction the local function enum
    * @return the local function for the enum
    */
-  public LocalFunctionAbstract getLocalFunction(LocalCalculations localFunction) {
+  public LocalFunctionAbstract getLocalFunction(final LocalCalculations localFunction) {
     switch (localFunction) {
       case Addition:
         return new Addition();

@@ -86,7 +86,7 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
   protected void checkInputEntry(final JsonObject jsonInput, final String key)
       throws StopException {
     if (jsonInput.get(key) == null) {
-      String message = "The key " + key + " is not part of the provided JsonObject";
+      final String message = "The key " + key + " is not part of the provided JsonObject";
       throw new StopException(message);
     }
   }

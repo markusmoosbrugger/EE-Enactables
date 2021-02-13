@@ -39,7 +39,7 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     boolean result = summary.equals(Summary.AND); // true is neutral for the AND
     // iterate the conditions and process each of them
     for (final Condition condition : conditions) {
@@ -63,7 +63,7 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
    * @param condition the provided condition
    * @return the result of the condition evaluation
    */
-  protected boolean evaluateCondition(JsonObject input, final Condition condition)
+  protected boolean evaluateCondition(final JsonObject input, final Condition condition)
       throws StopException {
     final Operator operator = condition.getOperator();
     // get the inputs

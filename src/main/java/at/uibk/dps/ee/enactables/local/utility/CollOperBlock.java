@@ -53,7 +53,7 @@ public class CollOperBlock implements CollOper {
 
     for (int start = 0; start < originalCollection.size(); start += size - overlap) {
       final JsonArray entry = entries.get(entryIdx++);
-      int upperBound = Math.min(start + size, originalCollection.size());
+      final int upperBound = Math.min(start + size, originalCollection.size());
       for (int idx = start; idx < upperBound; idx++) {
         entry.add(originalCollection.get(idx));
       }

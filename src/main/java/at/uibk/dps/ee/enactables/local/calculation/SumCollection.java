@@ -17,7 +17,7 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 public class SumCollection extends LocalFunctionAbstract {
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSumCollection);
     final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
     int result = 0;

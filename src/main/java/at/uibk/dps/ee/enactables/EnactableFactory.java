@@ -72,7 +72,7 @@ public class EnactableFactory {
    */
   public void reproduceEnactable(final Task offspring, final EnactableAtomic parentEnactable) {
     final EnactableAtomic offspringEnactable = createEnactable(offspring);
-    JsonObject parentInput =
+    final JsonObject parentInput =
         Optional.ofNullable(parentEnactable.getInput()).orElseGet(() -> new JsonObject());
     parentInput.keySet()
         .forEach(key -> offspringEnactable.setInputValue(key, parentInput.get(key)));

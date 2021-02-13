@@ -35,14 +35,14 @@ public class CollOperFunction extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     // get the collection
     final String collectionKey = UtilsCollections.getCollectionKey(input)
         .orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));
     final JsonArray jsonArray = input.get(collectionKey).getAsJsonArray();
     final CollOper subCollectionOperation = getSubCollectionOperation(input);
     final JsonElement resultElement = subCollectionOperation.transformCollection(jsonArray);
-    JsonObject jsonResult = new JsonObject();
+    final JsonObject jsonResult = new JsonObject();
     jsonResult.add(collectionKey, resultElement);
     return jsonResult;
   }
@@ -56,7 +56,7 @@ public class CollOperFunction extends LocalFunctionAbstract {
    * @return the {@link CollOper} applicable for the configures collection
    *         operation
    */
-  protected CollOper getSubCollectionOperation(JsonObject jsonInput) {
+  protected CollOper getSubCollectionOperation(final JsonObject jsonInput) {
     switch (collectionOperation) {
       case ElementIndex:
         return UtilsCollections.readSubCollections(subCollectionString, jsonInput);

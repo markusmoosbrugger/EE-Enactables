@@ -16,7 +16,7 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 public class EarliestArrival extends LocalFunctionAbstract {
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     final String key = ConstantsEEModel.EarliestArrivalJsonKey;
     // Get the input object
     checkInputEntry(input, key);

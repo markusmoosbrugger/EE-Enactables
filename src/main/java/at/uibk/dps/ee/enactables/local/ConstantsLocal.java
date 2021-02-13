@@ -8,6 +8,12 @@ package at.uibk.dps.ee.enactables.local;
  */
 public class ConstantsLocal {
 
+  /**
+   * Defines the type strings for which local functions are available.
+   * 
+   * @author Fedor Smirnov
+   *
+   */
   public enum LocalCalculations {
     Addition, Subtraction, SumCollection
   }

@@ -26,7 +26,13 @@ public class Distribution extends LocalFunctionAbstract {
 
   protected final Task functionNode;
 
-  public Distribution(Task functionNode) {
+  /**
+   * Default constructor.
+   * 
+   * @param functionNode the node modeling the distribution operation (annotated
+   *        with the iteration number by this function)
+   */
+  public Distribution(final Task functionNode) {
     this.functionNode = functionNode;
   }
 
