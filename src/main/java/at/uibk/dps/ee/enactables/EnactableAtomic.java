@@ -39,9 +39,8 @@ public class EnactableAtomic extends Enactable {
     try {
       super.play();
     } catch (StopException stopExc) {
-      final String functionMessage = stopExc.getMessage();
-      final String message = functionMessage + " \nProblem task: " + functionNode.getId();
-      throw new StopException(message);
+      stopExc.appendExceptionInformation("Problem task: " + functionNode.getId());
+      throw stopExc;
     }
   }
 

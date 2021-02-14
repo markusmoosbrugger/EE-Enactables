@@ -24,7 +24,7 @@ public class EnactableAtomicTest {
     tested.init();
     tested.schedule(funcMock);
     String innerMessage = "some internal detail";
-    String expected = innerMessage + " \nProblem task: " + functionNode.getId();
+    String expected = innerMessage + "\nProblem task: " + functionNode.getId();
     tested.setInputValue("bla", new JsonPrimitive(true));
     try {
       Mockito.doThrow(new StopException(innerMessage)).when(funcMock)
@@ -32,7 +32,7 @@ public class EnactableAtomicTest {
       tested.play();
       fail();
     } catch (StopException stopExc) {
-      assertEquals(expected, stopExc.getMessage());
+      assertEquals(expected, stopExc.getStopMessage());
     }
   }
 
