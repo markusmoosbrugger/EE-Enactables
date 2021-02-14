@@ -15,11 +15,7 @@ import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.objects.Condition;
 import at.uibk.dps.ee.model.objects.Condition.Operator;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunction.UsageType;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition.Summary;
 import net.sf.opendse.model.Task;
 
@@ -43,12 +39,8 @@ public class ConditionEvaluationTest {
     conditions.add(condition3);
     conditions.add(condition4);
 
-    Task funcNode = new Task("t");
-    PropertyServiceFunction.setUsageType(UsageType.Utility, funcNode);
-    PropertyServiceFunctionUtility.setUtilityType(funcNode, UtilityType.Condition);
-    PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
-    PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.AND);
-
+    Task funcNode = PropertyServiceFunctionUtilityCondition.createConditionEvaluation("task",
+        conditions, Summary.AND);
     ConditionEvaluation tested = new ConditionEvaluation(funcNode);
     String expectedKey = funcNode.getId() + ConstantsEEModel.DecisionVariableSuffix;
 
@@ -60,11 +52,8 @@ public class ConditionEvaluationTest {
       fail();
     }
 
-    funcNode = new Task("t");
-    PropertyServiceFunction.setUsageType(UsageType.Utility, funcNode);
-    PropertyServiceFunctionUtility.setUtilityType(funcNode, UtilityType.Condition);
-    PropertyServiceFunctionUtilityCondition.setConditions(funcNode, conditions);
-    PropertyServiceFunctionUtilityCondition.setSummary(funcNode, Summary.OR);
+    funcNode = PropertyServiceFunctionUtilityCondition.createConditionEvaluation("task", conditions,
+        Summary.OR);
     tested = new ConditionEvaluation(funcNode);
     try {
       JsonObject jsonResult = tested.processInput(input);
