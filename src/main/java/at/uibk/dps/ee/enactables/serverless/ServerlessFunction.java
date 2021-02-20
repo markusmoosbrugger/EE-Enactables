@@ -21,7 +21,12 @@ public class ServerlessFunction implements EnactmentFunction {
   protected final String url;
   protected final OkHttpClient client = new OkHttpClient();
 
-  public ServerlessFunction(String url) {
+  /**
+   * Default constructor.
+   * 
+   * @param url the url to access the serverless function
+   */
+  public ServerlessFunction(final String url) {
     this.url = url;
   }
 
@@ -37,11 +42,12 @@ public class ServerlessFunction implements EnactmentFunction {
    * @param url the url of the function
    * @return the {@link JsonObject} containing the result of the enactment
    */
-  protected JsonObject enactServerlessFunction(String url, JsonObject input) {
-    RequestBody body = RequestBody.create(input.toString(), ConstantsServerless.MediaTypeJson);
-    Request request = new Request.Builder().url(url).post(body).build();
-    try (Response response = client.newCall(request).execute()) {
-      String resultString = response.body().string();
+  protected JsonObject enactServerlessFunction(final String url, final JsonObject input) {
+    final RequestBody body =
+        RequestBody.create(input.toString(), ConstantsServerless.MediaTypeJson);
+    final Request request = new Request.Builder().url(url).post(body).build();
+    try (final Response response = client.newCall(request).execute()) {
+      final String resultString = response.body().string();
       return JsonParser.parseString(resultString).getAsJsonObject();
     } catch (IOException exc) {
       throw new IllegalStateException(

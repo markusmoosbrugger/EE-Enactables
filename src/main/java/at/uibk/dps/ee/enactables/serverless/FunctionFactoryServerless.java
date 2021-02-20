@@ -20,8 +20,8 @@ public class FunctionFactoryServerless {
    * @return the {@link ServerlessFunction} which is modeled by the provided
    *         resource node
    */
-  public EnactmentFunction createServerlessFunction(Resource resource) {
-    String url = PropertyServiceResourceServerless.getUri(resource);
+  public EnactmentFunction createServerlessFunction(final Resource resource) {
+    final String url = PropertyServiceResourceServerless.getUri(resource);
     return new ServerlessFunction(url);
   }
 }
