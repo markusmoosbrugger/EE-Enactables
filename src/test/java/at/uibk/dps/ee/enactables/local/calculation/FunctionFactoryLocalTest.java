@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 
-public class LocalFunctionFactoryTest {
+public class FunctionFactoryLocalTest {
 
   @Test
   public void test() {
-    LocalFunctionFactory tested = new LocalFunctionFactory();
+    FunctionFactoryLocal tested = new FunctionFactoryLocal();
     assertTrue(tested.getLocalFunction(LocalCalculations.Addition) instanceof Addition);
     assertTrue(tested.getLocalFunction(LocalCalculations.Subtraction) instanceof Subtraction);
     assertTrue(tested.getLocalFunction(LocalCalculations.SumCollection) instanceof SumCollection);

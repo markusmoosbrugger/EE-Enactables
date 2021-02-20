@@ -4,13 +4,13 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 
 /**
- * The {@link LocalFunctionFactory} provides the enactment functions modeling
+ * The {@link FunctionFactoryLocal} provides the enactment functions modeling
  * local operations.
  * 
  * @author Fedor Smirnov
  *
  */
-public class LocalFunctionFactory {
+public class FunctionFactoryLocal {
 
   /**
    * Returns the local function for the given enum.
