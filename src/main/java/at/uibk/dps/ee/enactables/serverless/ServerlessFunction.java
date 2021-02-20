@@ -46,7 +46,7 @@ public class ServerlessFunction implements EnactmentFunction {
     final RequestBody body =
         RequestBody.create(input.toString(), ConstantsServerless.MediaTypeJson);
     final Request request = new Request.Builder().url(url).post(body).build();
-    try (final Response response = client.newCall(request).execute()) {
+    try (Response response = client.newCall(request).execute()) {
       final String resultString = response.body().string();
       return JsonParser.parseString(resultString).getAsJsonObject();
     } catch (IOException exc) {
