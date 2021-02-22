@@ -1,7 +1,6 @@
 package at.uibk.dps.ee.enactables;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import com.google.gson.JsonObject;
@@ -73,7 +72,7 @@ public class EnactableFactory {
   public void reproduceEnactable(final Task offspring, final EnactableAtomic parentEnactable) {
     final EnactableAtomic offspringEnactable = createEnactable(offspring);
     final JsonObject parentInput =
-        Optional.ofNullable(parentEnactable.getInput()).orElseGet(() -> new JsonObject());
+        parentEnactable.isInputSet() ? parentEnactable.getInput() : new JsonObject();
     parentInput.keySet()
         .forEach(key -> offspringEnactable.setInputValue(key, parentInput.get(key)));
     PropertyServiceFunction.setEnactable(offspring, offspringEnactable);
