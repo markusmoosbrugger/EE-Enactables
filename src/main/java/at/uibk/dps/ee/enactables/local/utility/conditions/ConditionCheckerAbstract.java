@@ -18,7 +18,7 @@ public abstract class ConditionCheckerAbstract<T> implements ConditionChecker {
     T firstArgument = extractArgument(firstElement);
     T secondArgument = extractArgument(secondElement);
     boolean result = getPreNegationResult(firstArgument, secondArgument, operator);
-    return negation ? result : !result;
+    return negation ? !result : result;
   }
 
   /**

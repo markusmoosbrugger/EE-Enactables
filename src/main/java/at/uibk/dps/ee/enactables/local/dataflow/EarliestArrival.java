@@ -8,7 +8,7 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 
 /**
- * The {@link EarliestArrival} enactable simply forwards its input (which is set
+ * The {@link EarliestArrival} function simply forwards its input (which is set
  * by the earliest of several potential inputs) to the output.
  * 
  * @author Fedor Smirnov

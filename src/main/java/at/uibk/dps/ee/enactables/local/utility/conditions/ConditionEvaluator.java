@@ -30,7 +30,7 @@ public class ConditionEvaluator {
       Condition next = iterator.next();
       boolean nextRes = processCondition(next, jsonInput);
       result = andCombination ? (result &= nextRes) : (result |= nextRes);
-      andCombination = next.getCombinedWith().equals(CombinedWith.Or);
+      andCombination = next.getCombinedWith().equals(CombinedWith.And);
     }
     return result;
   }
