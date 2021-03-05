@@ -36,6 +36,9 @@ public abstract class ConditionCheckerAbstract<T> implements ConditionChecker {
       case EQUAL:
         return equal(firstArgument, secondArgument);
 
+      case UNEQUAL:
+        return !equal(firstArgument, secondArgument);
+
       case LESS:
         return less(firstArgument, secondArgument);
 

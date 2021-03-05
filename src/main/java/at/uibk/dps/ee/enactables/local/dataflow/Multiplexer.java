@@ -16,15 +16,15 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 public class Multiplexer extends LocalFunctionAbstract {
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     // get the decision variable
     checkInputEntry(input, ConstantsEEModel.JsonKeyIfDecision);
-    boolean decVar = input.get(ConstantsEEModel.JsonKeyIfDecision).getAsBoolean();
+    final boolean decVar = input.get(ConstantsEEModel.JsonKeyIfDecision).getAsBoolean();
     // get the corresponding entry from the input
-    String resultKey = decVar ? ConstantsEEModel.JsonKeyThen : ConstantsEEModel.JsonKeyElse;
+    final String resultKey = decVar ? ConstantsEEModel.JsonKeyThen : ConstantsEEModel.JsonKeyElse;
     checkInputEntry(input, resultKey);
-    JsonElement resultElement = input.get(resultKey);
-    JsonObject result = new JsonObject();
+    final JsonElement resultElement = input.get(resultKey);
+    final JsonObject result = new JsonObject();
     result.add(ConstantsEEModel.JsonKeyIfResult, resultElement);
     return result;
   }

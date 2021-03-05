@@ -21,15 +21,15 @@ public class ConditionEvaluator {
    * 
    * @return the result of the condition evaluation.
    */
-  public boolean evaluate(List<Condition> conditions, JsonObject jsonInput) {
-    Iterator<Condition> iterator = conditions.iterator();
-    Condition first = iterator.next();
+  public boolean evaluate(final List<Condition> conditions, final JsonObject jsonInput) {
+    final Iterator<Condition> iterator = conditions.iterator();
+    final Condition first = iterator.next();
     boolean result = processCondition(first, jsonInput);
     boolean andCombination = first.getCombinedWith().equals(CombinedWith.And);
     while (iterator.hasNext()) {
-      Condition next = iterator.next();
+      final Condition next = iterator.next();
       boolean nextRes = processCondition(next, jsonInput);
-      result = andCombination ? (result &= nextRes) : (result |= nextRes);
+      result = andCombination ? result &= nextRes : (result |= nextRes);
       andCombination = next.getCombinedWith().equals(CombinedWith.And);
     }
     return result;
@@ -42,10 +42,10 @@ public class ConditionEvaluator {
    * @param jsonInput the json object containing the input
    * @return the result of the given condition
    */
-  protected boolean processCondition(Condition condition, JsonObject jsonInput) {
-    ConditionChecker checker = getConditionChecker(condition.getType());
-    JsonElement firstElement = jsonInput.get(condition.getFirstInputId());
-    JsonElement secondElement = jsonInput.get(condition.getSecondInputId());
+  protected boolean processCondition(final Condition condition, final JsonObject jsonInput) {
+    final ConditionChecker checker = getConditionChecker(condition.getType());
+    final JsonElement firstElement = jsonInput.get(condition.getFirstInputId());
+    final JsonElement secondElement = jsonInput.get(condition.getSecondInputId());
     return checker.checkCondition(firstElement, secondElement, condition.getOperator(),
         condition.isNegation());
   }
