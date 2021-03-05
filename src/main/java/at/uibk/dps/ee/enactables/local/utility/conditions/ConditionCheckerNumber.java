@@ -22,28 +22,28 @@ public class ConditionCheckerNumber extends ConditionCheckerAbstract<Number> {
   protected boolean less(final Number firstArgument, final Number secondArgument) {
     final double first = firstArgument.doubleValue();
     final double second = secondArgument.doubleValue();
-    return !equal(firstArgument, secondArgument) && (first < second);
+    return !equal(firstArgument, secondArgument) && first < second;
   }
 
   @Override
   protected boolean greater(final Number firstArgument, final Number secondArgument) {
     final double first = firstArgument.doubleValue();
     final double second = secondArgument.doubleValue();
-    return !equal(firstArgument, secondArgument) && (first > second);
+    return !equal(firstArgument, secondArgument) && first > second;
   }
 
   @Override
   protected boolean lessEqual(final Number firstArgument, final Number secondArgument) {
     final double first = firstArgument.doubleValue();
     final double second = secondArgument.doubleValue();
-    return equal(firstArgument, secondArgument) || (first < second);
+    return equal(firstArgument, secondArgument) || first < second;
   }
 
   @Override
   protected boolean greaterEqual(final Number firstArgument, final Number secondArgument) {
     final double first = firstArgument.doubleValue();
     final double second = secondArgument.doubleValue();
-    return equal(firstArgument, secondArgument) || (first > second);
+    return equal(firstArgument, secondArgument) || first > second;
   }
 
   @Override
