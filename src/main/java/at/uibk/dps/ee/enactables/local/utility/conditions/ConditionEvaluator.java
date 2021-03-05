@@ -28,7 +28,7 @@ public class ConditionEvaluator {
     boolean andCombination = first.getCombinedWith().equals(CombinedWith.And);
     while (iterator.hasNext()) {
       final Condition next = iterator.next();
-      boolean nextRes = processCondition(next, jsonInput);
+      final boolean nextRes = processCondition(next, jsonInput);
       result = andCombination ? result &= nextRes : (result |= nextRes);
       andCombination = next.getCombinedWith().equals(CombinedWith.And);
     }
@@ -56,7 +56,7 @@ public class ConditionEvaluator {
    * @param type
    * @return
    */
-  protected ConditionChecker getConditionChecker(DataType type) {
+  protected ConditionChecker getConditionChecker(final DataType type) {
     switch (type) {
       case String:
         return new ConditionCheckerString();

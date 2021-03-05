@@ -13,11 +13,11 @@ import at.uibk.dps.ee.model.objects.Condition.Operator;
 public abstract class ConditionCheckerAbstract<T> implements ConditionChecker {
 
   @Override
-  public boolean checkCondition(JsonElement firstElement, JsonElement secondElement,
-      Operator operator, boolean negation) {
-    T firstArgument = extractArgument(firstElement);
-    T secondArgument = extractArgument(secondElement);
-    boolean result = getPreNegationResult(firstArgument, secondArgument, operator);
+  public boolean checkCondition(final JsonElement firstElement, final JsonElement secondElement,
+      final Operator operator, final boolean negation) {
+    final T firstArgument = extractArgument(firstElement);
+    final T secondArgument = extractArgument(secondElement);
+    final boolean result = getPreNegationResult(firstArgument, secondArgument, operator);
     return negation ? !result : result;
   }
 
@@ -31,7 +31,7 @@ public abstract class ConditionCheckerAbstract<T> implements ConditionChecker {
    * @return the result obtained by applying the given operator to the provided
    *         arguments
    */
-  protected boolean getPreNegationResult(T firstArgument, T secondArgument, Operator operator) {
+  protected boolean getPreNegationResult(final T firstArgument, final T secondArgument, final Operator operator) {
     switch (operator) {
       case EQUAL:
         return equal(firstArgument, secondArgument);
