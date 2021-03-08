@@ -6,6 +6,8 @@ import org.junit.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
+import net.sf.opendse.model.Resource;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -27,7 +29,9 @@ public class ServerlessFunctionTest {
       serverMock.start();
       HttpUrl baseUrl = serverMock.url(url);
       String serverUrl = baseUrl.toString();
-      ServerlessFunction tested = new ServerlessFunction(serverUrl);
+      Resource serverless =
+          PropertyServiceResourceServerless.createServerlessResource("resId", serverUrl);
+      ServerlessFunction tested = new ServerlessFunction(serverless);
       JsonObject input = new JsonObject();
       input.add(inputKey, new JsonPrimitive(inputString));
       try {

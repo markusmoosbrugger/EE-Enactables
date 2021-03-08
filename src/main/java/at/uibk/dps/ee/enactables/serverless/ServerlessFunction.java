@@ -1,10 +1,14 @@
 package at.uibk.dps.ee.enactables.serverless;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
+import net.sf.opendse.model.Resource;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -19,15 +23,22 @@ import okhttp3.Response;
 public class ServerlessFunction implements EnactmentFunction {
 
   protected final String url;
-  protected final OkHttpClient client = new OkHttpClient();
+  protected final OkHttpClient client;
 
   /**
    * Default constructor.
    * 
    * @param url the url to access the serverless function
    */
-  public ServerlessFunction(final String url) {
-    this.url = url;
+  public ServerlessFunction(final Resource serverlessFunction) {
+    this.url = PropertyServiceResourceServerless.getUri(serverlessFunction);
+    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+    builder.connectTimeout(
+        PropertyServiceResourceServerless.getTimeoutInSeconds(serverlessFunction),
+        TimeUnit.SECONDS);
+    builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
+    builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
+    client = builder.build();
   }
 
   @Override
@@ -44,7 +55,7 @@ public class ServerlessFunction implements EnactmentFunction {
    */
   protected JsonObject enactServerlessFunction(final String url, final JsonObject input) {
     final RequestBody body =
-        RequestBody.create(input.toString(), ConstantsServerless.MediaTypeJson);
+        RequestBody.create(new Gson().toJson(input), ConstantsServerless.MediaTypeJson);
     final Request request = new Request.Builder().url(url).post(body).build();
     try (Response response = client.newCall(request).execute()) {
       final String resultString = response.body().string();

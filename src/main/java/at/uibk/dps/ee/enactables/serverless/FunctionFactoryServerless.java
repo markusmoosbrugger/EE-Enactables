@@ -1,7 +1,6 @@
 package at.uibk.dps.ee.enactables.serverless;
 
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
 import net.sf.opendse.model.Resource;
 
 /**
@@ -21,7 +20,6 @@ public class FunctionFactoryServerless {
    *         resource node
    */
   public EnactmentFunction createServerlessFunction(final Resource resource) {
-    final String url = PropertyServiceResourceServerless.getUri(resource);
-    return new ServerlessFunction(url);
+    return new ServerlessFunction(resource);
   }
 }

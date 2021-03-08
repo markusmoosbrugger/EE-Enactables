@@ -10,7 +10,9 @@ import okhttp3.MediaType;
  */
 public final class ConstantsServerless {
 
+  public static final int readWriteTimeoutSeconds = 50;
   public static final MediaType MediaTypeJson = MediaType.get("application/json; charset=utf-8");
+  
 
   /**
    * No constructor.
