@@ -26,6 +26,8 @@ public class FunctionFactoryLocal {
         return new Subtraction();
       case SumCollection:
         return new SumCollection();
+      case SplitArray:
+        return new SplitArray();
       default:
         throw new IllegalArgumentException("Unknown local function " + localFunction.name());
     }

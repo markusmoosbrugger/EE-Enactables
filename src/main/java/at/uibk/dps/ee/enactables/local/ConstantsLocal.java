@@ -15,7 +15,7 @@ public class ConstantsLocal {
    *
    */
   public enum LocalCalculations {
-    Addition, Subtraction, SumCollection
+    Addition, Subtraction, SumCollection, SplitArray
   }
 
   // Expected input and output names
@@ -34,6 +34,11 @@ public class ConstantsLocal {
   public static final String inputSumCollection = "collectionToSum";
   public static final String outputSumCollection = "collectionSum";
 
+  // split
+  public static final String inputSplitArrayArray = "arrayToSplit";
+  public static final String inputSplitArrayNumber = "splitNumber";
+  public static final String outputSplitArray = "subArrays";
+  
   // used by multiple functions
   public static final String inputWaitTime = "waitTimeIn";
 }

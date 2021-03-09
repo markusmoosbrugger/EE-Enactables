@@ -28,6 +28,15 @@ public class CollOperSplit implements CollOper {
   public CollOperSplit(final String collOperString, final JsonObject jsonInput) {
     this.splitNumber = getSplitNumber(collOperString, jsonInput);
   }
+  
+  /**
+   * Constructor directly setting the split number.
+   * 
+   * @param splitNumber the desired number of sub array.
+   */
+  public CollOperSplit(final int splitNumber) {
+    this.splitNumber = splitNumber;
+  }
 
   @Override
   public JsonElement transformCollection(final JsonArray originalCollection) {
