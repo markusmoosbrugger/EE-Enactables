@@ -17,7 +17,7 @@ import at.uibk.dps.ee.enactables.local.utility.CollOperSplit;
 public class SplitArray extends LocalFunctionAbstract {
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSplitArrayArray);
     final int splitNumber = readIntInput(input, ConstantsLocal.inputSplitArrayNumber);
     final CollOperSplit splitOperation = new CollOperSplit(splitNumber);

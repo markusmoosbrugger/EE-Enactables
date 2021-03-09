@@ -32,7 +32,7 @@ public class ServerlessFunction implements EnactmentFunction {
    */
   public ServerlessFunction(final Resource serverlessFunction) {
     this.url = PropertyServiceResourceServerless.getUri(serverlessFunction);
-    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+    final OkHttpClient.Builder builder = new OkHttpClient.Builder();
     builder.connectTimeout(
         PropertyServiceResourceServerless.getTimeoutInSeconds(serverlessFunction),
         TimeUnit.SECONDS);
