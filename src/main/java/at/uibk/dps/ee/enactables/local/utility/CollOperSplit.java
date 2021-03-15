@@ -28,7 +28,7 @@ public class CollOperSplit implements CollOper {
   public CollOperSplit(final String collOperString, final JsonObject jsonInput) {
     this.splitNumber = getSplitNumber(collOperString, jsonInput);
   }
-  
+
   /**
    * Constructor directly setting the split number.
    * 
@@ -43,10 +43,10 @@ public class CollOperSplit implements CollOper {
     final JsonArray result = new JsonArray();
     final int elementsPerResultEntry =
         (int) Math.round(Math.ceil(1. * originalCollection.size() / splitNumber));
-
+    final int resultSize = Math.min(splitNumber, originalCollection.size());
     final List<JsonArray> resultEntries =
-        Stream.generate(() -> new JsonArray()).limit(splitNumber).collect(Collectors.toList());
-    for (int i = 0; i < splitNumber; i++) {
+        Stream.generate(() -> new JsonArray()).limit(resultSize).collect(Collectors.toList());
+    for (int i = 0; i < resultSize; i++) {
       final int start = i * elementsPerResultEntry;
       final int end = Math.min(originalCollection.size(), (i + 1) * elementsPerResultEntry);
       final JsonArray entry = resultEntries.get(i);
