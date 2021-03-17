@@ -11,7 +11,7 @@ public class MultiplexerTest {
 
   @Test
   public void test() {
-    Multiplexer tested = new Multiplexer();
+    Multiplexer tested = new Multiplexer("id", "type");
     JsonObject inputTrue = new JsonObject();
     inputTrue.add(ConstantsEEModel.JsonKeyIfDecision, new JsonPrimitive(true));
     inputTrue.add(ConstantsEEModel.JsonKeyThen, new JsonPrimitive(42));

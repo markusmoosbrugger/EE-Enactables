@@ -49,7 +49,7 @@ public class BlockFunctionTest {
     String strideKey = overlapSrc;
     JsonElement strideNum = new JsonPrimitive(0);
     input.add(strideKey, strideNum);
-    CollOperFunction tested = new CollOperFunction(task);
+    CollOperFunction tested = new CollOperFunction(task, "id", "type");
     try {
       tested.processInput(input);
     } catch (StopException e) {
@@ -78,7 +78,7 @@ public class BlockFunctionTest {
     String strideKey = sizeSrc;
     JsonElement strideNum = new JsonPrimitive(2);
     input.add(strideKey, strideNum);
-    CollOperFunction tested = new CollOperFunction(task);
+    CollOperFunction tested = new CollOperFunction(task, "id", "type");
     try {
       JsonObject jsonResult = tested.processInput(input);
       JsonElement result = jsonResult.get(someKey);
@@ -123,7 +123,7 @@ public class BlockFunctionTest {
     String strideKey = sizeSrc;
     JsonElement strideNum = new JsonPrimitive(3);
     input.add(strideKey, strideNum);
-    CollOperFunction tested = new CollOperFunction(task);
+    CollOperFunction tested = new CollOperFunction(task, "id", "type");
     try {
       JsonObject jsonResult = tested.processInput(input);
       JsonElement result = jsonResult.get(someKey);

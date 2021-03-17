@@ -17,7 +17,7 @@ public class EarliestArrivalTest {
     String content = "myInput";
     JsonObject input = new JsonObject();
     input.add(ConstantsEEModel.EarliestArrivalJsonKey, JsonParser.parseString(content));
-    EarliestArrival tested = new EarliestArrival();
+    EarliestArrival tested = new EarliestArrival("id", "type");
     try {
       JsonObject result = tested.processInput(input);
       assertEquals(content, result.get(ConstantsEEModel.EarliestArrivalJsonKey).getAsString());

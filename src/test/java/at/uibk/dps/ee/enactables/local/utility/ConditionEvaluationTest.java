@@ -44,7 +44,7 @@ public class ConditionEvaluationTest {
 
     Task funcNode =
         PropertyServiceFunctionUtilityCondition.createConditionEvaluation("task", conditions);
-    ConditionEvaluation tested = new ConditionEvaluation(funcNode);
+    ConditionEvaluation tested = new ConditionEvaluation(funcNode, "id", "type");
     String expectedKey = ConstantsEEModel.JsonKeyIfDecision;
 
     try {

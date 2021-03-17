@@ -14,6 +14,10 @@ public class LocalFunctionAbstractTest {
 
   protected static class FunctionMock extends LocalFunctionAbstract {
 
+    public FunctionMock() {
+      super("id", "type");
+    }
+
     @Override
     public JsonObject processInput(JsonObject input) throws StopException {
       return input;

@@ -36,7 +36,7 @@ public class ReplicateFunctionTest {
     String replKey = overlapSrc;
     JsonElement replNum = new JsonPrimitive(3);
     input.add(replKey, replNum);
-    CollOperFunction tested = new CollOperFunction(task);
+    CollOperFunction tested = new CollOperFunction(task, "id", "type");
     try {
       JsonObject jsonResult = tested.processInput(input);
       JsonElement result = jsonResult.get(someKey);

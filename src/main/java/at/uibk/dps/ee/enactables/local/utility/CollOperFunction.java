@@ -27,7 +27,8 @@ public class CollOperFunction extends LocalFunctionAbstract {
    * 
    * @param functionNode the function node modeling the collection operation
    */
-  public CollOperFunction(final Task functionNode) {
+  public CollOperFunction(final Task functionNode, String id, String type) {
+    super(id, type);
     this.subCollectionString =
         PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
     this.collectionOperation =

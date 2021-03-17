@@ -15,6 +15,10 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class Subtraction extends LocalFunctionAbstract {
 
+  public Subtraction(String id, String type) {
+    super(id, type);
+  }
+
   @Override
   public JsonObject processInput(final JsonObject input) throws StopException {
     final int minuend = readIntInput(input, ConstantsLocal.inputSubtractionMinuend);

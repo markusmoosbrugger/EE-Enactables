@@ -15,6 +15,10 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  */
 public class Multiplexer extends LocalFunctionAbstract {
 
+  public Multiplexer(String id, String type) {
+    super(id, type);
+  }
+
   @Override
   public JsonObject processInput(final JsonObject input) throws StopException {
     // get the decision variable

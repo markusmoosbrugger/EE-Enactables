@@ -14,7 +14,7 @@ public class AdditionTest {
   @Test
   public void test() {
 
-    Addition tested = new Addition();
+    Addition tested = new Addition("id", "type");
     JsonObject input = new JsonObject();
     input.addProperty(ConstantsLocal.inputAdditionFirst, 6);
     input.addProperty(ConstantsLocal.inputAdditionSecond, 7);

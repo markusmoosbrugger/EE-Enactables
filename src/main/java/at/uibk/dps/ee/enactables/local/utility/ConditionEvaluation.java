@@ -27,7 +27,8 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
    * 
    * @param functionNode the node defining the condition evaluation.
    */
-  public ConditionEvaluation(final Task functionNode) {
+  public ConditionEvaluation(final Task functionNode, String id, String type) {
+    super(id, type);
     this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
   }
 

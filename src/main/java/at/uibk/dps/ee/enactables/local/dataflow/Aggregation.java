@@ -18,6 +18,10 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  */
 public class Aggregation extends LocalFunctionAbstract {
 
+  public Aggregation(String id, String type) {
+    super(id, type);
+  }
+
   @Override
   public JsonObject processInput(final JsonObject input) throws StopException {
     final JsonArray array = new JsonArray();

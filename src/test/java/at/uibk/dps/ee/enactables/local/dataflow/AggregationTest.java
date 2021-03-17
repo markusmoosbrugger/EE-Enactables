@@ -16,7 +16,7 @@ public class AggregationTest {
 
   @Test
   public void testCorrect() {
-    Aggregation tested = new Aggregation();
+    Aggregation tested = new Aggregation("id", "type");
     String key = ConstantsEEModel.JsonKeyAggregation;
 
     JsonObject input = new JsonObject();
@@ -44,7 +44,7 @@ public class AggregationTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInCorrect() {
-    Aggregation tested = new Aggregation();
+    Aggregation tested = new Aggregation("id", "type");
     String key = ConstantsEEModel.JsonKeyAggregation;
     JsonObject input = new JsonObject();
     input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(0));

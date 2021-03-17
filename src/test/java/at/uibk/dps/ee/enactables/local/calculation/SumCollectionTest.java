@@ -31,7 +31,7 @@ public class SumCollectionTest {
     input.add(ConstantsLocal.inputWaitTime, waitTime);
 
 
-    SumCollection tested = new SumCollection();
+    SumCollection tested = new SumCollection("id", "type");
 
     Instant before = Instant.now();
     JsonObject result;

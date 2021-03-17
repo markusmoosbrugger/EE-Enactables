@@ -13,7 +13,7 @@ public class SubstractionTest {
 
   @Test
   public void test() {
-    Subtraction tested = new Subtraction();
+    Subtraction tested = new Subtraction("id", "type");
     JsonObject input = new JsonObject();
     input.addProperty(ConstantsLocal.inputSubtractionMinuend, 6);
     input.addProperty(ConstantsLocal.inputSubtractionSubtrahend, 7);

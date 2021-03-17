@@ -23,7 +23,7 @@ public class SplitArrayTest {
     input.add(ConstantsLocal.inputSplitArrayArray, array);
     input.add(ConstantsLocal.inputSplitArrayNumber, new JsonPrimitive(2));
 
-    SplitArray tested = new SplitArray();
+    SplitArray tested = new SplitArray("id", "type");
     try {
       JsonObject result = tested.processInput(input);
       assertTrue(result.get(ConstantsLocal.outputSplitArray).isJsonArray());

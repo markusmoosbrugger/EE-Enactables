@@ -16,6 +16,10 @@ import at.uibk.dps.ee.enactables.local.utility.CollOperSplit;
  */
 public class SplitArray extends LocalFunctionAbstract {
 
+  public SplitArray(String id, String type) {
+    super(id, type);
+  }
+
   @Override
   public JsonObject processInput(final JsonObject input) throws StopException {
     final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSplitArrayArray);

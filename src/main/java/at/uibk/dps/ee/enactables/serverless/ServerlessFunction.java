@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.FunctionTypes;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
 import net.sf.opendse.model.Resource;
 import okhttp3.OkHttpClient;
@@ -44,6 +45,16 @@ public class ServerlessFunction implements EnactmentFunction {
   @Override
   public JsonObject processInput(final JsonObject input) throws StopException {
     return enactServerlessFunction(url, input);
+  }
+
+  @Override
+  public String getId() {
+    return url;
+  }
+
+  @Override
+  public String getType() {
+    return FunctionTypes.Serverless.name();
   }
 
   /**
