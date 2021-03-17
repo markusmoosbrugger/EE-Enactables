@@ -28,11 +28,10 @@ public class FunctionsModule extends FunctionModule {
   public String pathToLoggingConfiguration = "./logging/config/logback.xml";
 
   @Order(3)
-  @Info("The prio of the time logging decorator (Decorators with a low prio are applied later"
-      + " and are further away from the original object).")
   @Constant(value = "prio", namespace = DecoratorTimingLogFactory.class)
   @Required(property = "logTime")
-  public int TimeLoggingDecoratorPriority = 10;
+  @Info("Decorators with lower prio are applied later.")
+  public int timeLoggingDecoratorPriority = 10;
 
   @Override
   protected void config() {
@@ -63,10 +62,10 @@ public class FunctionsModule extends FunctionModule {
   }
 
   public int getTimeLoggingDecoratorPriority() {
-    return TimeLoggingDecoratorPriority;
+    return timeLoggingDecoratorPriority;
   }
 
   public void setTimeLoggingDecoratorPriority(int timeLoggingDecoratorPriority) {
-    TimeLoggingDecoratorPriority = timeLoggingDecoratorPriority;
+    this.timeLoggingDecoratorPriority = timeLoggingDecoratorPriority;
   }
 }
