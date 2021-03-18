@@ -18,8 +18,14 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
  */
 public class FunctionFactoryLocal extends FunctionFactory {
 
+  /**
+   * Injection constructor.
+   * 
+   * @param decoratorFactories the factories for the decorators which are used to
+   *        wrap the created functions
+   */
   @Inject
-  public FunctionFactoryLocal(Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryLocal(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
   }
 
@@ -32,7 +38,7 @@ public class FunctionFactoryLocal extends FunctionFactory {
    *         decorators.
    */
   public EnactmentFunction getLocalFunction(final LocalCalculations localFunction) {
-    EnactmentFunction original = getOriginalFunction(localFunction);
+    final EnactmentFunction original = getOriginalFunction(localFunction);
     return decorate(original);
   }
 

@@ -19,19 +19,23 @@ public class DecoratorTimingLog extends EnactmentFunctionDecorator {
   protected final Logger timingLogger = LoggerFactory.getLogger(DecoratorTimingLog.class);
   protected Instant start;
 
-
-  public DecoratorTimingLog(EnactmentFunction decoratedFunction) {
+  /**
+   * Default constructor.
+   * 
+   * @param decoratedFunction the function whose execution time is to be measured.
+   */
+  public DecoratorTimingLog(final EnactmentFunction decoratedFunction) {
     super(decoratedFunction);
   }
 
   @Override
-  protected JsonObject preprocess(JsonObject input) {
+  protected JsonObject preprocess(final JsonObject input) {
     start = Instant.now();
     return input;
   }
 
   @Override
-  protected JsonObject postprocess(JsonObject result) {
+  protected JsonObject postprocess(final JsonObject result) {
     timingLogger.info("TYPE {} ID {} EXEC TIME {} milliseconds.", decoratedFunction.getType(),
         decoratedFunction.getId(), Duration.between(start, Instant.now()).toMillis());
     return result;

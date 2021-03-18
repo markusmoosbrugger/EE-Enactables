@@ -15,8 +15,14 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class Subtraction extends LocalFunctionAbstract {
 
-  public Subtraction(String id, String type) {
-    super(id, type);
+  /**
+   * Default constructor
+   * 
+   * @param idString the function id
+   * @param type the function type
+   */
+  public Subtraction(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override

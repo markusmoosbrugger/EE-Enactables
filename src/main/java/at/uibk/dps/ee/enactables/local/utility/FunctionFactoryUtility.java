@@ -17,8 +17,14 @@ import net.sf.opendse.model.Task;
  */
 public class FunctionFactoryUtility extends FunctionFactory {
 
+  /**
+   * The injection constructor.
+   * 
+   * @param decoratorFactories the set of factories producing the decorators to
+   *        wrap the created functions.
+   */
   @Inject
-  public FunctionFactoryUtility(Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryUtility(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
   }
 
@@ -30,8 +36,8 @@ public class FunctionFactoryUtility extends FunctionFactory {
    * @return the utility function for the given task, wrapped by the decorators
    *         following the configuration.
    */
-  public EnactmentFunction getUtilityFunction(Task task) {
-    EnactmentFunction originalFunction = getOriginalFunction(task);
+  public EnactmentFunction getUtilityFunction(final Task task) {
+    final EnactmentFunction originalFunction = getOriginalFunction(task);
     return decorate(originalFunction);
   }
 

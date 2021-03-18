@@ -21,8 +21,14 @@ import net.sf.opendse.model.Task;
  */
 public class FunctionFactoryDataFlow extends FunctionFactory {
 
+  /**
+   * The injection constructor
+   * 
+   * @param decoratorFactories the factories for the decorators to wrap the
+   *        created functions
+   */
   @Inject
-  public FunctionFactoryDataFlow(Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryDataFlow(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
   }
 
@@ -34,8 +40,8 @@ public class FunctionFactoryDataFlow extends FunctionFactory {
    * @return the data flow function modeled by the given task, wrapped in
    *         decorators according to the configuration
    */
-  public EnactmentFunction getDataFlowFunction(Task task) {
-    EnactmentFunction original = getOriginalFunction(task);
+  public EnactmentFunction getDataFlowFunction(final Task task) {
+    final EnactmentFunction original = getOriginalFunction(task);
     return decorate(original);
   }
 
@@ -45,7 +51,7 @@ public class FunctionFactoryDataFlow extends FunctionFactory {
    * @param task the given task
    * @return the actual function modeled by the given task
    */
-  protected LocalFunctionAbstract getOriginalFunction(Task task) {
+  protected LocalFunctionAbstract getOriginalFunction(final Task task) {
     final DataFlowType dfType = PropertyServiceFunctionDataFlow.getDataFlowType(task);
     if (dfType.equals(DataFlowType.EarliestInput)) {
       return new EarliestArrival(DataFlowType.EarliestInput.name(), FunctionTypes.DataFlow.name());
@@ -65,7 +71,4 @@ public class FunctionFactoryDataFlow extends FunctionFactory {
       throw new IllegalArgumentException("Unknown data flow type: " + dfType.name());
     }
   }
-
-
-
 }

@@ -19,7 +19,7 @@ public class FunctionsModule extends FunctionModule {
 
   @Order(1)
   @Info("If checked, the execution time of functions will be logged.")
-  public boolean logTime = false;
+  public boolean logTime;
 
   @Order(2)
   @Info("The path to the logback configuration file.")

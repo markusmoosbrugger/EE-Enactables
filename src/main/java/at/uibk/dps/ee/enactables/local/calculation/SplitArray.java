@@ -16,8 +16,14 @@ import at.uibk.dps.ee.enactables.local.utility.CollOperSplit;
  */
 public class SplitArray extends LocalFunctionAbstract {
 
-  public SplitArray(String id, String type) {
-    super(id, type);
+  /**
+   * Default constructor
+   * 
+   * @param idString the function id
+   * @param type the function type
+   */
+  public SplitArray(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override

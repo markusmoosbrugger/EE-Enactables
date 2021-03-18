@@ -15,8 +15,14 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class Addition extends LocalFunctionAbstract {
 
-  public Addition(String id, String type) {
-    super(id, type);
+  /**
+   * Default constructor
+   * 
+   * @param idString the function id
+   * @param type the function type
+   */
+  public Addition(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override

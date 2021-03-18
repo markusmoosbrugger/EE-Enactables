@@ -15,8 +15,14 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  */
 public class Multiplexer extends LocalFunctionAbstract {
 
-  public Multiplexer(String id, String type) {
-    super(id, type);
+  /**
+   * The default constructor.
+   * 
+   * @param idString the function id
+   * @param type the function type
+   */
+  public Multiplexer(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override

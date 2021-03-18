@@ -16,8 +16,14 @@ import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
  */
 public class SumCollection extends LocalFunctionAbstract {
 
-  public SumCollection(String id, String type) {
-    super(id, type);
+  /**
+   * The default constructor
+   * 
+   * @param idString the func id
+   * @param type the function type
+   */
+  public SumCollection(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override

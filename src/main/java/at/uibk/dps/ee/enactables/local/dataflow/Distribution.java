@@ -32,8 +32,8 @@ public class Distribution extends LocalFunctionAbstract {
    * @param functionNode the node modeling the distribution operation (annotated
    *        with the iteration number by this function)
    */
-  public Distribution(final Task functionNode, String id, String type) {
-    super(id, type);
+  public Distribution(final Task functionNode, final String idString, final String type) {
+    super(idString, type);
     this.functionNode = functionNode;
   }
 

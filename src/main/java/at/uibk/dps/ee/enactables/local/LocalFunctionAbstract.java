@@ -16,23 +16,23 @@ import at.uibk.dps.ee.core.exception.StopException;
  */
 public abstract class LocalFunctionAbstract implements EnactmentFunction {
 
-  protected final String id;
+  protected final String idString;
   protected final String type;
 
   /**
    * Default constructor.
    * 
-   * @param id the identifier
+   * @param idString the identifier
    * @param type the function type
    */
-  public LocalFunctionAbstract(String id, String type) {
-    this.id = id;
+  public LocalFunctionAbstract(final String idString, final String type) {
+    this.idString = idString;
     this.type = type;
   }
 
   @Override
   public String getId() {
-    return id;
+    return idString;
   }
 
   @Override

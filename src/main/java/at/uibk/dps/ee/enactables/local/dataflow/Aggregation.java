@@ -18,8 +18,14 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  */
 public class Aggregation extends LocalFunctionAbstract {
 
-  public Aggregation(String id, String type) {
-    super(id, type);
+  /**
+   * Default constructor
+   * 
+   * @param idString the id string
+   * @param type the function type
+   */
+  public Aggregation(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override

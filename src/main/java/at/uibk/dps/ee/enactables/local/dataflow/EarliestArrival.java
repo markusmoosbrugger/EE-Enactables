@@ -15,8 +15,14 @@ import at.uibk.dps.ee.model.constants.ConstantsEEModel;
  */
 public class EarliestArrival extends LocalFunctionAbstract {
 
-  public EarliestArrival(String id, String type) {
-    super(id, type);
+  /**
+   * Default constructor
+   * 
+   * @param idString the func id
+   * @param type the func type
+   */
+  public EarliestArrival(final String idString, final String type) {
+    super(idString, type);
   }
 
   @Override
