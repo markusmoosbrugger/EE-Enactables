@@ -47,7 +47,7 @@ public class FunctionFactoryUtility extends FunctionFactory {
    * @param task the given task
    * @return the original utility function for the given task.
    */
-  protected EnactmentFunction getOriginalFunction(Task task) {
+  protected EnactmentFunction getOriginalFunction(final Task task) {
     final UtilityType utilType = PropertyServiceFunctionUtility.getUtilityType(task);
     if (utilType.equals(UtilityType.Condition)) {
       return new ConditionEvaluation(task, task.getId(), FunctionTypes.Utility.name());

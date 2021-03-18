@@ -49,7 +49,7 @@ public class FunctionsModule extends FunctionModule {
     return pathToLoggingConfiguration;
   }
 
-  public void setPathToLoggingConfiguration(String pathToLoggingConfiguration) {
+  public void setPathToLoggingConfiguration(final String pathToLoggingConfiguration) {
     this.pathToLoggingConfiguration = pathToLoggingConfiguration;
   }
 
@@ -57,7 +57,7 @@ public class FunctionsModule extends FunctionModule {
     return logTime;
   }
 
-  public void setLogTime(boolean logTime) {
+  public void setLogTime(final boolean logTime) {
     this.logTime = logTime;
   }
 
@@ -65,7 +65,7 @@ public class FunctionsModule extends FunctionModule {
     return timeLoggingDecoratorPriority;
   }
 
-  public void setTimeLoggingDecoratorPriority(int timeLoggingDecoratorPriority) {
+  public void setTimeLoggingDecoratorPriority(final int timeLoggingDecoratorPriority) {
     this.timeLoggingDecoratorPriority = timeLoggingDecoratorPriority;
   }
 }

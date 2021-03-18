@@ -48,7 +48,7 @@ public abstract class FunctionFactory {
    */
   protected EnactmentFunction decorate(final EnactmentFunction functionToDecorate) {
     EnactmentFunction result = functionToDecorate;
-    for (FunctionDecoratorFactory decorator : decoratorFactories) {
+    for (final FunctionDecoratorFactory decorator : decoratorFactories) {
       result = decorator.decorateFunction(result);
     }
     return result;
