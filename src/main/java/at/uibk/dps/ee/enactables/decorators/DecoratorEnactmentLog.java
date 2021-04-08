@@ -10,8 +10,8 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
- * The {@link DecoratorEnactmentLog} is used to log information about the enactment of the function
- * it decorates.
+ * The {@link DecoratorEnactmentLog} is used to log information about the
+ * enactment of the function it decorates.
  *
  * @author Fedor Smirnov
  * @author Markus Moosbrugger

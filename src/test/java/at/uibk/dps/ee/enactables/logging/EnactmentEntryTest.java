@@ -15,7 +15,7 @@ public class EnactmentEntryTest {
     double executionTime = 110.1;
     Instant timestamp = Instant.now();
 
-    EnactmentLogEntry entry = new EnactmentLogEntry(id, type, executionTime);
+    EnactmentLogEntry entry = new EnactmentLogEntry(timestamp, id, type, executionTime, false, 0);
     assertEquals(id, entry.getFunctionId());
     assertEquals(type, entry.getFunctionType());
     assertEquals(executionTime, entry.getExecutionTime(), 0.001);
@@ -42,13 +42,12 @@ public class EnactmentEntryTest {
     String id = "id1";
     String type = "type1";
     double executionTime = 9.99;
-    Instant instant = Instant.now();
+    Instant timestamp = Instant.now();
 
-    EnactmentLogEntry entry1 = new EnactmentLogEntry(id, type, executionTime);
-    entry1.setTimestamp(instant);
+    EnactmentLogEntry entry1 = new EnactmentLogEntry(timestamp, id, type, executionTime, true, 0.2);
 
-    EnactmentLogEntry entry2 = new EnactmentLogEntry(id, type, executionTime);
-    entry2.setTimestamp(instant);
+    EnactmentLogEntry entry2 =
+        new EnactmentLogEntry(timestamp, id, type, executionTime, false, 0.3);
 
     assertEquals(entry1.hashCode(), entry2.hashCode());
     assertEquals(entry1, entry2);

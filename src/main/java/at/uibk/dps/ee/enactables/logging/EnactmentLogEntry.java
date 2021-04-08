@@ -19,23 +19,7 @@ public class EnactmentLogEntry {
   protected double executionTime;
 
   /**
-   * Constructor containing only function id, function type and the execution
-   * time.
-   *
-   * @param functionId    the function id
-   * @param functionType  the function type
-   * @param executionTime the execution time
-   */
-  public EnactmentLogEntry(final String functionId, final String functionType,
-      final double executionTime) {
-    this.functionId = functionId;
-    this.functionType = functionType;
-    this.executionTime = executionTime;
-    this.timestamp = Instant.now();
-  }
-
-  /**
-   * Additional constructor containing all object attributes.
+   * Default constructor containing all attributes.
    *
    * @param timestamp       the timestamp of the enactment
    * @param functionId      the function id
@@ -47,7 +31,9 @@ public class EnactmentLogEntry {
   public EnactmentLogEntry(final Instant timestamp, final String functionId,
       final String functionType, final double executionTime, final boolean success,
       final double inputComplexity) {
-    this(functionId, functionType, executionTime);
+    this.functionId = functionId;
+    this.functionType = functionType;
+    this.executionTime = executionTime;
     this.timestamp = timestamp;
     this.success = success;
     this.inputComplexity = inputComplexity;
@@ -102,7 +88,7 @@ public class EnactmentLogEntry {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (this == obj) {
       return true;
     }
