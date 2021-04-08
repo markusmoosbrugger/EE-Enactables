@@ -1,5 +1,7 @@
 package at.uibk.dps.ee.enactables.decorators;
 
+import at.uibk.dps.ee.core.enactable.EnactmentFunction;
+import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import com.google.gson.JsonObject;
@@ -15,14 +17,47 @@ import static org.mockito.Mockito.verify;
 
 public class DecoratorEnactmentLogTest {
 
+  protected static class MockFunction implements EnactmentFunction {
+
+    protected final String id;
+    protected final String type;
+    protected final int timeMillisecs;
+
+    public MockFunction(String id, String type, int timeMillisecs) {
+      this.id = id;
+      this.type = type;
+      this.timeMillisecs = timeMillisecs;
+    }
+
+    @Override
+    public JsonObject processInput(JsonObject input) throws StopException {
+      try {
+        Thread.sleep(timeMillisecs);
+      } catch (InterruptedException e) {
+        fail();
+      }
+      return input;
+    }
+
+    @Override
+    public String getId() {
+      return id;
+    }
+
+    @Override
+    public String getType() {
+      return type;
+    }
+  }
+
   @Test
   public void testPreprocess() {
     String id = "id";
     String type = "type";
     int waitTime = 50;
 
-    DecoratorTimingLogTest.MockFunction original =
-        new DecoratorTimingLogTest.MockFunction(id, type, waitTime);
+    DecoratorEnactmentLogTest.MockFunction original =
+        new DecoratorEnactmentLogTest.MockFunction(id, type, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);
@@ -43,13 +78,11 @@ public class DecoratorEnactmentLogTest {
     String type = "type";
     int waitTime = 50;
 
-    DecoratorTimingLogTest.MockFunction original =
-        new DecoratorTimingLogTest.MockFunction(id, type, waitTime);
+    DecoratorEnactmentLogTest.MockFunction original =
+        new DecoratorEnactmentLogTest.MockFunction(id, type, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);
-
-    EnactmentLogEntry entry = new EnactmentLogEntry(id, type, waitTime);
 
     JsonObject jsonObject = new JsonObject();
     jsonObject.add("testProp", new JsonPrimitive("testValue"));
@@ -70,9 +103,10 @@ public class DecoratorEnactmentLogTest {
     verify(enactmentLogger).logEnactment((EnactmentLogEntry) acEntry.capture());
 
     EnactmentLogEntry capturedEntry = (EnactmentLogEntry) acEntry.getAllValues().get(0);
-    assertEquals("id", capturedEntry.getFunctionId());
-    assertEquals("type", capturedEntry.getFunctionType());
-    assertEquals(50, capturedEntry.getExecutionTime(), 1);
+    assertEquals(id, capturedEntry.getFunctionId());
+    assertEquals(type, capturedEntry.getFunctionType());
+    assertEquals(waitTime, capturedEntry.getExecutionTime(), 1);
+    assertEquals(true, capturedEntry.isSuccess());
   }
 
 }

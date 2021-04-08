@@ -44,18 +44,13 @@ dependencies {
 
   // SLF4J and Logback for logging
   implementation group: "ch.qos.logback", name: "logback-classic", version: "1.2.3"
-  
+
   // gson to define the format of the exchanged messages
   implementation 'com.google.code.gson:gson:2.8.6'
 
   // dependency to the lib for http requests
   implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
-  // dependency to java client for influxdb time-series database
-  compile "com.influxdb:influxdb-client-java:2.0.0"
-
-  // dependency to AWS SDK for dynamo db
-  compile 'com.amazonaws:aws-java-sdk-dynamodb:1.11.983'
 
   // test dependencies
   testCompile group: 'junit', 		name: 'junit', 					version: '4.+'
@@ -74,5 +69,5 @@ jacocoTestReport {
     classDirectories.from = files(classDirectories.files.collect {
       fileTree(dir: it, exclude: '**/modules/**')
     })
-  }  
+  }
 }

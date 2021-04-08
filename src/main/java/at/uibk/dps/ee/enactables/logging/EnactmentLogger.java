@@ -9,7 +9,7 @@ package at.uibk.dps.ee.enactables.logging;
 public interface EnactmentLogger {
 
   /**
-   * Logs an entry about the enactment.
+   * Logs an enactment entry.
    *
    * @param entry the entry containing information about the enactment
    */

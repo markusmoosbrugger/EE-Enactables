@@ -7,8 +7,8 @@ import com.google.inject.Inject;
 import org.opt4j.core.start.Constant;
 
 /**
- * The {@link DecoratorEnactmentLogFactory} decorates functions by wrapping them in
- * {@link DecoratorEnactmentLog}s.
+ * The {@link DecoratorEnactmentLogFactory} decorates functions by wrapping
+ * them in {@link DecoratorEnactmentLog}s.
  *
  * @author Markus Moosbrugger
  */

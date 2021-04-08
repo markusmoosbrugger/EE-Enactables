@@ -4,8 +4,8 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * The {@link EnactmentLogEntry} contains the relevant information about an enactment which may be
- * logged.
+ * The {@link EnactmentLogEntry} contains the relevant information about an
+ * enactment which may be logged.
  *
  * @author Markus Moosbrugger
  */
@@ -19,7 +19,8 @@ public class EnactmentLogEntry {
   protected double executionTime;
 
   /**
-   * Constructor containing only function id, function type and the execution time.
+   * Constructor containing only function id, function type and the execution
+   * time.
    *
    * @param functionId    the function id
    * @param functionType  the function type

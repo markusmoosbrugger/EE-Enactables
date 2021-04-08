@@ -10,8 +10,8 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
- * The {@link DecoratorEnactmentLog} is used to log information about the enactment of the
- * function it decorates.
+ * The {@link DecoratorEnactmentLog} is used to log information about the enactment of the function
+ * it decorates.
  *
  * @author Fedor Smirnov
  * @author Markus Moosbrugger
@@ -24,7 +24,8 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
   /**
    * Default constructor.
    *
-   * @param decoratedFunction the function whose execution properties are logged.
+   * @param decoratedFunction the function whose execution properties are
+   *                          logged.
    */
   public DecoratorEnactmentLog(final EnactmentFunction decoratedFunction,
       final EnactmentLogger enactmentLogger) {
@@ -41,7 +42,7 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
 
   @Override
   protected JsonObject postprocess(final JsonObject result) {
-    Instant now = Instant.now();
+    final Instant now = Instant.now();
     final EnactmentLogEntry entry =
         new EnactmentLogEntry(now, decoratedFunction.getId(), decoratedFunction.getType(),
             Duration.between(start, now).toMillis(), true, 0);
