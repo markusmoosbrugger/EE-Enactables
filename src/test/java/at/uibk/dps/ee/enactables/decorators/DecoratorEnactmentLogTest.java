@@ -2,6 +2,7 @@ package at.uibk.dps.ee.enactables.decorators;
 
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import com.google.gson.JsonObject;
@@ -10,6 +11,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.time.Instant;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -19,13 +23,13 @@ public class DecoratorEnactmentLogTest {
 
   protected static class MockFunction implements EnactmentFunction {
 
-    protected final String id;
-    protected final String type;
+    protected final String typeId;
+    protected final String implId;
     protected final int timeMillisecs;
 
-    public MockFunction(String id, String type, int timeMillisecs) {
-      this.id = id;
-      this.type = type;
+    public MockFunction(String typeId, String implId, int timeMillisecs) {
+      this.typeId = typeId;
+      this.implId = implId;
       this.timeMillisecs = timeMillisecs;
     }
 
@@ -40,15 +44,29 @@ public class DecoratorEnactmentLogTest {
     }
 
     @Override
-    public String getId() {
-      return id;
+    public String getTypeId() {
+      return typeId;
     }
 
     @Override
-    public String getType() {
-      return type;
+    public String getEnactmentMode() {
+      return EnactmentMode.Local.name();
+    }
+
+    @Override
+    public String getImplementationId() {
+      return implId;
+    }
+
+    @Override
+    public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
+      Set<SimpleEntry<String, String>> attr = new HashSet<>();
+      attr.add(new SimpleEntry("additional", "value1"));
+
+      return attr;
     }
   }
+
 
   @Test
   public void testPreprocess() {
@@ -74,12 +92,12 @@ public class DecoratorEnactmentLogTest {
 
   @Test
   public void testPostprocess() {
-    String id = "id";
-    String type = "type";
+    String typeId = "typeId";
+    String implId = "implementationId";
     int waitTime = 50;
 
     DecoratorEnactmentLogTest.MockFunction original =
-        new DecoratorEnactmentLogTest.MockFunction(id, type, waitTime);
+        new DecoratorEnactmentLogTest.MockFunction(typeId, implId, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);
@@ -103,10 +121,13 @@ public class DecoratorEnactmentLogTest {
     verify(enactmentLogger).logEnactment((EnactmentLogEntry) acEntry.capture());
 
     EnactmentLogEntry capturedEntry = (EnactmentLogEntry) acEntry.getAllValues().get(0);
-    assertEquals(id, capturedEntry.getFunctionId());
-    assertEquals(type, capturedEntry.getFunctionType());
+    assertEquals(typeId, capturedEntry.getTypeId());
+    assertEquals(EnactmentMode.Local.name(), capturedEntry.getEnactmentMode());
+    assertEquals(implId, capturedEntry.getImplementationId());
     assertEquals(waitTime, capturedEntry.getExecutionTime(), 1);
     assertEquals(true, capturedEntry.isSuccess());
+    assertNotNull(capturedEntry.getTimestamp());
+    assertEquals(1, capturedEntry.getAdditionalAttributes().size());
   }
 
 }
