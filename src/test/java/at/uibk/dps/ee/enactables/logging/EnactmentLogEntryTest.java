@@ -115,20 +115,27 @@ public class EnactmentLogEntryTest {
 
     EnactmentLogEntry entry2 =
         new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.3);
-
+            executionTime, true, 0.2);
     EnactmentLogEntry entry3 =
         new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
             executionTime, true, 0.2);
-
     EnactmentLogEntry entry4 =
         new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
             executionTime, true, 0.2);
-
     EnactmentLogEntry entry5 =
         new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
             executionTime, true, 0.2);
+    EnactmentLogEntry entry6 =
+        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
+            executionTime, true, 0.2);
+    EnactmentLogEntry entry7 =
+        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
+            executionTime, true, 0.2);
 
+    assertEquals(entry1, entry1);
+    assertNotEquals(entry1, "not_a_log_entry");
+
+    entry2.setInputComplexity(0.8);
     assertEquals(entry1.hashCode(), entry2.hashCode());
     assertEquals(entry1, entry2);
 
@@ -147,5 +154,13 @@ public class EnactmentLogEntryTest {
     assertEquals(entry1, entry5);
     entry5.setExecutionTime(0.4);
     assertNotEquals(entry1, entry5);
+
+    assertEquals(entry1, entry6);
+    entry6.setImplementationId("otherImplementationId");
+    assertNotEquals(entry1, entry6);
+
+    assertEquals(entry1, entry7);
+    entry7.setTypeId("otherType");
+    assertNotEquals(entry1, entry7);
   }
 }
