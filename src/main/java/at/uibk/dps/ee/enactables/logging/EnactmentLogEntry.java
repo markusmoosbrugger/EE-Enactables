@@ -58,7 +58,7 @@ public class EnactmentLogEntry {
    * @param success           the success status
    * @param inputComplexity   the complexity of the input values
    */
-  public EnactmentLogEntry(final Instant timestamp, EnactmentFunction enactmentFunction,
+  public EnactmentLogEntry(final Instant timestamp, final EnactmentFunction enactmentFunction,
       final double executionTime, final boolean success, final double inputComplexity) {
     this(timestamp, enactmentFunction.getTypeId(), enactmentFunction.getEnactmentMode(),
         enactmentFunction.getImplementationId(), enactmentFunction.getAdditionalAttributes(),
@@ -117,7 +117,7 @@ public class EnactmentLogEntry {
     return enactmentMode;
   }
 
-  public void setEnactmentMode(String enactmentMode) {
+  public void setEnactmentMode(final String enactmentMode) {
     this.enactmentMode = enactmentMode;
   }
 
@@ -125,17 +125,19 @@ public class EnactmentLogEntry {
     return additionalAttributes;
   }
 
-  public void setAdditionalAttributes(Set<SimpleEntry<String, String>> additionalAttributes) {
+  public void setAdditionalAttributes(final Set<SimpleEntry<String, String>> additionalAttributes) {
     this.additionalAttributes = additionalAttributes;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o)
+  public boolean equals(final Object obj) {
+    if (this == obj) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
-    EnactmentLogEntry that = (EnactmentLogEntry) o;
+    }
+    final EnactmentLogEntry that = (EnactmentLogEntry) obj;
     return success == that.success && Double.compare(that.executionTime, executionTime) == 0
         && typeId.equals(that.typeId) && enactmentMode.equals(that.enactmentMode)
         && implementationId.equals(that.implementationId) && timestamp.equals(that.timestamp);
