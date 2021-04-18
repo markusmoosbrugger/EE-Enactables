@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
+import java.util.HashSet;
 import java.util.Map.Entry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,7 +26,7 @@ public class Aggregation extends LocalFunctionAbstract {
    * @param type the function type
    */
   public Aggregation(final String idString, final String type) {
-    super(idString, type);
+    super(idString, type, new HashSet<>());
   }
 
   @Override

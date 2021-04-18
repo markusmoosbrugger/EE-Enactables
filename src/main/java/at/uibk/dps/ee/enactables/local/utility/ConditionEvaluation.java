@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
+import java.util.HashSet;
 import java.util.List;
 import com.google.gson.JsonObject;
 
@@ -30,7 +31,7 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
    * @param type the function type
    */
   public ConditionEvaluation(final Task functionNode, final String idString, final String type) {
-    super(idString, type);
+    super(idString, type, new HashSet<>());
     this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
   }
 

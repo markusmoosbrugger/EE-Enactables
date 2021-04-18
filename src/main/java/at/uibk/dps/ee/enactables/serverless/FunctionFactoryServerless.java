@@ -1,7 +1,9 @@
 package at.uibk.dps.ee.enactables.serverless;
 
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
+import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 
 /**
  * The {@link FunctionFactoryServerless} creates the {@link EnactmentFunction}s
@@ -15,11 +17,11 @@ public class FunctionFactoryServerless {
    * Creates the {@link ServerlessFunction} which is modeled by the provided
    * resource node.
    * 
-   * @param resource the provided resource node
+   * @param mapping the provided mapping edge
    * @return the {@link ServerlessFunction} which is modeled by the provided
    *         resource node
    */
-  public EnactmentFunction createServerlessFunction(final Resource resource) {
-    return new ServerlessFunction(resource);
+  public EnactmentFunction createServerlessFunction(final Mapping<Task, Resource> mapping) {
+    return new ServerlessFunction(mapping);
   }
 }

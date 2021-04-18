@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.FunctionFactory;
-import at.uibk.dps.ee.enactables.FunctionTypes;
+import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 
 /**
@@ -51,14 +51,14 @@ public class FunctionFactoryLocal extends FunctionFactory {
   protected LocalFunctionAbstract getOriginalFunction(final LocalCalculations localFunction) {
     switch (localFunction) {
       case Addition:
-        return new Addition(LocalCalculations.Addition.name(), FunctionTypes.Local.name());
+        return new Addition(LocalCalculations.Addition.name(), EnactmentMode.Local.name());
       case Subtraction:
-        return new Subtraction(LocalCalculations.Subtraction.name(), FunctionTypes.Local.name());
+        return new Subtraction(LocalCalculations.Subtraction.name(), EnactmentMode.Local.name());
       case SumCollection:
         return new SumCollection(LocalCalculations.SumCollection.name(),
-            FunctionTypes.Local.name());
+            EnactmentMode.Local.name());
       case SplitArray:
-        return new SplitArray(LocalCalculations.SplitArray.name(), FunctionTypes.Local.name());
+        return new SplitArray(LocalCalculations.SplitArray.name(), EnactmentMode.Local.name());
       default:
         throw new IllegalArgumentException("Unknown local function " + localFunction.name());
     }

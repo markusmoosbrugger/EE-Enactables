@@ -1,15 +1,22 @@
 package at.uibk.dps.ee.enactables.serverless;
 
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.enactables.FunctionTypes;
+import at.uibk.dps.ee.enactables.EnactmentMode;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
+import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
+import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -23,6 +30,10 @@ import okhttp3.Response;
  */
 public class ServerlessFunction implements EnactmentFunction {
 
+  protected final String typeId;
+  protected final String implementationId;
+  protected final Set<SimpleEntry<String, String>> additionalAttributes;
+
   protected final String url;
   protected final OkHttpClient client;
 
@@ -31,11 +42,17 @@ public class ServerlessFunction implements EnactmentFunction {
    * 
    * @param url the url to access the serverless function
    */
-  public ServerlessFunction(final Resource serverlessFunction) {
-    this.url = PropertyServiceResourceServerless.getUri(serverlessFunction);
+  public ServerlessFunction(final Mapping<Task, Resource> serverlessMapping) {
+    Task task = serverlessMapping.getSource();
+    Resource res = serverlessMapping.getTarget();
+    this.typeId = PropertyServiceFunctionUser.getTypeId(task);
+    this.implementationId = PropertyServiceMapping.getImplementationId(serverlessMapping);
+    this.additionalAttributes = new HashSet<>();
+    this.url = PropertyServiceResourceServerless.getUri(res);
+    additionalAttributes
+        .add(new SimpleEntry<String, String>(ConstantsServerless.logAttrSlUrl, url));
     final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    builder.connectTimeout(
-        PropertyServiceResourceServerless.getTimeoutInSeconds(serverlessFunction),
+    builder.connectTimeout(PropertyServiceResourceServerless.getTimeoutInSeconds(res),
         TimeUnit.SECONDS);
     builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
     builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
@@ -47,15 +64,7 @@ public class ServerlessFunction implements EnactmentFunction {
     return enactServerlessFunction(url, input);
   }
 
-  @Override
-  public String getId() {
-    return url;
-  }
 
-  @Override
-  public String getType() {
-    return FunctionTypes.Serverless.name();
-  }
 
   /**
    * Enacts the serverless function located at the provided url with the provided
@@ -75,5 +84,25 @@ public class ServerlessFunction implements EnactmentFunction {
       throw new IllegalStateException(
           "IOException when enacting the serverless function with the url:\n" + url, exc);
     }
+  }
+
+  @Override
+  public String getTypeId() {
+    return typeId;
+  }
+
+  @Override
+  public String getEnactmentMode() {
+    return EnactmentMode.Serverless.name();
+  }
+
+  @Override
+  public String getImplementationId() {
+    return implementationId;
+  }
+
+  @Override
+  public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
+    return additionalAttributes;
   }
 }

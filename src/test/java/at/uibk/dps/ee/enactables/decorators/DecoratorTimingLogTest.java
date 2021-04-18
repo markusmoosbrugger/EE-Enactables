@@ -1,11 +1,15 @@
 package at.uibk.dps.ee.enactables.decorators;
 
 import static org.junit.Assert.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 import com.google.gson.JsonObject;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -15,13 +19,13 @@ public class DecoratorTimingLogTest {
 
   protected static class MockFunction implements EnactmentFunction {
 
-    protected final String id;
-    protected final String type;
+    protected final String typeId;
+    protected final String implId;
     protected final int timeMillisecs;
 
-    public MockFunction(String id, String type, int timeMillisecs) {
-      this.id = id;
-      this.type = type;
+    public MockFunction(String typeId, String implId, int timeMillisecs) {
+      this.typeId = typeId;
+      this.implId = implId;
       this.timeMillisecs = timeMillisecs;
     }
 
@@ -36,13 +40,23 @@ public class DecoratorTimingLogTest {
     }
 
     @Override
-    public String getId() {
-      return id;
+    public String getTypeId() {
+      return typeId;
     }
 
     @Override
-    public String getType() {
-      return type;
+    public String getEnactmentMode() {
+      return EnactmentMode.Local.name();
+    }
+
+    @Override
+    public String getImplementationId() {
+      return implId;
+    }
+
+    @Override
+    public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
+      return new HashSet<>();
     }
   }
 
@@ -60,7 +74,6 @@ public class DecoratorTimingLogTest {
     listAppender.start();
     logger.addAppender(listAppender);
 
-    String expectedStart = "TYPE " + type + " ID " + id + " EXEC TIME ";
     try {
       JsonObject input = new JsonObject();
       JsonObject result = tested.processInput(new JsonObject());
@@ -69,10 +82,9 @@ public class DecoratorTimingLogTest {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
+
     List<ILoggingEvent> logList = listAppender.list;
     assertEquals(1, logList.size());
     assertEquals(Level.INFO, logList.get(0).getLevel());
-    assertTrue(logList.get(0).getFormattedMessage().startsWith(expectedStart));
   }
 }

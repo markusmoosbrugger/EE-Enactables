@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class Distribution extends LocalFunctionAbstract {
    *        with the iteration number by this function)
    */
   public Distribution(final Task functionNode, final String idString, final String type) {
-    super(idString, type);
+    super(idString, type, new HashSet<>());
     this.functionNode = functionNode;
   }
 

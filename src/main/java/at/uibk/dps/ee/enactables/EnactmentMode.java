@@ -5,7 +5,7 @@ package at.uibk.dps.ee.enactables;
  * 
  * @author Fedor Smirnov
  */
-public enum FunctionTypes {
+public enum EnactmentMode {
   /**
    * User functions executed on the host machine.
    */

@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.FunctionFactory;
-import at.uibk.dps.ee.enactables.FunctionTypes;
+import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
 import net.sf.opendse.model.Task;
@@ -50,9 +50,9 @@ public class FunctionFactoryUtility extends FunctionFactory {
   protected EnactmentFunction getOriginalFunction(final Task task) {
     final UtilityType utilType = PropertyServiceFunctionUtility.getUtilityType(task);
     if (utilType.equals(UtilityType.Condition)) {
-      return new ConditionEvaluation(task, task.getId(), FunctionTypes.Utility.name());
+      return new ConditionEvaluation(task, task.getId(), EnactmentMode.Utility.name());
     } else if (utilType.equals(UtilityType.CollectionOperation)) {
-      return new CollOperFunction(task, task.getId(), FunctionTypes.Utility.name());
+      return new CollOperFunction(task, task.getId(), EnactmentMode.Utility.name());
     } else {
       throw new IllegalArgumentException("Unknown utility type: " + utilType.name());
     }

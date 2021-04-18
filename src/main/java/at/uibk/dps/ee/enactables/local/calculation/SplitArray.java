@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.local.calculation;
 
+import java.util.HashSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,7 +24,7 @@ public class SplitArray extends LocalFunctionAbstract {
    * @param type the function type
    */
   public SplitArray(final String idString, final String type) {
-    super(idString, type);
+    super(idString, type, new HashSet<>());
   }
 
   @Override

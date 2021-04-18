@@ -1,5 +1,7 @@
 package at.uibk.dps.ee.enactables.local;
 
+import java.util.Set;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.concurrent.TimeUnit;
 
 import com.google.gson.JsonArray;
@@ -8,6 +10,7 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
 
 /**
  * Parent of all local function classes.
@@ -16,28 +19,41 @@ import at.uibk.dps.ee.core.exception.StopException;
  */
 public abstract class LocalFunctionAbstract implements EnactmentFunction {
 
-  protected final String idString;
-  protected final String type;
+  protected final String typeId;
+  protected final String implId;
+  protected final Set<SimpleEntry<String, String>> additionalAttr;
 
   /**
    * Default constructor.
    * 
-   * @param idString the identifier
-   * @param type the function type
+   * @param implId the identifier
+   * @param typeId the function type
    */
-  public LocalFunctionAbstract(final String idString, final String type) {
-    this.idString = idString;
-    this.type = type;
+  public LocalFunctionAbstract(final String implId, final String typeId,
+      final Set<SimpleEntry<String, String>> additionalAttrs) {
+    this.typeId = typeId;
+    this.implId = implId;
+    this.additionalAttr = additionalAttrs;
   }
 
   @Override
-  public String getId() {
-    return idString;
+  public String getTypeId() {
+    return typeId;
   }
 
   @Override
-  public String getType() {
-    return type;
+  public String getImplementationId() {
+    return implId;
+  }
+
+  @Override
+  public String getEnactmentMode() {
+    return EnactmentMode.Local.name();
+  }
+
+  @Override
+  public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
+    return additionalAttr;
   }
 
   /**

@@ -3,6 +3,7 @@ package at.uibk.dps.ee.enactables.local;
 import static org.junit.Assert.*;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashSet;
 import org.junit.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,7 +16,7 @@ public class LocalFunctionAbstractTest {
   protected static class FunctionMock extends LocalFunctionAbstract {
 
     public FunctionMock() {
-      super("id", "type");
+      super("id", "type", new HashSet<>());
     }
 
     @Override

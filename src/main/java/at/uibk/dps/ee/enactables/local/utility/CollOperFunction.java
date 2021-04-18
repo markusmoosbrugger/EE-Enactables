@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
+import java.util.HashSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -28,7 +29,7 @@ public class CollOperFunction extends LocalFunctionAbstract {
    * @param functionNode the function node modeling the collection operation
    */
   public CollOperFunction(final Task functionNode, final String idString, final String type) {
-    super(idString, type);
+    super(idString, type, new HashSet<>());
     this.subCollectionString =
         PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
     this.collectionOperation =

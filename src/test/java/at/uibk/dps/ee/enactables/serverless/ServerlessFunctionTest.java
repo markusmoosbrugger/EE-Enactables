@@ -6,8 +6,13 @@ import org.junit.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
+import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
+import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
+import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -31,7 +36,10 @@ public class ServerlessFunctionTest {
       String serverUrl = baseUrl.toString();
       Resource serverless =
           PropertyServiceResourceServerless.createServerlessResource("resId", serverUrl);
-      ServerlessFunction tested = new ServerlessFunction(serverless);
+      Task task = PropertyServiceFunctionUser.createUserTask("task", "addition");
+      Mapping<Task, Resource> mapping = PropertyServiceMapping.createMapping(task, serverless,
+          EnactmentMode.Serverless, serverUrl);
+      ServerlessFunction tested = new ServerlessFunction(mapping);
       JsonObject input = new JsonObject();
       input.add(inputKey, new JsonPrimitive(inputString));
       try {

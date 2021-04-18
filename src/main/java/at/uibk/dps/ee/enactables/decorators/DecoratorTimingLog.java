@@ -36,8 +36,14 @@ public class DecoratorTimingLog extends EnactmentFunctionDecorator {
 
   @Override
   protected JsonObject postprocess(final JsonObject result) {
-    timingLogger.info("TYPE {} ID {} EXEC TIME {} milliseconds.", decoratedFunction.getType(),
-        decoratedFunction.getId(), Duration.between(start, Instant.now()).toMillis());
+    StringBuffer attrBuffer = new StringBuffer();
+    decoratedFunction.getAdditionalAttributes().forEach(
+        attr -> attrBuffer.append(attr.getKey()).append(':').append(attr.getValue()).append('\n'));
+    timingLogger.info(
+        "TYPE ID {} EnactmentMode {} Implementation ID {} Additional Attributes {} EXEC TIME {} milliseconds.",
+        decoratedFunction.getTypeId(), decoratedFunction.getEnactmentMode(),
+        decoratedFunction.getImplementationId(), attrBuffer.toString(),
+        Duration.between(start, Instant.now()).toMillis());
     return result;
   }
 }

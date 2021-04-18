@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.local.calculation;
 
+import java.util.HashSet;
 import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.core.exception.StopException;
@@ -22,7 +23,7 @@ public class Subtraction extends LocalFunctionAbstract {
    * @param type the function type
    */
   public Subtraction(final String idString, final String type) {
-    super(idString, type);
+    super(idString, type, new HashSet<>());
   }
 
   @Override

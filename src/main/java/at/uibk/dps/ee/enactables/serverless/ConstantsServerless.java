@@ -13,6 +13,9 @@ public final class ConstantsServerless {
   public static final int readWriteTimeoutSeconds = 50;
   public static final MediaType MediaTypeJson = MediaType.get("application/json; charset=utf-8");
   
+  // names for the additional attributes which are to be logged
+  public static final String logAttrSlUrl = "url";
+  
 
   /**
    * No constructor.
