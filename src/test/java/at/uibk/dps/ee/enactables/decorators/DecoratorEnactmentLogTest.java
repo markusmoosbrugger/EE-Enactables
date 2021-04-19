@@ -124,7 +124,7 @@ public class DecoratorEnactmentLogTest {
     assertEquals(typeId, capturedEntry.getTypeId());
     assertEquals(EnactmentMode.Local.name(), capturedEntry.getEnactmentMode());
     assertEquals(implId, capturedEntry.getImplementationId());
-    assertEquals(waitTime, capturedEntry.getExecutionTime(), 1);
+    assertTrue(capturedEntry.getExecutionTime() >= waitTime);
     assertEquals(true, capturedEntry.isSuccess());
     assertNotNull(capturedEntry.getTimestamp());
     assertEquals(1, capturedEntry.getAdditionalAttributes().size());
