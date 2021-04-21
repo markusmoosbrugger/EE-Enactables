@@ -61,8 +61,7 @@ public class DecoratorEnactmentLogTest {
     @Override
     public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
       Set<SimpleEntry<String, String>> attr = new HashSet<>();
-      attr.add(new SimpleEntry("additional", "value1"));
-
+      attr.add(new SimpleEntry<String, String>("additional", "value1"));
       return attr;
     }
   }
@@ -115,7 +114,7 @@ public class DecoratorEnactmentLogTest {
     }
     JsonObject returnedJsonObject = enactmentLog.postprocess(jsonObject);
 
-    ArgumentCaptor acEntry = ArgumentCaptor.forClass(EnactmentLogEntry.class);
+    ArgumentCaptor<EnactmentLogEntry> acEntry = ArgumentCaptor.forClass(EnactmentLogEntry.class);
 
     assertEquals(jsonObject, returnedJsonObject);
     verify(enactmentLogger).logEnactment((EnactmentLogEntry) acEntry.capture());
