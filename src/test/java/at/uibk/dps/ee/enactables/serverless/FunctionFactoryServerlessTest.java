@@ -11,11 +11,13 @@ import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
 
+import java.util.HashSet;
+
 public class FunctionFactoryServerlessTest {
 
   @Test
   public void test() {
-    FunctionFactoryServerless tested = new FunctionFactoryServerless();
+    FunctionFactoryServerless tested = new FunctionFactoryServerless(new HashSet<>());
     Resource slRes = PropertyServiceResourceServerless.createServerlessResource("res", "link");
     Task task = PropertyServiceFunctionUser.createUserTask("task", "addition");
     Mapping<Task, Resource> mapping =
