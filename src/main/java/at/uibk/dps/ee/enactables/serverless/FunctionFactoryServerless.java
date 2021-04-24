@@ -25,7 +25,7 @@ public class FunctionFactoryServerless extends FunctionFactory {
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryServerless(Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
   }
 
