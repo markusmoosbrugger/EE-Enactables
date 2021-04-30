@@ -4,6 +4,7 @@ import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.opt4j.core.start.Constant;
 
 /**
@@ -12,6 +13,7 @@ import org.opt4j.core.start.Constant;
  *
  * @author Markus Moosbrugger
  */
+@Singleton
 public class DecoratorEnactmentLogFactory extends FunctionDecoratorFactory {
 
   public final int priority;
