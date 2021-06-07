@@ -30,10 +30,9 @@ dependencies {
   if (project.hasProperty("local")) {
     implementation project (':EE-Core')
     implementation project (':EE-Guice')
-    implementation project (':EE-Model')
-    implementation project (':EE-Docker')
+    implementation project (':EE-Model')    
   }else {
-    implementation 'com.github.Apollo-Core:EE-Model:main-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Model:localContainer-SNAPSHOT'
     implementation 'com.github.Apollo-Core:EE-Guice:main-SNAPSHOT'
     implementation 'com.github.Apollo-Core:EE-Core:master-SNAPSHOT'
   }

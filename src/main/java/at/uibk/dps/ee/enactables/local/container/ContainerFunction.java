@@ -4,9 +4,9 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Set;
 import com.google.gson.JsonObject;
 import com.google.inject.Inject;
+import at.uibk.dps.ee.core.ContainerManager;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 
 /**

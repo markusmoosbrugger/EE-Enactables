@@ -1,7 +1,8 @@
 package at.uibk.dps.ee.enactables;
 
 import java.util.Set;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import at.uibk.dps.ee.core.enactable.Enactable;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.exception.StopException;
@@ -17,6 +18,7 @@ import net.sf.opendse.model.Task;
 public class EnactableAtomic extends Enactable {
 
   protected final Task functionNode;
+  Logger logger = LoggerFactory.getLogger(EnactableAtomic.class);
 
   /**
    * Protected constructor, used the factory to create enactables.
@@ -37,7 +39,9 @@ public class EnactableAtomic extends Enactable {
   @Override
   public void play() throws StopException {
     try {
+      logger.debug("Playing task {}", functionNode.getId());
       super.play();
+      logger.debug("Finished task {}", functionNode.getId());
     } catch (StopException stopExc) {
       stopExc.appendExceptionInformation("Problem task: " + functionNode.getId());
       throw stopExc;

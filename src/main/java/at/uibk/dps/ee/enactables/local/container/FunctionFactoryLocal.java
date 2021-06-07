@@ -3,8 +3,8 @@ package at.uibk.dps.ee.enactables.local.container;
 import java.util.HashSet;
 import java.util.Set;
 import com.google.inject.Inject;
+import at.uibk.dps.ee.core.ContainerManager;
 import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
-import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
@@ -22,7 +22,7 @@ import net.sf.opendse.model.Task;
 public class FunctionFactoryLocal extends FunctionFactory {
 
   protected final ContainerManager containerManager;
-  
+
   /**
    * Injection constructor.
    * 
@@ -30,7 +30,8 @@ public class FunctionFactoryLocal extends FunctionFactory {
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryLocal(Set<FunctionDecoratorFactory> decoratorFactories, ContainerManager containerManager) {
+  public FunctionFactoryLocal(Set<FunctionDecoratorFactory> decoratorFactories,
+      ContainerManager containerManager) {
     super(decoratorFactories);
     this.containerManager = containerManager;
   }

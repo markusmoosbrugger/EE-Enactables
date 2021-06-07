@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -37,12 +38,14 @@ public class ServerlessFunction implements EnactmentFunction {
   protected final String url;
   protected final OkHttpClient client;
 
+  Logger logger = LoggerFactory.getLogger(ServerlessFunction.class);
+
   /**
    * Default constructor.
    * 
    * @param url the url to access the serverless function
    */
-  public ServerlessFunction(final Mapping<Task, Resource> serverlessMapping) {
+  public ServerlessFunction(final Mapping<Task, Resource> serverlessMapping, OkHttpClient client) {
     Task task = serverlessMapping.getSource();
     Resource res = serverlessMapping.getTarget();
     this.typeId = PropertyServiceFunctionUser.getTypeId(task);
@@ -51,12 +54,7 @@ public class ServerlessFunction implements EnactmentFunction {
     this.url = PropertyServiceResourceServerless.getUri(res);
     additionalAttributes
         .add(new SimpleEntry<String, String>(ConstantsServerless.logAttrSlUrl, url));
-    final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    builder.connectTimeout(PropertyServiceResourceServerless.getTimeoutInSeconds(res),
-        TimeUnit.SECONDS);
-    builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-    builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-    client = builder.build();
+    this.client = client;
   }
 
   @Override
