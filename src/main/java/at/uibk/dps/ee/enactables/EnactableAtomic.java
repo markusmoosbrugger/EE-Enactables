@@ -18,7 +18,7 @@ import net.sf.opendse.model.Task;
 public class EnactableAtomic extends Enactable {
 
   protected final Task functionNode;
-  Logger logger = LoggerFactory.getLogger(EnactableAtomic.class);
+  protected final Logger logger = LoggerFactory.getLogger(EnactableAtomic.class);
 
   /**
    * Protected constructor, used the factory to create enactables.

@@ -30,8 +30,8 @@ public class FunctionFactoryLocal extends FunctionFactory {
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryLocal(Set<FunctionDecoratorFactory> decoratorFactories,
-      ContainerManager containerManager) {
+  public FunctionFactoryLocal(final Set<FunctionDecoratorFactory> decoratorFactories,
+      final ContainerManager containerManager) {
     super(decoratorFactories);
     this.containerManager = containerManager;
   }
@@ -42,11 +42,11 @@ public class FunctionFactoryLocal extends FunctionFactory {
    * @param containerMapping the provided mapping
    * @return the container function for the provided mapping
    */
-  public ContainerFunction getContainerFunction(Mapping<Task, Resource> containerMapping) {
-    Task task = containerMapping.getSource();
-    String imageName = PropertyServiceMappingLocal.getImageName(containerMapping);
-    String typeId = PropertyServiceFunctionUser.getTypeId(task);
-    String implId = PropertyServiceMapping.getImplementationId(containerMapping);
+  public ContainerFunction getContainerFunction(final Mapping<Task, Resource> containerMapping) {
+    final Task task = containerMapping.getSource();
+    final String imageName = PropertyServiceMappingLocal.getImageName(containerMapping);
+    final String typeId = PropertyServiceFunctionUser.getTypeId(task);
+    final String implId = PropertyServiceMapping.getImplementationId(containerMapping);
     return new ContainerFunction(typeId, implId, new HashSet<>(), containerManager, imageName);
   }
 }

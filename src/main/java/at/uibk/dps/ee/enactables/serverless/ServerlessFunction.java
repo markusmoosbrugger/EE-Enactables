@@ -38,16 +38,18 @@ public class ServerlessFunction implements EnactmentFunction {
   protected final String url;
   protected final OkHttpClient client;
 
-  Logger logger = LoggerFactory.getLogger(ServerlessFunction.class);
+  protected final Logger logger = LoggerFactory.getLogger(ServerlessFunction.class);
 
   /**
    * Default constructor.
    * 
    * @param url the url to access the serverless function
+   * @param client the http client used for the serverless requests
    */
-  public ServerlessFunction(final Mapping<Task, Resource> serverlessMapping, OkHttpClient client) {
-    Task task = serverlessMapping.getSource();
-    Resource res = serverlessMapping.getTarget();
+  public ServerlessFunction(final Mapping<Task, Resource> serverlessMapping,
+      final OkHttpClient client) {
+    final Task task = serverlessMapping.getSource();
+    final Resource res = serverlessMapping.getTarget();
     this.typeId = PropertyServiceFunctionUser.getTypeId(task);
     this.implementationId = PropertyServiceMapping.getImplementationId(serverlessMapping);
     this.additionalAttributes = new HashSet<>();

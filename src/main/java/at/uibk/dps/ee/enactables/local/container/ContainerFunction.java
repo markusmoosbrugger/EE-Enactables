@@ -25,9 +25,20 @@ public class ContainerFunction implements EnactmentFunction {
   protected final ContainerManager containerManager;
   protected final String imageName;
 
+  /**
+   * Injection constructor.
+   * 
+   * @param typeId the type id of the functions
+   * @param implId the id of the implementation (with the id of the resource
+   *        running the container)
+   * @param additionalAttrubutes additional attributes
+   * @param containerManager the class managing the containers
+   * @param imageName the Docker image of the function
+   */
   @Inject
-  public ContainerFunction(String typeId, String implId,
-      Set<SimpleEntry<String, String>> additionalAttrubutes, ContainerManager containerManager, String imageName) {
+  public ContainerFunction(final String typeId, final String implId,
+      final Set<SimpleEntry<String, String>> additionalAttrubutes, final ContainerManager containerManager,
+      final String imageName) {
     this.typeId = typeId;
     this.implId = implId;
     this.additionalAttributes = additionalAttrubutes;
@@ -37,7 +48,7 @@ public class ContainerFunction implements EnactmentFunction {
   }
 
   @Override
-  public JsonObject processInput(JsonObject input) throws StopException {
+  public JsonObject processInput(final JsonObject input) throws StopException {
     return containerManager.runImage(imageName, input);
   }
 
