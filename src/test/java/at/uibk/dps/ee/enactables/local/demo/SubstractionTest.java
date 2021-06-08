@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.calculation;
+package at.uibk.dps.ee.enactables.local.demo;
 
 import static org.junit.Assert.*;
 import java.time.Duration;
@@ -9,15 +9,14 @@ import com.google.gson.JsonObject;
 import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 
-public class AdditionTest {
+public class SubstractionTest {
 
   @Test
   public void test() {
-
-    Addition tested = new Addition("id", "type");
+    Subtraction tested = new Subtraction("id", "type");
     JsonObject input = new JsonObject();
-    input.addProperty(ConstantsLocal.inputAdditionFirst, 6);
-    input.addProperty(ConstantsLocal.inputAdditionSecond, 7);
+    input.addProperty(ConstantsLocal.inputSubtractionMinuend, 6);
+    input.addProperty(ConstantsLocal.inputSubtractionSubtrahend, 7);
     input.addProperty(ConstantsLocal.inputWaitTime, 150);
 
     Instant before = Instant.now();
@@ -25,7 +24,7 @@ public class AdditionTest {
     try {
       result = tested.processInput(input);
       Instant after = Instant.now();
-      assertEquals(13, result.get(ConstantsLocal.outputAdditionResult).getAsLong());
+      assertEquals(-1, result.get(ConstantsLocal.outputSubstractionResult).getAsLong());
       assertTrue(Duration.between(before, after).toMillis() >= 150);
     } catch (StopException e) {
       fail();

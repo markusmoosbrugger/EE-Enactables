@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.calculation;
+package at.uibk.dps.ee.enactables.local.demo;
 
 import static org.junit.Assert.*;
 import org.junit.Test;

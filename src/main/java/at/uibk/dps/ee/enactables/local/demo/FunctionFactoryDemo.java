@@ -1,6 +1,10 @@
-package at.uibk.dps.ee.enactables.local.calculation;
+package at.uibk.dps.ee.enactables.local.demo;
 
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
+import net.sf.opendse.model.Mapping;
+import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 import java.util.Set;
 import com.google.inject.Inject;
 import at.uibk.dps.ee.core.enactable.EnactmentFunction;
@@ -10,13 +14,13 @@ import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 
 /**
- * The {@link FunctionFactoryLocal} provides the enactment functions modeling
+ * The {@link FunctionFactoryDemo} provides the enactment functions modeling
  * local operations.
  * 
  * @author Fedor Smirnov
  *
  */
-public class FunctionFactoryLocal extends FunctionFactory {
+public class FunctionFactoryDemo extends FunctionFactory {
 
   /**
    * Injection constructor.
@@ -25,7 +29,7 @@ public class FunctionFactoryLocal extends FunctionFactory {
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryLocal(final Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryDemo(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
   }
 
@@ -37,8 +41,11 @@ public class FunctionFactoryLocal extends FunctionFactory {
    * @return the local function for the enum, decorated with the injected
    *         decorators.
    */
-  public EnactmentFunction getLocalFunction(final LocalCalculations localFunction) {
-    final EnactmentFunction original = getOriginalFunction(localFunction);
+  public EnactmentFunction getLocalFunction(final Mapping<Task, Resource> mapping) {
+    final Task task = mapping.getSource();
+    final LocalCalculations localCalcs =
+        LocalCalculations.valueOf(PropertyServiceFunctionUser.getTypeId(task));
+    final EnactmentFunction original = getOriginalFunction(localCalcs);
     return decorate(original);
   }
 

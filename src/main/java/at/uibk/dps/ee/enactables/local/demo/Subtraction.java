@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.calculation;
+package at.uibk.dps.ee.enactables.local.demo;
 
 import java.util.HashSet;
 import com.google.gson.JsonObject;
@@ -8,13 +8,13 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 
 /**
- * Simple Addition of 2 inputs and an option to wait for a given number of
+ * Simple substraction of 2 inputs with an option to wait for a given number of
  * milliseconds.
  * 
  * @author Fedor Smirnov
  *
  */
-public class Addition extends LocalFunctionAbstract {
+public class Subtraction extends LocalFunctionAbstract {
 
   /**
    * Default constructor
@@ -22,20 +22,19 @@ public class Addition extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Addition(final String idString, final String type) {
+  public Subtraction(final String idString, final String type) {
     super(idString, type, new HashSet<>());
   }
 
   @Override
   public JsonObject processInput(final JsonObject input) throws StopException {
-    final int firstSummand = readIntInput(input, ConstantsLocal.inputAdditionFirst);
-    final int secondSummand = readIntInput(input, ConstantsLocal.inputAdditionSecond);
+    final int minuend = readIntInput(input, ConstantsLocal.inputSubtractionMinuend);
+    final int subtrahend = readIntInput(input, ConstantsLocal.inputSubtractionSubtrahend);
     final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
-    final int sum = firstSummand + secondSummand;
+    final int difference = minuend - subtrahend;
     final JsonObject result = new JsonObject();
-    result.addProperty(ConstantsLocal.outputAdditionResult, sum);
+    result.addProperty(ConstantsLocal.outputSubstractionResult, difference);
     waitMilliseconds(waitTime);
     return result;
   }
 }
-

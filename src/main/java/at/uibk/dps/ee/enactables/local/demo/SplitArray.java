@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.calculation;
+package at.uibk.dps.ee.enactables.local.demo;
 
 import java.util.HashSet;
 import com.google.gson.JsonArray;
