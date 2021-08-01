@@ -26,7 +26,7 @@ import okhttp3.Response;
 /**
  * The {@link ServerlessFunction} models the enactment of an atomic serverless
  * function.
- * 
+ *
  * @author Fedor Smirnov
  */
 public class ServerlessFunction implements EnactmentFunction {
@@ -42,7 +42,7 @@ public class ServerlessFunction implements EnactmentFunction {
 
   /**
    * Default constructor.
-   * 
+   *
    * @param url the url to access the serverless function
    * @param client the http client used for the serverless requests
    */
@@ -56,6 +56,8 @@ public class ServerlessFunction implements EnactmentFunction {
     this.url = PropertyServiceResourceServerless.getUri(res);
     additionalAttributes
         .add(new SimpleEntry<String, String>(ConstantsServerless.logAttrSlUrl, url));
+    additionalAttributes.add(new SimpleEntry<String, String>(ConstantsServerless.taskId,
+        task.getId()));
     this.client = client;
   }
 
@@ -69,7 +71,7 @@ public class ServerlessFunction implements EnactmentFunction {
   /**
    * Enacts the serverless function located at the provided url with the provided
    * jsonobject as input. Returns the {@link JsonObject} produced by the resource.
-   * 
+   *
    * @param url the url of the function
    * @return the {@link JsonObject} containing the result of the enactment
    */

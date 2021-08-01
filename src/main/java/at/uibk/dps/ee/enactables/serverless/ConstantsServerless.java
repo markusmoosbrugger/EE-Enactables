@@ -15,6 +15,8 @@ public final class ConstantsServerless {
   
   // names for the additional attributes which are to be logged
   public static final String logAttrSlUrl = "url";
+
+  public static final String taskId = "taskId";
   
 
   /**
