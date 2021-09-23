@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FunctionFactoryServerless extends FunctionFactory {
 
-  protected final OkHttpClient client;
+  protected final OkHttpClient.Builder builder;
   
   /**
    * Injection constructor.
@@ -31,12 +31,11 @@ public class FunctionFactoryServerless extends FunctionFactory {
   @Inject
   public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
-    final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    builder.connectTimeout(ConstantsEEModel.defaultFaaSTimeoutSeconds,
+    this.builder = new OkHttpClient.Builder();
+    this.builder.connectTimeout(ConstantsEEModel.defaultFaaSTimeoutSeconds,
         TimeUnit.SECONDS);
-    builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-    builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-    client = builder.build();
+    this.builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
+    this.builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
   }
 
   /**
@@ -48,7 +47,7 @@ public class FunctionFactoryServerless extends FunctionFactory {
    *         resource node, decorated with the injected decorators
    */
   public EnactmentFunction createServerlessFunction(final Mapping<Task, Resource> mapping) {
-    final EnactmentFunction serverlessFunction = new ServerlessFunction(mapping, client);
+    final EnactmentFunction serverlessFunction = new ServerlessFunction(mapping, builder.build());
     return decorate(serverlessFunction);
   }
 }
